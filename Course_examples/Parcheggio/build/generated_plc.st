@@ -1,0 +1,90 @@
+PROGRAM main_parcheggio
+  VAR
+    a AT %IX0.0 : BOOL := 0;
+    b AT %IX0.1 : BOOL := 0;
+    m1 AT %IX0.2 : BOOL := 0;
+    m2 AT %IX0.3 : BOOL := 0;
+    bs AT %IX0.4 : BOOL := 1;
+    bd AT %IX0.5 : BOOL := 1;
+    open_s AT %QX0.0 : BOOL := 0;
+    open_d AT %QX0.1 : BOOL := 0;
+  END_VAR
+  VAR
+    R_TRIG1 : R_TRIG;
+  END_VAR
+
+  INITIAL_STEP f1:
+    COMPUTE_FUNCTION_BLOCKS(S);
+  END_STEP
+
+  ACTION COMPUTE_FUNCTION_BLOCKS:
+    R_TRIG1(CLK := m1);
+  END_ACTION
+
+  TRANSITION FROM f1 TO f2
+    := a AND bs AND bd;
+  END_TRANSITION
+
+  STEP f2:
+  END_STEP
+
+  TRANSITION FROM f2 TO f3
+    := f2.T>=T#1s;
+  END_TRANSITION
+
+  STEP f3:
+  END_STEP
+
+  TRANSITION FROM f3 TO f4
+    := m1 OR m2;
+  END_TRANSITION
+
+  STEP f4:
+    open_s(N);
+  END_STEP
+
+  TRANSITION FROM f4 TO f1
+    := NOT(a);
+  END_TRANSITION
+
+  TRANSITION FROM f2 TO f5
+    := b AND (f2.T<T#1s);
+  END_TRANSITION
+
+  STEP f5:
+  END_STEP
+
+  TRANSITION FROM f5 TO f7
+    := m2;
+  END_TRANSITION
+
+  STEP f7:
+    open_s(N);
+    open_d(N);
+  END_STEP
+
+  TRANSITION FROM f7 TO f1
+    := NOT(a) AND NOT(b);
+  END_TRANSITION
+
+  TRANSITION FROM f5 TO f6
+    := m1;
+  END_TRANSITION
+
+  STEP f6:
+  END_STEP
+
+  TRANSITION FROM f6 TO f7
+    := R_TRIG1.Q OR m2;
+  END_TRANSITION
+
+END_PROGRAM
+
+
+CONFIGURATION Config0
+
+  RESOURCE Res0 ON PLC
+    TASK task0(INTERVAL := T#20ms,PRIORITY := 0);
+    PROGRAM instance0 WITH task0 : main_parcheggio;
+  END_RESOURCE
+END_CONFIGURATION

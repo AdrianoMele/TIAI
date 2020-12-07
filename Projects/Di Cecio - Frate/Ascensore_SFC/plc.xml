@@ -1,0 +1,2198 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns:ns1="http://www.plcopen.org/xml/tc6_0201" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.plcopen.org/xml/tc6_0201">
+  <fileHeader companyName="Sconosciuto" productName="Senza_nome" productVersion="1" creationDateTime="2020-05-20T20:54:17"/>
+  <contentHeader name="Ascensore" modificationDateTime="2020-06-30T15:49:50">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="10" y="10"/>
+      </fbd>
+      <ld>
+        <scaling x="10" y="10"/>
+      </ld>
+      <sfc>
+        <scaling x="10" y="10"/>
+      </sfc>
+    </coordinateInfo>
+  </contentHeader>
+  <types>
+    <dataTypes>
+      <dataType name="Richieste">
+        <baseType>
+          <struct>
+            <variable name="TOP">
+              <type>
+                <USINT/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="DIM">
+              <type>
+                <UINT/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="BOT">
+              <type>
+                <USINT/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="QUEUE">
+              <type>
+                <array>
+                  <dimension lower="0" upper="19"/>
+                  <baseType>
+                    <SINT/>
+                  </baseType>
+                </array>
+              </type>
+            </variable>
+          </struct>
+        </baseType>
+      </dataType>
+      <dataType name="GestionePiani">
+        <baseType>
+          <struct>
+            <variable name="DIR">
+              <type>
+                <SINT/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="PIANO_CORRENTE">
+              <type>
+                <SINT/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+          </struct>
+        </baseType>
+      </dataType>
+      <dataType name="Tastierino">
+        <baseType>
+          <struct>
+            <variable name="PULS_0">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="PULS_1">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="PULS_2">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="PULS_3">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+          </struct>
+        </baseType>
+      </dataType>
+    </dataTypes>
+    <pous>
+      <pou name="Sensori_Piani" pouType="program">
+        <interface>
+          <externalVars>
+            <variable name="Info">
+              <type>
+                <derived name="GestionePiani"/>
+              </type>
+              <documentation>
+                <xhtml:p><![CDATA[Informazioni]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="Display">
+              <type>
+                <derived name="Tastierino"/>
+              </type>
+              <documentation>
+                <xhtml:p><![CDATA[Display interno]]></xhtml:p>
+              </documentation>
+            </variable>
+          </externalVars>
+          <localVars>
+            <variable name="Sensor0">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="1"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[Piano 0]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="Sensor1">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[Piano 1]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="Sensor2">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[Piano 2]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="Sensor3">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[Piano 3]]></xhtml:p>
+              </documentation>
+            </variable>
+          </localVars>
+        </interface>
+        <actions/>
+        <body>
+          <SFC>
+            <step localId="1" name="Piani" initialStep="true" height="30" width="70">
+              <position x="190" y="20"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="30"/>
+              </connectionPointOut>
+            </step>
+            <selectionDivergence localId="2" height="1" width="150">
+              <position x="150" y="80"/>
+              <connectionPointIn>
+                <relPosition x="75" y="0"/>
+                <connection refLocalId="1">
+                  <position x="225" y="80"/>
+                  <position x="225" y="65"/>
+                  <position x="220" y="65"/>
+                  <position x="220" y="50"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="49" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="101" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="150" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <transition localId="3" height="10" width="20">
+              <position x="140" y="110"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="2">
+                  <position x="150" y="110"/>
+                  <position x="150" y="81"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Sensor0]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="4" height="10" width="20">
+              <position x="190" y="130"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="2">
+                  <position x="200" y="130"/>
+                  <position x="200" y="105"/>
+                  <position x="199" y="105"/>
+                  <position x="199" y="81"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Sensor1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="5" height="10" width="20">
+              <position x="240" y="150"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="2">
+                  <position x="250" y="150"/>
+                  <position x="250" y="115"/>
+                  <position x="251" y="115"/>
+                  <position x="251" y="81"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Sensor2]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="6" height="10" width="20">
+              <position x="290" y="170"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="2">
+                  <position x="300" y="170"/>
+                  <position x="300" y="81"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Sensor3]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="7" name="Piano0" initialStep="false" height="30" width="70">
+              <position x="120" y="190"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="3">
+                  <position x="150" y="190"/>
+                  <position x="150" y="120"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="70" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <step localId="8" name="Piano1" initialStep="false" height="30" width="70">
+              <position x="170" y="240"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="4">
+                  <position x="200" y="240"/>
+                  <position x="200" y="140"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="70" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <step localId="9" name="Piano2" initialStep="false" height="30" width="60">
+              <position x="220" y="280"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="5">
+                  <position x="250" y="280"/>
+                  <position x="250" y="160"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="60" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <step localId="10" name="Piano3" initialStep="false" height="30" width="60">
+              <position x="270" y="320"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="6">
+                  <position x="300" y="320"/>
+                  <position x="300" y="180"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="60" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="15" height="10" width="20">
+              <position x="140" y="330"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="7">
+                  <position x="150" y="330"/>
+                  <position x="150" y="220"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT Sensor0]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="16" height="10" width="20">
+              <position x="190" y="350"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="8">
+                  <position x="200" y="350"/>
+                  <position x="200" y="270"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT Sensor1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <selectionConvergence localId="19" height="1" width="150">
+              <position x="150" y="408"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="15">
+                  <position x="150" y="408"/>
+                  <position x="150" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="50" y="0"/>
+                <connection refLocalId="16">
+                  <position x="200" y="408"/>
+                  <position x="200" y="360"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="100" y="0"/>
+                <connection refLocalId="20">
+                  <position x="250" y="408"/>
+                  <position x="250" y="380"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="150" y="0"/>
+                <connection refLocalId="21">
+                  <position x="300" y="408"/>
+                  <position x="300" y="398"/>
+                  <position x="300" y="398"/>
+                  <position x="300" y="400"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="75" y="1"/>
+              </connectionPointOut>
+            </selectionConvergence>
+            <transition localId="20" height="10" width="20">
+              <position x="240" y="370"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="9">
+                  <position x="250" y="370"/>
+                  <position x="250" y="310"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT Sensor2]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="21" height="10" width="20">
+              <position x="290" y="390"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="10">
+                  <position x="300" y="390"/>
+                  <position x="300" y="350"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT Sensor3]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <jumpStep localId="23" targetName="Piani" height="20" width="40">
+              <position x="200" y="430"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="19">
+                  <position x="220" y="430"/>
+                  <position x="220" y="420"/>
+                  <position x="225" y="420"/>
+                  <position x="225" y="409"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <actionBlock localId="25" height="30" width="230">
+              <position x="350" y="190"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="7">
+                  <position x="350" y="200"/>
+                  <position x="190" y="200"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <inline>
+                  <ST>
+                    <xhtml:p><![CDATA[Info.PIANO_CORRENTE := 0;]]></xhtml:p>
+                  </ST>
+                </inline>
+              </action>
+            </actionBlock>
+            <actionBlock localId="11" height="30" width="230" executionOrderId="0">
+              <position x="350" y="240"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="8">
+                  <position x="350" y="260"/>
+                  <position x="240" y="260"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <inline>
+                  <ST>
+                    <xhtml:p><![CDATA[Info.PIANO_CORRENTE := 1;]]></xhtml:p>
+                  </ST>
+                </inline>
+              </action>
+            </actionBlock>
+            <actionBlock localId="12" height="30" width="230" executionOrderId="0">
+              <position x="352" y="320"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="10">
+                  <position x="352" y="340"/>
+                  <position x="330" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <inline>
+                  <ST>
+                    <xhtml:p><![CDATA[Info.PIANO_CORRENTE := 3;]]></xhtml:p>
+                  </ST>
+                </inline>
+              </action>
+            </actionBlock>
+            <actionBlock localId="13" height="30" width="230" executionOrderId="0">
+              <position x="350" y="280"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="9">
+                  <position x="350" y="300"/>
+                  <position x="280" y="300"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <inline>
+                  <ST>
+                    <xhtml:p><![CDATA[Info.PIANO_CORRENTE := 2;]]></xhtml:p>
+                  </ST>
+                </inline>
+              </action>
+            </actionBlock>
+            <comment localId="26" height="40" width="160">
+              <position x="300" y="20"/>
+              <content>
+                <xhtml:p><![CDATA[GESTIONE SENSORI
+SFC che si occupa di impostare oppurtamente la variabile che tiene conto del piano corrente, in relazione ai sensori disposti ad ogni piano, che rilevano la presenza del macchinario]]></xhtml:p>
+              </content>
+            </comment>
+          </SFC>
+        </body>
+      </pou>
+      <pou name="BOUBLESORT_CRESCENTE" pouType="function">
+        <interface>
+          <returnType>
+            <derived name="Richieste"/>
+          </returnType>
+          <inputVars>
+            <variable name="CODA">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+          </inputVars>
+          <localVars>
+            <variable name="I">
+              <type>
+                <USINT/>
+              </type>
+            </variable>
+            <variable name="DUMMY">
+              <type>
+                <SINT/>
+              </type>
+            </variable>
+            <variable name="CAMBIO">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="1"/>
+              </initialValue>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml:p><![CDATA[IF CODA.DIM > 1 THEN
+  WHILE CAMBIO DO
+    CAMBIO := 0;
+      FOR I:=CODA.BOT TO CODA.TOP-1 BY 1 MOD 20 DO
+        IF CODA.QUEUE[I] > CODA.QUEUE[I+1] THEN
+          DUMMY := CODA.QUEUE[I];
+          CODA.QUEUE[I] := CODA.QUEUE[I+1];
+          CODA.QUEUE[I+1] := DUMMY;
+          CAMBIO := 1;
+        END_IF;
+      END_FOR;
+  END_WHILE;
+  BOUBLESORT_CRESCENTE := CODA;
+END_IF;
+RETURN;
+]]></xhtml:p>
+          </ST>
+        </body>
+      </pou>
+      <pou name="BOUBLESORT_DECRESCENTE" pouType="function">
+        <interface>
+          <returnType>
+            <derived name="Richieste"/>
+          </returnType>
+          <inputVars>
+            <variable name="CODA">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+          </inputVars>
+          <localVars>
+            <variable name="I">
+              <type>
+                <USINT/>
+              </type>
+            </variable>
+            <variable name="DUMMY">
+              <type>
+                <SINT/>
+              </type>
+            </variable>
+            <variable name="CAMBIO">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="1"/>
+              </initialValue>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml:p><![CDATA[IF CODA.DIM > 1 THEN
+  WHILE CAMBIO DO
+    CAMBIO := 0;
+      FOR I:=CODA.BOT TO CODA.TOP-1 BY 1 MOD 20 DO
+        IF CODA.QUEUE[I] < CODA.QUEUE[I+1] THEN
+          DUMMY := CODA.QUEUE[I];
+          CODA.QUEUE[I] := CODA.QUEUE[I+1];
+          CODA.QUEUE[I+1] := DUMMY;
+          CAMBIO := 1;
+        END_IF;
+      END_FOR;
+  END_WHILE;
+  BOUBLESORT_DECRESCENTE := CODA;
+END_IF;
+RETURN;
+]]></xhtml:p>
+          </ST>
+        </body>
+      </pou>
+      <pou name="INSERISCI_PIANO_SALITA" pouType="function">
+        <interface>
+          <returnType>
+            <derived name="Richieste"/>
+          </returnType>
+          <inputVars>
+            <variable name="CODA">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+            <variable name="PIANO">
+              <type>
+                <SINT/>
+              </type>
+            </variable>
+          </inputVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml:p><![CDATA[CODA.QUEUE[CODA.TOP] := PIANO;
+IF CODA.DIM < 20 THEN
+  CODA.TOP := (CODA.TOP + 1) MOD 20;
+  CODA.DIM := CODA.DIM + 1;
+  CODA := BOUBLESORT_CRESCENTE(CODA);
+END_IF;
+INSERISCI_PIANO_SALITA := CODA;
+RETURN;
+
+]]></xhtml:p>
+          </ST>
+        </body>
+      </pou>
+      <pou name="Prenotazioni_Interne" pouType="program">
+        <interface>
+          <externalVars>
+            <variable name="Flag">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="Richieste_Salita">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+            <variable name="Richieste_Discesa">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+            <variable name="Display">
+              <type>
+                <derived name="Tastierino"/>
+              </type>
+            </variable>
+            <variable name="Info">
+              <type>
+                <derived name="GestionePiani"/>
+              </type>
+            </variable>
+          </externalVars>
+        </interface>
+        <actions>
+          <action name="ins_0">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[Richieste_Discesa := INSERISCI_PIANO_DISCESA(Richieste_Discesa,0);
+]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="ins_1">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[IF Info.PIANO_CORRENTE < 1 THEN
+Richieste_Salita := INSERISCI_PIANO_SALITA(Richieste_Salita,1);
+ELSE
+  Richieste_Discesa := INSERISCI_PIANO_DISCESA(Richieste_Discesa,1);
+END_IF;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="ins_2">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[IF Info.PIANO_CORRENTE < 2 THEN
+Richieste_Salita := INSERISCI_PIANO_SALITA(Richieste_Salita,2);
+ELSE
+  Richieste_Discesa := INSERISCI_PIANO_DISCESA(Richieste_Discesa,2);
+END_IF;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="ins_3">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[Richieste_Salita := INSERISCI_PIANO_SALITA(Richieste_Salita,3);]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+        </actions>
+        <body>
+          <SFC>
+            <step localId="2" name="Prenotazione_Interna" initialStep="true" height="30" width="180">
+              <position x="270" y="100"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="90" y="30"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="3" height="10" width="20">
+              <position x="350" y="158"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="2">
+                  <position x="360" y="158"/>
+                  <position x="360" y="130"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Flag]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="5" name="Abilita_Tastierino" initialStep="false" height="30" width="160">
+              <position x="280" y="190"/>
+              <connectionPointIn>
+                <relPosition x="80" y="0"/>
+                <connection refLocalId="3">
+                  <position x="360" y="190"/>
+                  <position x="360" y="168"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="80" y="30"/>
+              </connectionPointOut>
+            </step>
+            <selectionDivergence localId="6" height="1" width="280">
+              <position x="220" y="248"/>
+              <connectionPointIn>
+                <relPosition x="140" y="0"/>
+                <connection refLocalId="5">
+                  <position x="360" y="248"/>
+                  <position x="360" y="220"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="94" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="186" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="280" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <transition localId="9" height="10" width="20">
+              <position x="210" y="278"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="6">
+                  <position x="220" y="278"/>
+                  <position x="220" y="249"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Display.PULS_0 AND Info.PIANO_CORRENTE <> 0]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="10" height="10" width="20">
+              <position x="300" y="310"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="6">
+                  <position x="310" y="310"/>
+                  <position x="310" y="283"/>
+                  <position x="314" y="283"/>
+                  <position x="314" y="249"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Display.PULS_1 AND Info.PIANO_CORRENTE <> 1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="1" height="10" width="20" executionOrderId="0">
+              <position x="400" y="340"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="6">
+                  <position x="410" y="340"/>
+                  <position x="410" y="294"/>
+                  <position x="406" y="294"/>
+                  <position x="406" y="249"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Display.PULS_2 AND Info.PIANO_CORRENTE <> 2]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="4" height="10" width="20" executionOrderId="0">
+              <position x="490" y="370"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="6">
+                  <position x="500" y="370"/>
+                  <position x="500" y="249"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Display.PULS_3 AND Info.PIANO_CORRENTE <> 3]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="11" name="Inserisci_Piano0" initialStep="false" height="30" width="140">
+              <position x="150" y="400"/>
+              <connectionPointIn>
+                <relPosition x="70" y="0"/>
+                <connection refLocalId="9">
+                  <position x="220" y="400"/>
+                  <position x="220" y="288"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="70" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="140" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="12" height="30" width="100">
+              <position x="318" y="400"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="11">
+                  <position x="318" y="420"/>
+                  <position x="290" y="420"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="ins_0"/>
+              </action>
+            </actionBlock>
+            <step localId="13" name="Inserisci_Piano1" initialStep="false" height="30" width="140">
+              <position x="240" y="450"/>
+              <connectionPointIn>
+                <relPosition x="70" y="0"/>
+                <connection refLocalId="10">
+                  <position x="310" y="450"/>
+                  <position x="310" y="320"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="70" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="140" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <step localId="14" name="Inserisci_Piano2" initialStep="false" height="30" width="140" executionOrderId="0">
+              <position x="340" y="500"/>
+              <connectionPointIn>
+                <relPosition x="70" y="0"/>
+                <connection refLocalId="1">
+                  <position x="410" y="500"/>
+                  <position x="410" y="350"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="70" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="140" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <step localId="15" name="Inserisci_Piano3" initialStep="false" height="30" width="140" executionOrderId="0">
+              <position x="430" y="550"/>
+              <connectionPointIn>
+                <relPosition x="70" y="0"/>
+                <connection refLocalId="4">
+                  <position x="500" y="550"/>
+                  <position x="500" y="380"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="70" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="140" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="16" height="30" width="100" executionOrderId="0">
+              <position x="430" y="450"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="13">
+                  <position x="430" y="460"/>
+                  <position x="380" y="460"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="ins_1"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="17" height="30" width="100" executionOrderId="0">
+              <position x="530" y="500"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="14">
+                  <position x="530" y="520"/>
+                  <position x="480" y="520"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="ins_2"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="18" height="30" width="100" executionOrderId="0">
+              <position x="610" y="550"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="15">
+                  <position x="610" y="560"/>
+                  <position x="570" y="560"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="ins_3"/>
+              </action>
+            </actionBlock>
+            <transition localId="20" height="10" width="20">
+              <position x="210" y="518"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="11">
+                  <position x="220" y="518"/>
+                  <position x="220" y="430"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="21" height="10" width="20">
+              <position x="300" y="560"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="13">
+                  <position x="310" y="560"/>
+                  <position x="310" y="480"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="7" height="10" width="20" executionOrderId="0">
+              <position x="400" y="600"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="14">
+                  <position x="410" y="600"/>
+                  <position x="410" y="530"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="8" height="10" width="20" executionOrderId="0">
+              <position x="490" y="630"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="15">
+                  <position x="500" y="630"/>
+                  <position x="500" y="580"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <selectionConvergence localId="22" height="1" width="280">
+              <position x="220" y="680"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="20">
+                  <position x="220" y="680"/>
+                  <position x="220" y="528"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="93" y="0"/>
+                <connection refLocalId="21">
+                  <position x="313" y="680"/>
+                  <position x="313" y="626"/>
+                  <position x="310" y="626"/>
+                  <position x="310" y="570"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="187" y="0"/>
+                <connection refLocalId="7">
+                  <position x="407" y="680"/>
+                  <position x="407" y="645"/>
+                  <position x="410" y="645"/>
+                  <position x="410" y="610"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="280" y="0"/>
+                <connection refLocalId="8">
+                  <position x="500" y="680"/>
+                  <position x="500" y="640"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="140" y="1"/>
+              </connectionPointOut>
+            </selectionConvergence>
+            <jumpStep localId="24" targetName="Prenotazione_Interna" height="20" width="20">
+              <position x="350" y="708"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="22">
+                  <position x="360" y="708"/>
+                  <position x="360" y="681"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+          </SFC>
+        </body>
+      </pou>
+      <pou name="Prenotazioni_Esterne" pouType="program">
+        <interface>
+          <localVars>
+            <variable name="PULS_0_E">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+          </localVars>
+          <externalVars>
+            <variable name="Info">
+              <type>
+                <derived name="GestionePiani"/>
+              </type>
+            </variable>
+            <variable name="Richieste_Salita">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+            <variable name="Richieste_Discesa">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+          </externalVars>
+          <localVars>
+            <variable name="PULS_1_E">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="PULS_2_E">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="PULS_3_E">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+          </localVars>
+        </interface>
+        <actions>
+          <action name="ins_0">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[Richieste_Discesa := INSERISCI_PIANO_DISCESA(Richieste_Discesa,0);]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="ins_1">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[IF Info.PIANO_CORRENTE < 1 THEN
+Richieste_Salita := INSERISCI_PIANO_SALITA(Richieste_Salita,1);
+ELSE
+  Richieste_Discesa := INSERISCI_PIANO_DISCESA(Richieste_Discesa,1);
+END_IF;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="ins_2">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[IF Info.PIANO_CORRENTE < 2 THEN
+Richieste_Salita := INSERISCI_PIANO_SALITA(Richieste_Salita,2);
+ELSE
+  Richieste_Discesa := INSERISCI_PIANO_DISCESA(Richieste_Discesa,2);
+END_IF;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="ins_3">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[Richieste_Salita := INSERISCI_PIANO_SALITA(Richieste_Salita,3);]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+        </actions>
+        <body>
+          <SFC>
+            <step localId="1" name="Prenotazione_Esterna" initialStep="true" height="30" width="180">
+              <position x="380" y="40"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="90" y="30"/>
+              </connectionPointOut>
+            </step>
+            <selectionDivergence localId="16" height="1" width="520">
+              <position x="210" y="98"/>
+              <connectionPointIn>
+                <relPosition x="260" y="0"/>
+                <connection refLocalId="1">
+                  <position x="470" y="98"/>
+                  <position x="470" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="174" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="346" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="520" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <transition localId="17" height="10" width="20">
+              <position x="200" y="138"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="16">
+                  <position x="210" y="138"/>
+                  <position x="210" y="99"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[PULS_0_E AND Info.PIANO_CORRENTE <> 0]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="2" height="10" width="20" executionOrderId="0">
+              <position x="370" y="170"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="16">
+                  <position x="380" y="170"/>
+                  <position x="380" y="134"/>
+                  <position x="384" y="134"/>
+                  <position x="384" y="99"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[PULS_1_E AND Info.PIANO_CORRENTE <> 1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="3" height="10" width="20" executionOrderId="0">
+              <position x="550" y="200"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="16">
+                  <position x="560" y="200"/>
+                  <position x="560" y="149"/>
+                  <position x="556" y="149"/>
+                  <position x="556" y="99"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[PULS_2_E AND Info.PIANO_CORRENTE <> 2]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="4" height="10" width="20" executionOrderId="0">
+              <position x="720" y="240"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="16">
+                  <position x="730" y="240"/>
+                  <position x="730" y="99"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[PULS_3_E AND Info.PIANO_CORRENTE <> 3]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="18" name="Prenota0" initialStep="false" height="30" width="80">
+              <position x="170" y="200"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="17">
+                  <position x="210" y="200"/>
+                  <position x="210" y="148"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <step localId="5" name="Prenota1" initialStep="false" height="30" width="80" executionOrderId="0">
+              <position x="340" y="240"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="2">
+                  <position x="380" y="240"/>
+                  <position x="380" y="180"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <step localId="6" name="Prenota2" initialStep="false" height="30" width="80" executionOrderId="0">
+              <position x="520" y="280"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="3">
+                  <position x="560" y="280"/>
+                  <position x="560" y="210"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <step localId="7" name="Prenota3" initialStep="false" height="30" width="80" executionOrderId="0">
+              <position x="690" y="320"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="4">
+                  <position x="730" y="320"/>
+                  <position x="730" y="250"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="19" height="30" width="100">
+              <position x="270" y="200"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="18">
+                  <position x="270" y="220"/>
+                  <position x="250" y="220"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="ins_0"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="20" height="30" width="100">
+              <position x="448" y="240"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="5">
+                  <position x="448" y="260"/>
+                  <position x="420" y="260"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="ins_1"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="21" height="30" width="100">
+              <position x="618" y="280"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="ins_2"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="22" height="30" width="100">
+              <position x="798" y="320"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="7">
+                  <position x="798" y="340"/>
+                  <position x="770" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="ins_3"/>
+              </action>
+            </actionBlock>
+            <transition localId="23" height="10" width="20">
+              <position x="200" y="308"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="18">
+                  <position x="210" y="308"/>
+                  <position x="210" y="230"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="8" height="10" width="20" executionOrderId="0">
+              <position x="370" y="310"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="5">
+                  <position x="380" y="310"/>
+                  <position x="380" y="270"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="9" height="10" width="20" executionOrderId="0">
+              <position x="550" y="370"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="6">
+                  <position x="560" y="370"/>
+                  <position x="560" y="310"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="10" height="10" width="20" executionOrderId="0">
+              <position x="720" y="400"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="7">
+                  <position x="730" y="400"/>
+                  <position x="730" y="350"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <selectionConvergence localId="24" height="1" width="520">
+              <position x="210" y="450"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="23">
+                  <position x="210" y="450"/>
+                  <position x="210" y="318"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="173" y="0"/>
+                <connection refLocalId="8">
+                  <position x="383" y="450"/>
+                  <position x="383" y="374"/>
+                  <position x="380" y="374"/>
+                  <position x="380" y="320"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="347" y="0"/>
+                <connection refLocalId="9">
+                  <position x="557" y="450"/>
+                  <position x="557" y="404"/>
+                  <position x="560" y="404"/>
+                  <position x="560" y="380"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="520" y="0"/>
+                <connection refLocalId="10">
+                  <position x="730" y="450"/>
+                  <position x="730" y="410"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="260" y="1"/>
+              </connectionPointOut>
+            </selectionConvergence>
+            <jumpStep localId="25" targetName="Prenotazione_Esterna" height="20" width="20">
+              <position x="460" y="488"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="24">
+                  <position x="470" y="488"/>
+                  <position x="470" y="451"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+          </SFC>
+        </body>
+      </pou>
+      <pou name="Gestione_Motore" pouType="program">
+        <interface>
+          <localVars>
+            <variable name="ACTUATOR">
+              <type>
+                <SINT/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="PORTE">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="SENSOR_PORTE">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+          </localVars>
+          <externalVars>
+            <variable name="Flag">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="Info">
+              <type>
+                <derived name="GestionePiani"/>
+              </type>
+            </variable>
+            <variable name="Richieste_Salita">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+            <variable name="Richieste_Discesa">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+          </externalVars>
+        </interface>
+        <actions>
+          <action name="Check">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[WHILE Info.DIR = 0 DO
+  IF Info.DIR = 1 AND Richieste_Salita.DIM <> 0 THEN
+    Info.DIR := 1;
+  ELSIF Info.DIR = -1 AND Richieste_Discesa.DIM <> 0 THEN
+    Info.DIR := -1;
+  ELSIF Richieste_Salita.DIM <> 0 THEN
+    Info.DIR := 1;
+  ELSIF Richieste_Discesa.DIM <> 0 THEN
+    Info.DIR := -1;
+  ELSE
+    Info.DIR := 0;
+  END_IF;
+END_WHILE;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+        </actions>
+        <body>
+          <SFC>
+            <step localId="1" name="Attesa" initialStep="true" height="30" width="70">
+              <position x="270" y="20"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="70" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="3" height="10" width="20">
+              <position x="130" y="120"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="20">
+                  <position x="140" y="120"/>
+                  <position x="140" y="91"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Info.DIR = 1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="4" height="10" width="20" executionOrderId="0">
+              <position x="450" y="130"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="20">
+                  <position x="460" y="130"/>
+                  <position x="460" y="91"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Info.DIR = -1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="5" name="Sali" initialStep="false" height="30" width="50">
+              <position x="120" y="178"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="3">
+                  <position x="140" y="178"/>
+                  <position x="140" y="130"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="20" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="50" y="12"/>
+              </connectionPointOutAction>
+            </step>
+            <step localId="6" name="Scendi" initialStep="false" height="30" width="60">
+              <position x="430" y="180"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="4">
+                  <position x="460" y="180"/>
+                  <position x="460" y="140"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="60" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="7" height="10" width="20">
+              <position x="130" y="230"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="5">
+                  <position x="140" y="230"/>
+                  <position x="140" y="208"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Richieste_Salita.QUEUE[Richieste_Salita.BOT] = Info.PIANO_CORRENTE]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <actionBlock localId="8" height="50" width="140">
+              <position x="200" y="170"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="5">
+                  <position x="200" y="190"/>
+                  <position x="170" y="190"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <inline>
+                  <ST>
+                    <xhtml:p><![CDATA[ACTUATOR := 1;]]></xhtml:p>
+                  </ST>
+                </inline>
+              </action>
+              <action localId="0" qualifier="R">
+                <relPosition x="0" y="0"/>
+                <reference name="Flag"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="9" height="50" width="150">
+              <position x="510" y="170"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="6">
+                  <position x="510" y="190"/>
+                  <position x="500" y="190"/>
+                  <position x="500" y="200"/>
+                  <position x="490" y="200"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <inline>
+                  <ST>
+                    <xhtml:p><![CDATA[ACTUATOR := -1;]]></xhtml:p>
+                  </ST>
+                </inline>
+              </action>
+              <action localId="0" qualifier="R">
+                <relPosition x="0" y="0"/>
+                <reference name="Flag"/>
+              </action>
+            </actionBlock>
+            <selectionConvergence localId="10" height="1" width="320">
+              <position x="140" y="430"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="28">
+                  <position x="140" y="430"/>
+                  <position x="140" y="358"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="320" y="0"/>
+                <connection refLocalId="29">
+                  <position x="460" y="430"/>
+                  <position x="460" y="400"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="160" y="1"/>
+              </connectionPointOut>
+            </selectionConvergence>
+            <transition localId="11" height="10" width="20" executionOrderId="0">
+              <position x="450" y="270"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="6">
+                  <position x="460" y="270"/>
+                  <position x="460" y="210"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Richieste_Discesa.QUEUE[Richieste_Discesa.BOT] = Info.PIANO_CORRENTE]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="12" name="Apri" initialStep="false" height="30" width="50">
+              <position x="280" y="470"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="10">
+                  <position x="300" y="470"/>
+                  <position x="300" y="431"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="20" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="50" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="13" height="50" width="100">
+              <position x="460" y="470"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="12">
+                  <position x="460" y="480"/>
+                  <position x="330" y="480"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="L" duration="T#10s">
+                <relPosition x="0" y="0"/>
+                <reference name="PORTE"/>
+              </action>
+              <action localId="0" qualifier="S">
+                <relPosition x="0" y="0"/>
+                <reference name="Flag"/>
+              </action>
+            </actionBlock>
+            <transition localId="14" height="10" width="20">
+              <position x="290" y="510"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="12">
+                  <position x="300" y="494"/>
+                  <position x="300" y="510"/>
+                  <position x="300" y="500"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT SENSOR_PORTE]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <selectionDivergence localId="20" height="1" width="320">
+              <position x="140" y="90"/>
+              <connectionPointIn>
+                <relPosition x="160" y="0"/>
+                <connection refLocalId="1">
+                  <position x="300" y="90"/>
+                  <position x="300" y="50"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="320" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <step localId="26" name="Preleva_Salita" initialStep="false" height="30" width="130">
+              <position x="80" y="290"/>
+              <connectionPointIn>
+                <relPosition x="60" y="0"/>
+                <connection refLocalId="7">
+                  <position x="140" y="290"/>
+                  <position x="140" y="240"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="60" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="130" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="27" height="30" width="450">
+              <position x="220" y="290"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="26">
+                  <position x="220" y="300"/>
+                  <position x="210" y="300"/>
+                  <position x="210" y="300"/>
+                  <position x="210" y="300"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <inline>
+                  <ST>
+                    <xhtml:p><![CDATA[Richieste_Salita := PRELEVA_PIANO(Richieste_Salita);]]></xhtml:p>
+                  </ST>
+                </inline>
+              </action>
+            </actionBlock>
+            <transition localId="28" height="10" width="20">
+              <position x="130" y="348"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="26">
+                  <position x="140" y="348"/>
+                  <position x="140" y="320"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="2" name="Preleva_Discesa" initialStep="false" height="30" width="130" executionOrderId="0">
+              <position x="400" y="330"/>
+              <connectionPointIn>
+                <relPosition x="60" y="0"/>
+                <connection refLocalId="11">
+                  <position x="460" y="330"/>
+                  <position x="460" y="280"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="60" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="130" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="29" height="10" width="20">
+              <position x="450" y="390"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="2">
+                  <position x="460" y="390"/>
+                  <position x="460" y="360"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[1]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <actionBlock localId="15" height="30" width="460" executionOrderId="0">
+              <position x="580" y="330"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="2">
+                  <position x="580" y="340"/>
+                  <position x="530" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <inline>
+                  <ST>
+                    <xhtml:p><![CDATA[Richieste_Discesa := PRELEVA_PIANO(Richieste_Discesa);]]></xhtml:p>
+                  </ST>
+                </inline>
+              </action>
+            </actionBlock>
+            <jumpStep localId="31" targetName="Attesa" height="20" width="20">
+              <position x="290" y="570"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="14">
+                  <position x="300" y="570"/>
+                  <position x="300" y="520"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <actionBlock localId="32" height="30" width="100">
+              <position x="390" y="20"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="1">
+                  <position x="390" y="40"/>
+                  <position x="340" y="40"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="Check"/>
+              </action>
+            </actionBlock>
+          </SFC>
+        </body>
+      </pou>
+      <pou name="PRELEVA_PIANO" pouType="function">
+        <interface>
+          <returnType>
+            <derived name="Richieste"/>
+          </returnType>
+          <inputVars>
+            <variable name="CODA">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+          </inputVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml:p><![CDATA[CODA.DIM := CODA.DIM - 1;
+CODA.BOT := (CODA.BOT + 1) MOD 20;
+PRELEVA_PIANO := CODA;
+RETURN;]]></xhtml:p>
+          </ST>
+        </body>
+      </pou>
+      <pou name="INSERISCI_PIANO_DISCESA" pouType="function">
+        <interface>
+          <returnType>
+            <derived name="Richieste"/>
+          </returnType>
+          <inputVars>
+            <variable name="CODA">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+            <variable name="PIANO">
+              <type>
+                <SINT/>
+              </type>
+            </variable>
+          </inputVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml:p><![CDATA[CODA.QUEUE[CODA.TOP] := PIANO;
+IF CODA.DIM < 20 THEN
+  CODA.TOP := (CODA.TOP + 1) MOD 20;
+  CODA.DIM := CODA.DIM + 1;
+  CODA := BOUBLESORT_DECRESCENTE(CODA);
+END_IF;
+INSERISCI_PIANO_DISCESA := CODA;
+RETURN;]]></xhtml:p>
+          </ST>
+        </body>
+      </pou>
+    </pous>
+  </types>
+  <instances>
+    <configurations>
+      <configuration name="Config0">
+        <resource name="Res0">
+          <task name="loop" priority="0" interval="T#20ms">
+            <pouInstance name="instance0" typeName="Sensori_Piani"/>
+            <pouInstance name="instance3" typeName="Prenotazioni_Esterne"/>
+            <pouInstance name="instance2" typeName="Gestione_Motore"/>
+            <pouInstance name="instance1" typeName="Prenotazioni_Interne"/>
+          </task>
+          <globalVars>
+            <variable name="Richieste_Salita">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+            <variable name="Richieste_Discesa">
+              <type>
+                <derived name="Richieste"/>
+              </type>
+            </variable>
+            <variable name="Display">
+              <type>
+                <derived name="Tastierino"/>
+              </type>
+            </variable>
+            <variable name="Info">
+              <type>
+                <derived name="GestionePiani"/>
+              </type>
+            </variable>
+            <variable name="Flag">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+          </globalVars>
+        </resource>
+      </configuration>
+    </configurations>
+  </instances>
+</project>

@@ -1,0 +1,2191 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns:ns1="http://www.plcopen.org/xml/tc6_0201" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.plcopen.org/xml/tc6_0201">
+  <fileHeader companyName="Sconosciuto" productName="Senza_nome" productVersion="1" creationDateTime="2020-05-12T11:35:33"/>
+  <contentHeader name="Senza_nome" modificationDateTime="2020-05-20T15:36:16">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="10" y="10"/>
+      </fbd>
+      <ld>
+        <scaling x="10" y="10"/>
+      </ld>
+      <sfc>
+        <scaling x="10" y="10"/>
+      </sfc>
+    </coordinateInfo>
+  </contentHeader>
+  <types>
+    <dataTypes/>
+    <pous>
+      <pou name="program0" pouType="program">
+        <interface>
+          <localVars>
+            <variable name="timeDummy">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="timeDummy2">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="timeDummy3">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="Step201X">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="Step301X">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="startConv">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="startPick">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+          </localVars>
+          <localVars>
+            <variable name="box" address="%IX100.0">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="startButton" address="%IX100.1">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="emergencyStop" address="%IX100.2">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="1"/>
+              </initialValue>
+            </variable>
+            <variable name="robotXSetpoint1" address="%QW100.0">
+              <type>
+                <INT/>
+              </type>
+              <initialValue>
+                <simpleValue value="5"/>
+              </initialValue>
+            </variable>
+            <variable name="robotXSetpoint2" address="%QW101.0">
+              <type>
+                <INT/>
+              </type>
+              <initialValue>
+                <simpleValue value="4"/>
+              </initialValue>
+            </variable>
+            <variable name="robotZSetpoint1" address="%QW102.0">
+              <type>
+                <INT/>
+              </type>
+              <initialValue>
+                <simpleValue value="3"/>
+              </initialValue>
+            </variable>
+            <variable name="robotZSetpoint2" address="%QW103.0">
+              <type>
+                <INT/>
+              </type>
+              <initialValue>
+                <simpleValue value="2"/>
+              </initialValue>
+            </variable>
+            <variable name="rotateRobotCW1" address="%QX100.0">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="rotateRobotCCW1" address="%QX100.1">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="rotateRobotCW2" address="%QX100.2">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="rotateRobotCCW2" address="%QX100.3">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="moveConveyor" address="%QX100.4">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="robotGrab1" address="%QX100.5">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="robotGrab2" address="%QX100.6">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="startLight" address="%QX100.7">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+          </localVars>
+        </interface>
+        <actions>
+          <action name="resetRobot">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotXSetpoint1 := 0;
+robotXSetpoint2 := 0;
+robotZSetpoint1 := 0;
+robotZSetpoint2 := 0;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="setRobot">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotXSetpoint1 := 0;
+robotXSetpoint2 := 0;
+robotZSetpoint1 := 0;
+robotZSetpoint2 := 0;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="unLoad1">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotZSetpoint1 := 15;
+robotXSetpoint1 := 3;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="goMiddle">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotZSetpoint1 := 3;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="goFwd">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotXSetpoint1 := 10;
+]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="goBwd">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotXSetpoint1 := 0;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="unLoad2">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotZSetpoint2 := 15;
+robotXSetpoint2 := 3;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="goUp2">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotZSetpoint2 := 0;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="goUp">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotZSetpoint1 := 0;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="goMiddle2">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotZSetpoint2 := 3;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="goFwd2">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotXSetpoint2 := 12;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+          <action name="goBwd2">
+            <body>
+              <ST>
+                <xhtml:p><![CDATA[robotXSetpoint2 := 0;]]></xhtml:p>
+              </ST>
+            </body>
+          </action>
+        </actions>
+        <body>
+          <SFC>
+            <step localId="1" name="Step0" initialStep="true" height="40" width="60">
+              <position x="390" y="170"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="60" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="3" height="10" width="20">
+              <position x="410" y="320"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="15">
+                  <position x="420" y="320"/>
+                  <position x="420" y="300"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="4" name="Step1" initialStep="false" height="40" width="60">
+              <position x="390" y="360"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="3">
+                  <position x="420" y="360"/>
+                  <position x="420" y="330"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="60" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="5" height="70" width="100">
+              <position x="600" y="360"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="4">
+                  <position x="600" y="380"/>
+                  <position x="450" y="380"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="startConv"/>
+              </action>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="startPick"/>
+              </action>
+            </actionBlock>
+            <transition localId="6" height="10" width="20">
+              <position x="410" y="450"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="4">
+                  <position x="420" y="450"/>
+                  <position x="420" y="400"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT(emergencyStop)]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <jumpStep localId="7" targetName="Step0" height="20" width="20">
+              <position x="410" y="490"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="6">
+                  <position x="420" y="490"/>
+                  <position x="420" y="460"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <step localId="8" name="Step100" initialStep="true" height="40" width="80">
+              <position x="1070" y="160"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="10" height="10" width="20">
+              <position x="1190" y="390"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="23">
+                  <position x="1200" y="390"/>
+                  <position x="1200" y="369"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[box&emergencyStop]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="11" name="Step102" initialStep="false" height="40" width="80">
+              <position x="1160" y="440"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="10">
+                  <position x="1200" y="440"/>
+                  <position x="1200" y="400"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="12" height="10" width="20">
+              <position x="1190" y="550"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="24">
+                  <position x="1200" y="550"/>
+                  <position x="1200" y="511"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT(box)&emergencyStop]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="14" height="10" width="20">
+              <position x="410" y="230"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="1">
+                  <position x="420" y="230"/>
+                  <position x="420" y="210"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[startButton & emergencyStop]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="15" name="Step3" initialStep="false" height="40" width="60">
+              <position x="390" y="260"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="14">
+                  <position x="420" y="260"/>
+                  <position x="420" y="240"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="60" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="19" height="10" width="20">
+              <position x="1100" y="220"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="8">
+                  <position x="1110" y="220"/>
+                  <position x="1110" y="200"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[startConv & emergencyStop]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="20" name="Step101" initialStep="false" height="40" width="80">
+              <position x="1160" y="300"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="22">
+                  <position x="1200" y="300"/>
+                  <position x="1200" y="261"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="21" height="30" width="130">
+              <position x="1270" y="300"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="20">
+                  <position x="1270" y="320"/>
+                  <position x="1240" y="320"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="moveConveyor"/>
+              </action>
+            </actionBlock>
+            <selectionConvergence localId="22" height="1" width="180">
+              <position x="1110" y="260"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="19">
+                  <position x="1110" y="260"/>
+                  <position x="1110" y="230"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="180" y="0"/>
+                <connection refLocalId="12">
+                  <position x="1290" y="260"/>
+                  <position x="1290" y="220"/>
+                  <position x="1560" y="220"/>
+                  <position x="1560" y="640"/>
+                  <position x="1200" y="640"/>
+                  <position x="1200" y="560"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="90" y="1"/>
+              </connectionPointOut>
+            </selectionConvergence>
+            <selectionDivergence localId="23" height="1" width="200">
+              <position x="1200" y="368"/>
+              <connectionPointIn>
+                <relPosition x="100" y="0"/>
+                <connection refLocalId="20">
+                  <position x="1300" y="368"/>
+                  <position x="1300" y="354"/>
+                  <position x="1200" y="354"/>
+                  <position x="1200" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="200" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <selectionDivergence localId="24" height="1" width="200">
+              <position x="1200" y="510"/>
+              <connectionPointIn>
+                <relPosition x="100" y="0"/>
+                <connection refLocalId="11">
+                  <position x="1300" y="510"/>
+                  <position x="1300" y="494"/>
+                  <position x="1200" y="494"/>
+                  <position x="1200" y="480"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="200" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <transition localId="25" height="10" width="20">
+              <position x="1390" y="550"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="24">
+                  <position x="1400" y="550"/>
+                  <position x="1400" y="511"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT(emergencyStop)]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="9" height="10" width="20" executionOrderId="0">
+              <position x="1390" y="390"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="23">
+                  <position x="1400" y="390"/>
+                  <position x="1400" y="369"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT(emergencyStop)]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <jumpStep localId="26" targetName="Step100" height="20" width="20">
+              <position x="1390" y="438"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="9">
+                  <position x="1400" y="438"/>
+                  <position x="1400" y="400"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <jumpStep localId="27" targetName="Step100" height="20" width="20">
+              <position x="1390" y="588"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="25">
+                  <position x="1400" y="588"/>
+                  <position x="1400" y="560"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <comment localId="28" height="110" width="520">
+              <position x="1070" y="30"/>
+              <content>
+                <xhtml:p><![CDATA[Il nastro inizia a muoversi dopo aver ricevuto il segnale di start dall'sfc principale
+
+Quando viene attivato il pulsante di emergenza, viene forzato nuovamente nella fase iniziale]]></xhtml:p>
+              </content>
+            </comment>
+            <step localId="13" name="Step200" initialStep="true" height="40" width="80" executionOrderId="0">
+              <position x="1920" y="200"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="30" height="10" width="20" executionOrderId="0">
+              <position x="1890" y="480"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="90">
+                  <position x="1900" y="480"/>
+                  <position x="1900" y="433"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[box & emergencyStop]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="31" name="Step202" initialStep="false" height="40" width="80" executionOrderId="0">
+              <position x="1860" y="510"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="30">
+                  <position x="1900" y="510"/>
+                  <position x="1900" y="490"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="32" height="10" width="20" executionOrderId="0">
+              <position x="1820" y="1490"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="111">
+                  <position x="1830" y="1490"/>
+                  <position x="1830" y="1471"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[emergencyStop]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="33" height="10" width="20" executionOrderId="0">
+              <position x="1950" y="260"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="13">
+                  <position x="1960" y="260"/>
+                  <position x="1960" y="240"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[startPick & emergencyStop]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="34" name="Step201" initialStep="false" height="40" width="80" executionOrderId="0">
+              <position x="1830" y="350"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="36">
+                  <position x="1870" y="350"/>
+                  <position x="1870" y="301"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <selectionConvergence localId="36" height="1" width="180">
+              <position x="1780" y="300"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="32">
+                  <position x="1780" y="300"/>
+                  <position x="1780" y="270"/>
+                  <position x="1720" y="270"/>
+                  <position x="1720" y="1530"/>
+                  <position x="1830" y="1530"/>
+                  <position x="1830" y="1500"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="180" y="0"/>
+                <connection refLocalId="33">
+                  <position x="1960" y="300"/>
+                  <position x="1960" y="270"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="90" y="1"/>
+              </connectionPointOut>
+            </selectionConvergence>
+            <actionBlock localId="42" height="70" width="200">
+              <position x="1990" y="520"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="31">
+                  <position x="1990" y="530"/>
+                  <position x="1940" y="530"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="L" duration="T#200ms">
+                <relPosition x="0" y="0"/>
+                <reference name="rotateRobotCCW1"/>
+              </action>
+              <action localId="0" qualifier="P">
+                <relPosition x="0" y="0"/>
+                <reference name="goUp"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy2"/>
+              </action>
+            </actionBlock>
+            <transition localId="43" height="10" width="20">
+              <position x="1890" y="600"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="31">
+                  <position x="1900" y="600"/>
+                  <position x="1900" y="550"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy2]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="29" name="Step203" initialStep="false" height="40" width="80" executionOrderId="0">
+              <position x="1860" y="640"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="43">
+                  <position x="1900" y="640"/>
+                  <position x="1900" y="610"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="35" height="70" width="200" executionOrderId="0">
+              <position x="1990" y="640"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="29">
+                  <position x="1990" y="660"/>
+                  <position x="1940" y="660"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="L" duration="T#200ms">
+                <relPosition x="0" y="0"/>
+                <reference name="rotateRobotCCW1"/>
+              </action>
+              <action localId="0" qualifier="P">
+                <relPosition x="0" y="0"/>
+                <reference name="goFwd"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy2"/>
+              </action>
+            </actionBlock>
+            <transition localId="37" height="10" width="20" executionOrderId="0">
+              <position x="1890" y="730"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="29">
+                  <position x="1900" y="730"/>
+                  <position x="1900" y="680"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy2]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="47" name="Step204" initialStep="false" height="40" width="80">
+              <position x="1860" y="760"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="37">
+                  <position x="1900" y="760"/>
+                  <position x="1900" y="740"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="48" height="70" width="160">
+              <position x="1990" y="760"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="47">
+                  <position x="1990" y="780"/>
+                  <position x="1940" y="780"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="goMiddle"/>
+              </action>
+              <action localId="0" qualifier="SD" duration="T#500ms">
+                <relPosition x="0" y="0"/>
+                <reference name="robotGrab1"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy2"/>
+              </action>
+            </actionBlock>
+            <transition localId="49" height="10" width="20">
+              <position x="1890" y="840"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="47">
+                  <position x="1900" y="840"/>
+                  <position x="1900" y="800"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy2]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="38" name="Step205" initialStep="false" height="40" width="80" executionOrderId="0">
+              <position x="1860" y="890"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="49">
+                  <position x="1900" y="890"/>
+                  <position x="1900" y="850"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="39" height="70" width="180" executionOrderId="0">
+              <position x="1990" y="890"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="38">
+                  <position x="1990" y="910"/>
+                  <position x="1940" y="910"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="P">
+                <relPosition x="0" y="0"/>
+                <reference name="goUp"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy2"/>
+              </action>
+            </actionBlock>
+            <step localId="40" name="Step207" initialStep="false" height="40" width="80" executionOrderId="0">
+              <position x="1860" y="1160"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="104">
+                  <position x="1900" y="1160"/>
+                  <position x="1900" y="1133"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <step localId="41" name="Step206" initialStep="false" height="40" width="80" executionOrderId="0">
+              <position x="1860" y="1000"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="53">
+                  <position x="1900" y="1000"/>
+                  <position x="1900" y="980"/>
+                  <position x="1900" y="980"/>
+                  <position x="1900" y="1020"/>
+                  <position x="1900" y="1020"/>
+                  <position x="1900" y="980"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="50" height="60" width="200" executionOrderId="0">
+              <position x="1990" y="1160"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="40">
+                  <position x="1990" y="1180"/>
+                  <position x="1940" y="1180"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="L" duration="T#200ms">
+                <relPosition x="0" y="0"/>
+                <reference name="rotateRobotCW1"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy2"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="51" height="60" width="200" executionOrderId="0">
+              <position x="1990" y="1010"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="41">
+                  <position x="1990" y="1020"/>
+                  <position x="1940" y="1020"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="L" duration="T#200ms">
+                <relPosition x="0" y="0"/>
+                <reference name="rotateRobotCW1"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy2"/>
+              </action>
+            </actionBlock>
+            <transition localId="52" height="10" width="20" executionOrderId="0">
+              <position x="1890" y="1090"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="41">
+                  <position x="1900" y="1090"/>
+                  <position x="1900" y="1040"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy2]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="53" height="10" width="20">
+              <position x="1890" y="970"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="38">
+                  <position x="1900" y="970"/>
+                  <position x="1900" y="930"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy2]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="57" height="10" width="20">
+              <position x="1890" y="1240"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="40">
+                  <position x="1900" y="1240"/>
+                  <position x="1900" y="1200"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy2]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="58" name="Step209" initialStep="false" height="40" width="80">
+              <position x="1860" y="1400"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="86">
+                  <position x="1900" y="1400"/>
+                  <position x="1900" y="1380"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="59" height="50" width="110">
+              <position x="1990" y="1410"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="58">
+                  <position x="1990" y="1420"/>
+                  <position x="1940" y="1420"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="R">
+                <relPosition x="0" y="0"/>
+                <reference name="robotGrab1"/>
+              </action>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="goUp"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="60" height="70" width="140">
+              <position x="600" y="270"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="15">
+                  <position x="600" y="280"/>
+                  <position x="450" y="280"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="S">
+                <relPosition x="0" y="0"/>
+                <reference name="startLight"/>
+              </action>
+              <action localId="0" qualifier="P">
+                <relPosition x="0" y="0"/>
+                <reference name="resetRobot"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#2s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy"/>
+              </action>
+            </actionBlock>
+            <step localId="62" name="Step300" initialStep="true" height="40" width="80">
+              <position x="2400" y="200"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="63" height="10" width="20">
+              <position x="2430" y="260"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="62">
+                  <position x="2440" y="260"/>
+                  <position x="2440" y="240"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[startPick & emergencyStop]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="65" name="Step301" initialStep="false" height="40" width="90">
+              <position x="2470" y="350"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="83">
+                  <position x="2510" y="350"/>
+                  <position x="2510" y="311"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="90" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="67" height="10" width="20">
+              <position x="2470" y="470"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="64">
+                  <position x="2480" y="470"/>
+                  <position x="2480" y="433"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[box & emergencyStop]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="69" name="Step302" initialStep="false" height="40" width="80">
+              <position x="2440" y="510"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="67">
+                  <position x="2480" y="510"/>
+                  <position x="2480" y="480"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="70" height="10" width="20">
+              <position x="2470" y="580"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="69">
+                  <position x="2480" y="580"/>
+                  <position x="2480" y="550"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy3]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="71" name="Step303" initialStep="false" height="40" width="80">
+              <position x="2440" y="620"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="70">
+                  <position x="2480" y="620"/>
+                  <position x="2480" y="590"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="72" height="10" width="40">
+              <position x="2460" y="710"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="71">
+                  <position x="2480" y="710"/>
+                  <position x="2480" y="660"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="20" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy3]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="2" name="Step304" initialStep="false" height="40" width="80" executionOrderId="0">
+              <position x="2440" y="750"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="72">
+                  <position x="2480" y="750"/>
+                  <position x="2480" y="729"/>
+                  <position x="2485" y="729"/>
+                  <position x="2485" y="730"/>
+                  <position x="2480" y="730"/>
+                  <position x="2480" y="720"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="44" height="10" width="40" executionOrderId="0">
+              <position x="2460" y="830"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="2">
+                  <position x="2480" y="830"/>
+                  <position x="2480" y="790"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="20" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy3]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="45" name="Step305" initialStep="false" height="40" width="80" executionOrderId="0">
+              <position x="2440" y="880"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="44">
+                  <position x="2480" y="880"/>
+                  <position x="2480" y="840"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="46" height="10" width="40" executionOrderId="0">
+              <position x="2460" y="960"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="45">
+                  <position x="2480" y="960"/>
+                  <position x="2480" y="920"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="20" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy3]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="54" name="Step306" initialStep="false" height="40" width="80" executionOrderId="0">
+              <position x="2440" y="990"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="46">
+                  <position x="2480" y="990"/>
+                  <position x="2480" y="980"/>
+                  <position x="2480" y="980"/>
+                  <position x="2480" y="970"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="55" height="10" width="40" executionOrderId="0">
+              <position x="2460" y="1060"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="54">
+                  <position x="2480" y="1060"/>
+                  <position x="2480" y="1030"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="20" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy3]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="56" name="Step307" initialStep="false" height="40" width="80" executionOrderId="0">
+              <position x="2440" y="1140"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="66">
+                  <position x="2480" y="1140"/>
+                  <position x="2480" y="1130"/>
+                  <position x="2480" y="1130"/>
+                  <position x="2480" y="1153"/>
+                  <position x="2480" y="1153"/>
+                  <position x="2480" y="1133"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="61" height="10" width="40" executionOrderId="0">
+              <position x="2460" y="1230"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="56">
+                  <position x="2480" y="1230"/>
+                  <position x="2480" y="1180"/>
+                  <position x="2480" y="1180"/>
+                  <position x="2480" y="1196"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="20" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy3]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <actionBlock localId="73" height="70" width="190">
+              <position x="2590" y="520"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="69">
+                  <position x="2590" y="530"/>
+                  <position x="2520" y="530"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="L" duration="T#200ms">
+                <relPosition x="0" y="0"/>
+                <reference name="rotateRobotCW2"/>
+              </action>
+              <action localId="0" qualifier="P">
+                <relPosition x="0" y="0"/>
+                <reference name="goUp2"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy3"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="74" height="70" width="200">
+              <position x="2590" y="630"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="71">
+                  <position x="2590" y="640"/>
+                  <position x="2520" y="640"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="L" duration="T#200ms">
+                <relPosition x="0" y="0"/>
+                <reference name="rotateRobotCW2"/>
+              </action>
+              <action localId="0" qualifier="P">
+                <relPosition x="0" y="0"/>
+                <reference name="goFwd2"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy3"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="75" height="70" width="160">
+              <position x="2590" y="750"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="2">
+                  <position x="2590" y="770"/>
+                  <position x="2520" y="770"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="goMiddle2"/>
+              </action>
+              <action localId="0" qualifier="SD" duration="T#500ms">
+                <relPosition x="0" y="0"/>
+                <reference name="robotGrab2"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy3"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="76" height="60" width="180">
+              <position x="2590" y="890"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="45">
+                  <position x="2590" y="900"/>
+                  <position x="2520" y="900"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="P">
+                <relPosition x="0" y="0"/>
+                <reference name="goUp2"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy3"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="77" height="50" width="200">
+              <position x="2590" y="990"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="54">
+                  <position x="2590" y="1010"/>
+                  <position x="2520" y="1010"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="L" duration="T#200ms">
+                <relPosition x="0" y="0"/>
+                <reference name="rotateRobotCCW2"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy3"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="78" height="50" width="200">
+              <position x="2600" y="1150"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="56">
+                  <position x="2600" y="1160"/>
+                  <position x="2520" y="1160"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="L" duration="T#200ms">
+                <relPosition x="0" y="0"/>
+                <reference name="rotateRobotCCW2"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy3"/>
+              </action>
+            </actionBlock>
+            <step localId="79" name="Step308" initialStep="false" height="40" width="80">
+              <position x="2440" y="1280"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="61">
+                  <position x="2480" y="1280"/>
+                  <position x="2480" y="1240"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="80" height="50" width="110">
+              <position x="2600" y="1410"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="88">
+                  <position x="2600" y="1420"/>
+                  <position x="2520" y="1420"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="R">
+                <relPosition x="0" y="0"/>
+                <reference name="robotGrab2"/>
+              </action>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="goUp2"/>
+              </action>
+            </actionBlock>
+            <transition localId="81" height="10" width="20">
+              <position x="2540" y="1490"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="116">
+                  <position x="2550" y="1490"/>
+                  <position x="2550" y="1471"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[emergencyStop]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <selectionConvergence localId="83" height="1" width="140">
+              <position x="2440" y="310"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="63">
+                  <position x="2440" y="310"/>
+                  <position x="2440" y="270"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="140" y="0"/>
+                <connection refLocalId="81">
+                  <position x="2580" y="310"/>
+                  <position x="2580" y="290"/>
+                  <position x="2860" y="290"/>
+                  <position x="2860" y="1530"/>
+                  <position x="2550" y="1530"/>
+                  <position x="2550" y="1500"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="70" y="1"/>
+              </connectionPointOut>
+            </selectionConvergence>
+            <step localId="84" name="Step208" initialStep="false" height="40" width="80">
+              <position x="1860" y="1280"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="57">
+                  <position x="1900" y="1280"/>
+                  <position x="1900" y="1250"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="85" height="60" width="180">
+              <position x="1990" y="1290"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="84">
+                  <position x="1990" y="1300"/>
+                  <position x="1940" y="1300"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="P">
+                <relPosition x="0" y="0"/>
+                <reference name="unLoad1"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy2"/>
+              </action>
+            </actionBlock>
+            <transition localId="86" height="10" width="20">
+              <position x="1890" y="1370"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="84">
+                  <position x="1900" y="1370"/>
+                  <position x="1900" y="1320"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy2]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="87" height="10" width="20">
+              <position x="2470" y="1360"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="79">
+                  <position x="2480" y="1360"/>
+                  <position x="2480" y="1320"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[timeDummy3]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="88" name="Step309" initialStep="false" height="30" width="70">
+              <position x="2450" y="1410"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="87">
+                  <position x="2480" y="1410"/>
+                  <position x="2480" y="1370"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="70" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="89" height="50" width="180">
+              <position x="2600" y="1290"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="79">
+                  <position x="2600" y="1300"/>
+                  <position x="2520" y="1300"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="P">
+                <relPosition x="0" y="0"/>
+                <reference name="unLoad2"/>
+              </action>
+              <action localId="0" qualifier="D" duration="T#1s">
+                <relPosition x="0" y="0"/>
+                <reference name="timeDummy3"/>
+              </action>
+            </actionBlock>
+            <simultaneousConvergence localId="90" height="3" width="60">
+              <position x="1870" y="430"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="34">
+                  <position x="1870" y="430"/>
+                  <position x="1870" y="390"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="60" y="0"/>
+                <connection refLocalId="99">
+                  <position x="1930" y="430"/>
+                  <position x="1930" y="410"/>
+                  <position x="2090" y="410"/>
+                  <position x="2090" y="390"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="30" y="3"/>
+              </connectionPointOut>
+            </simultaneousConvergence>
+            <simultaneousConvergence localId="64" height="3" width="60">
+              <position x="2450" y="430"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="103">
+                  <position x="2450" y="430"/>
+                  <position x="2450" y="410"/>
+                  <position x="2330" y="410"/>
+                  <position x="2330" y="390"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="60" y="0"/>
+                <connection refLocalId="65">
+                  <position x="2510" y="430"/>
+                  <position x="2510" y="390"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="30" y="3"/>
+              </connectionPointOut>
+            </simultaneousConvergence>
+            <step localId="91" name="Semaphore" initialStep="true" height="30" width="100">
+              <position x="2160" y="200"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="50" y="30"/>
+              </connectionPointOut>
+            </step>
+            <step localId="99" name="D1" initialStep="false" height="30" width="40">
+              <position x="2070" y="360"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="101">
+                  <position x="2090" y="360"/>
+                  <position x="2090" y="330"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="20" y="30"/>
+              </connectionPointOut>
+            </step>
+            <selectionDivergence localId="100" height="1" width="240">
+              <position x="2090" y="290"/>
+              <connectionPointIn>
+                <relPosition x="120" y="0"/>
+                <connection refLocalId="91">
+                  <position x="2210" y="290"/>
+                  <position x="2210" y="230"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="240" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <transition localId="101" height="10" width="20">
+              <position x="2080" y="320"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="100">
+                  <position x="2090" y="320"/>
+                  <position x="2090" y="291"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[Step201X]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="102" height="10" width="20">
+              <position x="2320" y="320"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="100">
+                  <position x="2330" y="320"/>
+                  <position x="2330" y="291"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT(Step201X) AND Step301X]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="103" name="D2" initialStep="false" height="30" width="40">
+              <position x="2310" y="360"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="102">
+                  <position x="2330" y="360"/>
+                  <position x="2330" y="330"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="20" y="30"/>
+              </connectionPointOut>
+            </step>
+            <simultaneousDivergence localId="104" height="3" width="340">
+              <position x="1900" y="1130"/>
+              <connectionPointIn>
+                <relPosition x="170" y="0"/>
+                <connection refLocalId="52">
+                  <position x="2070" y="1130"/>
+                  <position x="2070" y="1115"/>
+                  <position x="1900" y="1115"/>
+                  <position x="1900" y="1100"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="3"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="340" y="3"/>
+              </connectionPointOut>
+            </simultaneousDivergence>
+            <simultaneousDivergence localId="66" height="3" width="160">
+              <position x="2320" y="1130"/>
+              <connectionPointIn>
+                <relPosition x="80" y="0"/>
+                <connection refLocalId="55">
+                  <position x="2400" y="1130"/>
+                  <position x="2400" y="1120"/>
+                  <position x="2480" y="1120"/>
+                  <position x="2480" y="1070"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="3"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="160" y="3"/>
+              </connectionPointOut>
+            </simultaneousDivergence>
+            <step localId="105" name="D3" initialStep="false" height="30" width="50">
+              <position x="2220" y="1160"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="104">
+                  <position x="2240" y="1160"/>
+                  <position x="2240" y="1133"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="20" y="30"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="106" height="10" width="20">
+              <position x="2230" y="1198"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="105">
+                  <position x="2240" y="1198"/>
+                  <position x="2240" y="1188"/>
+                  <position x="2240" y="1188"/>
+                  <position x="2240" y="1206"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[True]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="107" name="D4" initialStep="false" height="30" width="50">
+              <position x="2300" y="1160"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="66">
+                  <position x="2320" y="1160"/>
+                  <position x="2320" y="1133"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="20" y="30"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="108" height="10" width="20">
+              <position x="2310" y="1200"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="107">
+                  <position x="2320" y="1200"/>
+                  <position x="2320" y="1190"/>
+                  <position x="2320" y="1190"/>
+                  <position x="2320" y="1198"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[True]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <selectionConvergence localId="109" height="1" width="80">
+              <position x="2240" y="1230"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="106">
+                  <position x="2240" y="1230"/>
+                  <position x="2240" y="1208"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="80" y="0"/>
+                <connection refLocalId="108">
+                  <position x="2320" y="1230"/>
+                  <position x="2320" y="1210"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="40" y="1"/>
+              </connectionPointOut>
+            </selectionConvergence>
+            <jumpStep localId="110" targetName="Semaphore" height="20" width="20">
+              <position x="2270" y="1250"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="109">
+                  <position x="2280" y="1250"/>
+                  <position x="2280" y="1231"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <comment localId="68" height="90" width="490">
+              <position x="370" y="40"/>
+              <content>
+                <xhtml:p><![CDATA[SFC principale: quando viene premuto il pulsante di start, se il sistema non è in emergenza, resetta la posizione dei robot e poi fa partire il nastro e i due robot]]></xhtml:p>
+              </content>
+            </comment>
+            <comment localId="82" height="50" width="940">
+              <position x="1750" y="90"/>
+              <content>
+                <xhtml:p><![CDATA[L'accesso dei due robot al nastro trasportatore è gestito in mutua esclusione tramite un costrutto tipo semaforo]]></xhtml:p>
+              </content>
+            </comment>
+            <selectionDivergence localId="111" height="1" width="140">
+              <position x="1830" y="1470"/>
+              <connectionPointIn>
+                <relPosition x="70" y="0"/>
+                <connection refLocalId="58">
+                  <position x="1900" y="1470"/>
+                  <position x="1900" y="1440"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="140" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <transition localId="112" height="10" width="20">
+              <position x="1960" y="1510"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="111">
+                  <position x="1970" y="1510"/>
+                  <position x="1970" y="1471"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT(emergencyStop)]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <jumpStep localId="113" targetName="Step200" height="20" width="20">
+              <position x="1960" y="1550"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="112">
+                  <position x="1970" y="1550"/>
+                  <position x="1970" y="1520"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <transition localId="115" height="10" width="20">
+              <position x="2400" y="1510"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="116">
+                  <position x="2410" y="1510"/>
+                  <position x="2410" y="1471"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT(emergencyStop)]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <selectionDivergence localId="116" height="1" width="140">
+              <position x="2410" y="1470"/>
+              <connectionPointIn>
+                <relPosition x="70" y="0"/>
+                <connection refLocalId="88">
+                  <position x="2480" y="1470"/>
+                  <position x="2480" y="1440"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="140" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <jumpStep localId="117" targetName="Step300" height="20" width="20">
+              <position x="2400" y="1550"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="115">
+                  <position x="2410" y="1550"/>
+                  <position x="2410" y="1520"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <actionBlock localId="118" height="30" width="100">
+              <position x="1930" y="360"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="34">
+                  <position x="1930" y="370"/>
+                  <position x="1920" y="370"/>
+                  <position x="1920" y="370"/>
+                  <position x="1910" y="370"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="Step201X"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="119" height="30" width="100">
+              <position x="2580" y="360"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="65">
+                  <position x="2580" y="380"/>
+                  <position x="2560" y="380"/>
+                  <position x="2560" y="365"/>
+                  <position x="2570" y="365"/>
+                  <position x="2570" y="370"/>
+                  <position x="2560" y="370"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="Step301X"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="120" height="30" width="110">
+              <position x="600" y="180"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="1">
+                  <position x="600" y="190"/>
+                  <position x="450" y="190"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="R">
+                <relPosition x="0" y="0"/>
+                <reference name="startLight"/>
+              </action>
+            </actionBlock>
+          </SFC>
+        </body>
+      </pou>
+    </pous>
+  </types>
+  <instances>
+    <configurations>
+      <configuration name="Config0">
+        <resource name="Res0">
+          <task name="task0" priority="0" interval="T#20ms">
+            <pouInstance name="instance0" typeName="program0"/>
+          </task>
+        </resource>
+      </configuration>
+    </configurations>
+  </instances>
+</project>

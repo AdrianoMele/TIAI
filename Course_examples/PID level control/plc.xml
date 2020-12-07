@@ -1,0 +1,1102 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns:ns1="http://www.plcopen.org/xml/tc6_0201" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.plcopen.org/xml/tc6_0201">
+  <fileHeader companyName="Sconosciuto" productName="Senza_nome" productVersion="1" creationDateTime="2020-05-23T16:03:02"/>
+  <contentHeader name="Senza_nome" modificationDateTime="2020-05-27T15:09:30">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="10" y="10"/>
+      </fbd>
+      <ld>
+        <scaling x="10" y="10"/>
+      </ld>
+      <sfc>
+        <scaling x="10" y="10"/>
+      </sfc>
+    </coordinateInfo>
+  </contentHeader>
+  <types>
+    <dataTypes/>
+    <pous>
+      <pou name="manageLights" pouType="program">
+        <interface>
+          <externalVars>
+            <variable name="startButton">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="stopButton">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="startLight">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="stopLight">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="fillValveMan">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="dischargeValveMan">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="fillManualLight">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="dischargeManualLight">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="manual">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+          </externalVars>
+          <localVars>
+            <variable name="aux1">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="aux2">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <LD>
+            <leftPowerRail localId="1" height="200" width="10">
+              <position x="60" y="50"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="20"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="180"/>
+              </connectionPointOut>
+            </leftPowerRail>
+            <contact localId="2" height="20" width="21" negated="false" edge="rising">
+              <position x="130" y="60"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="1">
+                  <position x="130" y="70"/>
+                  <position x="70" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>startButton</variable>
+            </contact>
+            <contact localId="3" height="20" width="21" negated="false" edge="falling">
+              <position x="130" y="220"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="1">
+                  <position x="130" y="230"/>
+                  <position x="70" y="230"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>stopButton</variable>
+            </contact>
+            <coil localId="4" height="20" width="21" negated="false" storage="set">
+              <position x="298" y="60"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="2">
+                  <position x="298" y="70"/>
+                  <position x="151" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>startLight</variable>
+            </coil>
+            <coil localId="5" height="20" width="21" negated="false" storage="reset">
+              <position x="300" y="110"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="2">
+                  <position x="300" y="120"/>
+                  <position x="224" y="120"/>
+                  <position x="224" y="70"/>
+                  <position x="151" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>stopLight</variable>
+            </coil>
+            <coil localId="6" height="20" width="21" negated="false" storage="set">
+              <position x="298" y="170"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="3">
+                  <position x="298" y="180"/>
+                  <position x="224" y="180"/>
+                  <position x="224" y="230"/>
+                  <position x="151" y="230"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>stopLight</variable>
+            </coil>
+            <coil localId="7" height="20" width="21" negated="false" storage="reset">
+              <position x="298" y="220"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="3">
+                  <position x="298" y="230"/>
+                  <position x="151" y="230"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>startLight</variable>
+            </coil>
+            <rightPowerRail localId="8" height="200" width="10">
+              <position x="390" y="50"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="4">
+                  <position x="390" y="70"/>
+                  <position x="319" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="0" y="70"/>
+                <connection refLocalId="5">
+                  <position x="390" y="120"/>
+                  <position x="321" y="120"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="0" y="130"/>
+                <connection refLocalId="6">
+                  <position x="390" y="180"/>
+                  <position x="319" y="180"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="0" y="180"/>
+                <connection refLocalId="7">
+                  <position x="390" y="230"/>
+                  <position x="319" y="230"/>
+                </connection>
+              </connectionPointIn>
+            </rightPowerRail>
+            <leftPowerRail localId="9" height="390" width="10" executionOrderId="0">
+              <position x="430" y="50"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="20"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="370"/>
+              </connectionPointOut>
+            </leftPowerRail>
+            <contact localId="25" height="20" width="21" negated="false">
+              <position x="470" y="60"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="9">
+                  <position x="470" y="70"/>
+                  <position x="440" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>manual</variable>
+            </contact>
+            <contact localId="26" height="20" width="21" negated="true">
+              <position x="480" y="410"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="9">
+                  <position x="480" y="420"/>
+                  <position x="440" y="420"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>manual</variable>
+            </contact>
+            <contact localId="10" height="20" width="21" negated="false" edge="rising" executionOrderId="0">
+              <position x="600" y="60"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="25">
+                  <position x="600" y="70"/>
+                  <position x="491" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>fillValveMan</variable>
+            </contact>
+            <contact localId="11" height="20" width="21" negated="false" edge="rising" executionOrderId="0">
+              <position x="610" y="220"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="25">
+                  <position x="610" y="230"/>
+                  <position x="531" y="230"/>
+                  <position x="531" y="70"/>
+                  <position x="491" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>dischargeValveMan</variable>
+            </contact>
+            <rightPowerRail localId="12" height="310" width="10" executionOrderId="0">
+              <position x="1140" y="50"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="27">
+                  <position x="1140" y="70"/>
+                  <position x="1041" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="0" y="70"/>
+                <connection refLocalId="38">
+                  <position x="1140" y="120"/>
+                  <position x="1041" y="120"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="0" y="130"/>
+                <connection refLocalId="28">
+                  <position x="1140" y="180"/>
+                  <position x="1041" y="180"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="0" y="180"/>
+                <connection refLocalId="41">
+                  <position x="1140" y="230"/>
+                  <position x="1041" y="230"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="0" y="240"/>
+                <connection refLocalId="29">
+                  <position x="1140" y="290"/>
+                  <position x="1041" y="290"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="0" y="290"/>
+                <connection refLocalId="30">
+                  <position x="1140" y="340"/>
+                  <position x="1041" y="340"/>
+                </connection>
+              </connectionPointIn>
+            </rightPowerRail>
+            <contact localId="17" height="20" width="21" negated="false" executionOrderId="0">
+              <position x="760" y="60"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="10">
+                  <position x="760" y="70"/>
+                  <position x="621" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>fillManualLight</variable>
+            </contact>
+            <contact localId="19" height="20" width="21" negated="true" executionOrderId="0">
+              <position x="760" y="170"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="10">
+                  <position x="760" y="180"/>
+                  <position x="699" y="180"/>
+                  <position x="699" y="70"/>
+                  <position x="621" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>fillManualLight</variable>
+            </contact>
+            <contact localId="22" height="20" width="21" negated="false" executionOrderId="0">
+              <position x="760" y="220"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="11">
+                  <position x="760" y="230"/>
+                  <position x="631" y="230"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>dischargeManualLight</variable>
+            </contact>
+            <contact localId="23" height="20" width="21" negated="true" executionOrderId="0">
+              <position x="760" y="330"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="11">
+                  <position x="760" y="340"/>
+                  <position x="700" y="340"/>
+                  <position x="700" y="230"/>
+                  <position x="631" y="230"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>dischargeManualLight</variable>
+            </contact>
+            <coil localId="27" height="20" width="21" negated="false" executionOrderId="0">
+              <position x="1020" y="60"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="17">
+                  <position x="1020" y="70"/>
+                  <position x="781" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>aux1</variable>
+            </coil>
+            <coil localId="28" height="20" width="21" negated="false" storage="set" executionOrderId="0">
+              <position x="1020" y="170"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="39">
+                  <position x="1020" y="180"/>
+                  <position x="881" y="180"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>fillManualLight</variable>
+            </coil>
+            <coil localId="29" height="20" width="21" negated="false" storage="reset" executionOrderId="0">
+              <position x="1020" y="280"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="22">
+                  <position x="1020" y="290"/>
+                  <position x="895" y="290"/>
+                  <position x="895" y="230"/>
+                  <position x="781" y="230"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>dischargeManualLight</variable>
+            </coil>
+            <coil localId="30" height="20" width="21" negated="false" storage="set" executionOrderId="0">
+              <position x="1020" y="330"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="40">
+                  <position x="1020" y="340"/>
+                  <position x="889" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>dischargeManualLight</variable>
+            </coil>
+            <coil localId="35" height="20" width="21" negated="false" storage="reset">
+              <position x="1020" y="410"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="26">
+                  <position x="1020" y="420"/>
+                  <position x="501" y="420"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>dischargeManualLight</variable>
+            </coil>
+            <coil localId="36" height="20" width="21" negated="false" storage="reset">
+              <position x="1020" y="450"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="26">
+                  <position x="1020" y="460"/>
+                  <position x="710" y="460"/>
+                  <position x="710" y="420"/>
+                  <position x="501" y="420"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>fillManualLight</variable>
+            </coil>
+            <rightPowerRail localId="37" height="80" width="10">
+              <position x="1140" y="400"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="35">
+                  <position x="1140" y="420"/>
+                  <position x="1041" y="420"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="0" y="60"/>
+                <connection refLocalId="36">
+                  <position x="1140" y="460"/>
+                  <position x="1041" y="460"/>
+                </connection>
+              </connectionPointIn>
+            </rightPowerRail>
+            <coil localId="38" height="20" width="21" negated="false" storage="reset">
+              <position x="1020" y="110"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="17">
+                  <position x="1020" y="120"/>
+                  <position x="900" y="120"/>
+                  <position x="900" y="70"/>
+                  <position x="781" y="70"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>fillManualLight</variable>
+            </coil>
+            <contact localId="39" height="20" width="21" negated="true">
+              <position x="860" y="170"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="19">
+                  <position x="860" y="180"/>
+                  <position x="781" y="180"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>aux1</variable>
+            </contact>
+            <contact localId="40" height="20" width="21" negated="true">
+              <position x="868" y="330"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="23">
+                  <position x="868" y="340"/>
+                  <position x="781" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>aux2</variable>
+            </contact>
+            <coil localId="41" height="20" width="21" negated="false">
+              <position x="1020" y="220"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="22">
+                  <position x="1020" y="230"/>
+                  <position x="781" y="230"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>aux2</variable>
+            </coil>
+          </LD>
+        </body>
+      </pou>
+      <pou name="manageDisplays" pouType="program">
+        <interface>
+          <externalVars>
+            <variable name="levelMeter">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="flowMeter">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="setpoint">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Kp">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Ki">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Kd">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="dischargeValve">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="dischargeValvePos">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="fillValve">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="fillValvePos">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="KpVal">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="KiVal">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="KdVal">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="setpointVal">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="errorVal">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="levelVal">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+          </externalVars>
+          <localVars>
+            <variable name="levelConvFactor">
+              <type>
+                <REAL/>
+              </type>
+              <initialValue>
+                <simpleValue value="3.34"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[Conversion factor from level meter to actual scale]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="setpointConvFactor">
+              <type>
+                <REAL/>
+              </type>
+              <initialValue>
+                <simpleValue value="3.34"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[Conversion factor from potentiometer (0-1000) to setpoint (0-300)]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="KpConvFactor">
+              <type>
+                <INT/>
+              </type>
+              <initialValue>
+                <simpleValue value="10"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[Conversion factor for PID gains]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="KiConvFactor">
+              <type>
+                <INT/>
+              </type>
+              <initialValue>
+                <simpleValue value="10"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[Conversion factor for PID gains]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="KdConvFactor">
+              <type>
+                <INT/>
+              </type>
+              <initialValue>
+                <simpleValue value="10"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[Conversion factor for PID gains]]></xhtml:p>
+              </documentation>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml:p><![CDATA[dischargeValvePos := dischargeValve;
+fillValvePos := fillValve;
+KpVal := Kp/KpConvFactor;
+KiVal := Ki/KiConvFactor;
+KdVal := Kd/KdConvFactor;
+setpointVal := REAL_TO_INT(DIV(INT_TO_REAL(setpoint), setpointConvFactor));
+levelVal := REAL_TO_INT(DIV(INT_TO_REAL(levelMeter), levelConvFactor));
+errorVal := setpointVal - levelVal;
+]]></xhtml:p>
+          </ST>
+        </body>
+        <documentation>
+          <xhtml:p><![CDATA[Gestione display]]></xhtml:p>
+        </documentation>
+      </pou>
+      <pou name="manualMode" pouType="program">
+        <interface>
+          <externalVars>
+            <variable name="manual">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="startLight">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="stopLight">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="fillManualLight">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="dischargeManualLight">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="fillValve">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="dischargeValve">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+          </externalVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml:p><![CDATA[IF manual&startLight THEN
+  IF fillManualLight THEN
+    fillValve := 10*100;
+  ELSE
+    fillValve := 0; 
+  END_IF;
+  
+  IF dischargeManualLight THEN
+    dischargeValve := 10*100;
+  ELSE
+    dischargeValve := 0; 
+  END_IF;
+
+ELSIF manual&stopLight THEN
+  fillValve := 0;
+  dischargeValve := 0;
+END_IF;]]></xhtml:p>
+          </ST>
+        </body>
+      </pou>
+      <pou name="autoMode" pouType="program">
+        <interface>
+          <externalVars>
+            <variable name="auto">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="startLight">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="setpointVal">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="levelVal">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="fillValve">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="dischargeValve">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="KpVal">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="KiVal">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="KdVal">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+          </externalVars>
+          <localVars>
+            <variable name="Kp_internal">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="Ki_internal">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="Kd_internal">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="Ti_internal">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="Td_internal">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="setpoint_internal">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="level_internal">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="cycle">
+              <type>
+                <TIME/>
+              </type>
+              <initialValue>
+                <simpleValue value="T#20ms"/>
+              </initialValue>
+            </variable>
+            <variable name="PID_level">
+              <type>
+                <derived name="PID"/>
+              </type>
+            </variable>
+            <variable name="control">
+              <type>
+                <REAL/>
+              </type>
+            </variable>
+            <variable name="Kpmax">
+              <type>
+                <REAL/>
+              </type>
+              <initialValue>
+                <simpleValue value="100.0"/>
+              </initialValue>
+            </variable>
+            <variable name="Kimax">
+              <type>
+                <REAL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0.1"/>
+              </initialValue>
+            </variable>
+            <variable name="Kdmax">
+              <type>
+                <REAL/>
+              </type>
+              <initialValue>
+                <simpleValue value="10.0"/>
+              </initialValue>
+            </variable>
+            <variable name="pippo">
+              <type>
+                <derived name="PID"/>
+              </type>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml:p><![CDATA[Kp_internal := INT_TO_REAL(KpVal)/100.0*Kpmax;
+Ki_internal := INT_TO_REAL(KiVal)/100.0*Kimax;
+Kd_internal := INT_TO_REAL(KdVal)/100.0*Kdmax;
+
+setpoint_internal := INT_TO_REAL(setpointVal);
+level_internal := INT_TO_REAL(levelVal);
+
+IF GT(Ki_internal,0.0) THEN
+  Ti_internal := Kp_internal/Ki_internal;
+ELSE
+  Ti_internal := 100000000000000000.0; (* just a very big number to put Ki \approx. 0 *)
+END_IF;
+
+IF (GT(Kd_internal,0.0)&NE(Kp_internal,0.0)) THEN
+  Td_internal := Kd_internal/Kp_internal;
+ELSE
+  Td_internal := 0.0;
+END_IF;
+
+PID_level(
+     AUTO := auto,
+     PV := level_internal, (* process variable *)
+     SP := setpoint_internal,
+     X0 := 0.0, (* default when auto=false *)
+     KP := Kp_internal,
+     TR := Ti_internal,
+     TD := Td_internal,
+     CYCLE := cycle,
+     XOUT => control);
+
+control := -control; (* OpenPLC does PV-SP *)
+IF auto&startLight THEN
+  IF GT(control, 0.0) THEN
+    fillValve := REAL_TO_INT(control);
+    dischargeValve := 0;
+  ELSE
+    fillValve := 0;
+    dischargeValve := REAL_TO_INT(-control);
+  END_IF;
+
+END_IF;
+]]></xhtml:p>
+          </ST>
+        </body>
+      </pou>
+    </pous>
+  </types>
+  <instances>
+    <configurations>
+      <configuration name="Config0">
+        <resource name="Res0">
+          <task name="task0" priority="0" interval="T#20ms">
+            <pouInstance name="instance1" typeName="manageDisplays"/>
+            <pouInstance name="instance2" typeName="manualMode"/>
+            <pouInstance name="instance3" typeName="autoMode"/>
+          </task>
+          <task name="task1" priority="2" interval="T#200ms">
+            <pouInstance name="instance0" typeName="manageLights"/>
+          </task>
+          <globalVars>
+            <variable name="startButton" address="%IX100.0">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="stopButton" address="%IX100.1">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="manual" address="%IX100.2">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="auto" address="%IX100.3">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="fillValveMan" address="%IX100.4">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="dischargeValveMan" address="%IX100.5">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="startLight" address="%QX100.0">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="stopLight" address="%QX100.1">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="fillManualLight" address="%QX100.2">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="dischargeManualLight" address="%QX100.3">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="levelMeter" address="%IW100">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="flowMeter" address="%IW101">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="setpoint" address="%IW102">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Kp" address="%IW103">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Ki" address="%IW104">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="Kd" address="%IW105">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="dischargeValve" address="%QW100">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="dischargeValvePos" address="%QW101">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="fillValve" address="%QW102">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="fillValvePos" address="%QW103">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="KpVal" address="%QW104">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="KiVal" address="%QW105">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="KdVal" address="%QW106">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="setpointVal" address="%QW107">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="errorVal" address="%QW108">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+            <variable name="levelVal" address="%QW109">
+              <type>
+                <INT/>
+              </type>
+            </variable>
+          </globalVars>
+        </resource>
+      </configuration>
+    </configurations>
+  </instances>
+</project>

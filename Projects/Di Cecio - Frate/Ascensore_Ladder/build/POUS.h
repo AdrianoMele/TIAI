@@ -1,0 +1,266 @@
+#include "beremiz.h"
+#ifndef __POUS_H
+#define __POUS_H
+
+#include "accessor.h"
+#include "iec_std_lib.h"
+
+__DECLARE_ENUMERATED_TYPE(LOGLEVEL,
+  LOGLEVEL__CRITICAL,
+  LOGLEVEL__WARNING,
+  LOGLEVEL__INFO,
+  LOGLEVEL__DEBUG
+)
+__DECLARE_ARRAY_TYPE(__ARRAY_OF_USINT_20,USINT,[20])
+__DECLARE_STRUCT_TYPE(USINT_QUEUE,
+  __ARRAY_OF_USINT_20 ARR;
+    USINT TOP;
+    USINT BOT;
+    USINT DIM;
+  )
+// FUNCTION_BLOCK LOGGER
+// Data part
+typedef struct {
+  // FB Interface - IN, OUT, IN_OUT variables
+  __DECLARE_VAR(BOOL,EN)
+  __DECLARE_VAR(BOOL,ENO)
+  __DECLARE_VAR(BOOL,TRIG)
+  __DECLARE_VAR(STRING,MSG)
+  __DECLARE_VAR(LOGLEVEL,LEVEL)
+
+  // FB private variables - TEMP, private and located variables
+  __DECLARE_VAR(BOOL,TRIG0)
+
+} LOGGER;
+
+void LOGGER_init__(LOGGER *data__, BOOL retain);
+// Code part
+void LOGGER_body__(LOGGER *data__);
+// FUNCTION_BLOCK PYTHON_EVAL
+// Data part
+typedef struct {
+  // FB Interface - IN, OUT, IN_OUT variables
+  __DECLARE_VAR(BOOL,EN)
+  __DECLARE_VAR(BOOL,ENO)
+  __DECLARE_VAR(BOOL,TRIG)
+  __DECLARE_VAR(STRING,CODE)
+  __DECLARE_VAR(BOOL,ACK)
+  __DECLARE_VAR(STRING,RESULT)
+
+  // FB private variables - TEMP, private and located variables
+  __DECLARE_VAR(DWORD,STATE)
+  __DECLARE_VAR(STRING,BUFFER)
+  __DECLARE_VAR(STRING,PREBUFFER)
+  __DECLARE_VAR(BOOL,TRIGM1)
+  __DECLARE_VAR(BOOL,TRIGGED)
+
+} PYTHON_EVAL;
+
+void PYTHON_EVAL_init__(PYTHON_EVAL *data__, BOOL retain);
+// Code part
+void PYTHON_EVAL_body__(PYTHON_EVAL *data__);
+// FUNCTION_BLOCK PYTHON_POLL
+// Data part
+typedef struct {
+  // FB Interface - IN, OUT, IN_OUT variables
+  __DECLARE_VAR(BOOL,EN)
+  __DECLARE_VAR(BOOL,ENO)
+  __DECLARE_VAR(BOOL,TRIG)
+  __DECLARE_VAR(STRING,CODE)
+  __DECLARE_VAR(BOOL,ACK)
+  __DECLARE_VAR(STRING,RESULT)
+
+  // FB private variables - TEMP, private and located variables
+  __DECLARE_VAR(DWORD,STATE)
+  __DECLARE_VAR(STRING,BUFFER)
+  __DECLARE_VAR(STRING,PREBUFFER)
+  __DECLARE_VAR(BOOL,TRIGM1)
+  __DECLARE_VAR(BOOL,TRIGGED)
+
+} PYTHON_POLL;
+
+void PYTHON_POLL_init__(PYTHON_POLL *data__, BOOL retain);
+// Code part
+void PYTHON_POLL_body__(PYTHON_POLL *data__);
+// FUNCTION_BLOCK PYTHON_GEAR
+// Data part
+typedef struct {
+  // FB Interface - IN, OUT, IN_OUT variables
+  __DECLARE_VAR(BOOL,EN)
+  __DECLARE_VAR(BOOL,ENO)
+  __DECLARE_VAR(UINT,N)
+  __DECLARE_VAR(BOOL,TRIG)
+  __DECLARE_VAR(STRING,CODE)
+  __DECLARE_VAR(BOOL,ACK)
+  __DECLARE_VAR(STRING,RESULT)
+
+  // FB private variables - TEMP, private and located variables
+  PYTHON_EVAL PY_EVAL;
+  __DECLARE_VAR(UINT,COUNTER)
+  __DECLARE_VAR(UINT,ADD10_OUT)
+  __DECLARE_VAR(BOOL,EQ13_OUT)
+  __DECLARE_VAR(UINT,SEL15_OUT)
+  __DECLARE_VAR(BOOL,AND7_OUT)
+
+} PYTHON_GEAR;
+
+void PYTHON_GEAR_init__(PYTHON_GEAR *data__, BOOL retain);
+// Code part
+void PYTHON_GEAR_body__(PYTHON_GEAR *data__);
+// FUNCTION_BLOCK OUT_USINT_QUEUE
+// Data part
+typedef struct {
+  // FB Interface - IN, OUT, IN_OUT variables
+  __DECLARE_VAR(BOOL,EN)
+  __DECLARE_VAR(BOOL,ENO)
+  __DECLARE_VAR(BOOL,IN)
+  __DECLARE_VAR(USINT,DATA)
+
+  // FB private variables - TEMP, private and located variables
+  __DECLARE_EXTERNAL(USINT_QUEUE,QUEUE)
+
+} OUT_USINT_QUEUE;
+
+void OUT_USINT_QUEUE_init__(OUT_USINT_QUEUE *data__, BOOL retain);
+// Code part
+void OUT_USINT_QUEUE_body__(OUT_USINT_QUEUE *data__);
+// FUNCTION_BLOCK EN_USINT_STATE
+// Data part
+typedef struct {
+  // FB Interface - IN, OUT, IN_OUT variables
+  __DECLARE_VAR(BOOL,EN)
+  __DECLARE_VAR(BOOL,ENO)
+  __DECLARE_VAR(BOOL,IN)
+  __DECLARE_VAR(USINT,DATA)
+
+  // FB private variables - TEMP, private and located variables
+  __DECLARE_EXTERNAL(USINT,STATE)
+
+} EN_USINT_STATE;
+
+void EN_USINT_STATE_init__(EN_USINT_STATE *data__, BOOL retain);
+// Code part
+void EN_USINT_STATE_body__(EN_USINT_STATE *data__);
+// FUNCTION_BLOCK ENCODER
+// Data part
+typedef struct {
+  // FB Interface - IN, OUT, IN_OUT variables
+  __DECLARE_VAR(BOOL,EN)
+  __DECLARE_VAR(BOOL,ENO)
+  __DECLARE_VAR(BOOL,IN0)
+  __DECLARE_VAR(BOOL,IN1)
+  __DECLARE_VAR(BOOL,IN2)
+  __DECLARE_VAR(BOOL,IN3)
+  __DECLARE_VAR(BOOL,OUT)
+  __DECLARE_VAR(USINT,DATA)
+
+  // FB private variables - TEMP, private and located variables
+  __DECLARE_VAR(BOOL,DATA0)
+  __DECLARE_VAR(BOOL,DATA1)
+  __DECLARE_VAR(USINT,BOOL_TO_USINT22_OUT)
+  __DECLARE_VAR(USINT,BOOL_TO_USINT6_OUT)
+  __DECLARE_VAR(USINT,MUL25_OUT)
+  __DECLARE_VAR(USINT,ADD35_OUT)
+
+} ENCODER;
+
+void ENCODER_init__(ENCODER *data__, BOOL retain);
+// Code part
+void ENCODER_body__(ENCODER *data__);
+// FUNCTION_BLOCK IN_USINT_QUEUE
+// Data part
+typedef struct {
+  // FB Interface - IN, OUT, IN_OUT variables
+  __DECLARE_VAR(BOOL,EN)
+  __DECLARE_VAR(BOOL,ENO)
+  __DECLARE_VAR(BOOL,IN)
+  __DECLARE_VAR(USINT,DATA)
+  __DECLARE_VAR(BOOL,OUT)
+
+  // FB private variables - TEMP, private and located variables
+  __DECLARE_EXTERNAL(USINT_QUEUE,QUEUE)
+  __DECLARE_EXTERNAL(USINT,STATE)
+  __DECLARE_EXTERNAL(BOOL,DIR)
+  __DECLARE_VAR(USINT,I)
+  __DECLARE_VAR(USINT,J)
+  __DECLARE_VAR(USINT,H)
+
+} IN_USINT_QUEUE;
+
+void IN_USINT_QUEUE_init__(IN_USINT_QUEUE *data__, BOOL retain);
+// Code part
+void IN_USINT_QUEUE_body__(IN_USINT_QUEUE *data__);
+// PROGRAM PROGRAM0
+// Data part
+typedef struct {
+  // PROGRAM Interface - IN, OUT, IN_OUT variables
+  __DECLARE_VAR(BOOL,SNS0)
+  __DECLARE_VAR(BOOL,SNS1)
+  __DECLARE_VAR(BOOL,SNS2)
+  __DECLARE_VAR(BOOL,SNS3)
+  __DECLARE_VAR(BOOL,REQ0)
+  __DECLARE_VAR(BOOL,REQ1)
+  __DECLARE_VAR(BOOL,REQ2)
+  __DECLARE_VAR(BOOL,REQ3)
+  __DECLARE_VAR(BOOL,REQ00)
+  __DECLARE_VAR(BOOL,REQ11)
+  __DECLARE_VAR(BOOL,REQ22)
+  __DECLARE_VAR(BOOL,REQ33)
+  __DECLARE_VAR(BOOL,UP)
+  __DECLARE_VAR(BOOL,DOWN)
+  __DECLARE_VAR(BOOL,OPEN)
+
+  // PROGRAM private variables - TEMP, private and located variables
+  __DECLARE_EXTERNAL(USINT_QUEUE,QUEUE)
+  __DECLARE_EXTERNAL(USINT,STATE)
+  __DECLARE_EXTERNAL(BOOL,DIR)
+  __DECLARE_VAR(BOOL,READY)
+  __DECLARE_VAR(BOOL,IND0)
+  __DECLARE_VAR(BOOL,IND1)
+  __DECLARE_VAR(BOOL,IND2)
+  __DECLARE_VAR(BOOL,IND3)
+  ENCODER ENCODER0;
+  EN_USINT_STATE EN_USINT_STATE0;
+  ENCODER ENCODER1;
+  IN_USINT_QUEUE IN_USINT_QUEUE0;
+  TON TON0;
+  OUT_USINT_QUEUE OUT_USINT_QUEUE0;
+  R_TRIG R_TRIG1;
+  R_TRIG R_TRIG2;
+  R_TRIG R_TRIG3;
+  R_TRIG R_TRIG4;
+  R_TRIG R_TRIG5;
+  R_TRIG R_TRIG6;
+  R_TRIG R_TRIG7;
+  R_TRIG R_TRIG8;
+  R_TRIG R_TRIG9;
+  R_TRIG R_TRIG10;
+  R_TRIG R_TRIG11;
+  R_TRIG R_TRIG12;
+  R_TRIG R_TRIG13;
+  R_TRIG R_TRIG14;
+  R_TRIG R_TRIG15;
+  R_TRIG R_TRIG16;
+  R_TRIG R_TRIG17;
+  F_TRIG F_TRIG1;
+  R_TRIG R_TRIG18;
+  R_TRIG R_TRIG19;
+  R_TRIG R_TRIG20;
+  R_TRIG R_TRIG21;
+  R_TRIG R_TRIG22;
+  R_TRIG R_TRIG23;
+  R_TRIG R_TRIG24;
+  __DECLARE_VAR(BOOL,EQ103_OUT)
+  __DECLARE_VAR(BOOL,LT44_OUT)
+  __DECLARE_VAR(BOOL,GT50_OUT)
+  R_TRIG R_TRIG25;
+  R_TRIG R_TRIG26;
+  R_TRIG R_TRIG27;
+  R_TRIG R_TRIG28;
+
+} PROGRAM0;
+
+void PROGRAM0_init__(PROGRAM0 *data__, BOOL retain);
+// Code part
+void PROGRAM0_body__(PROGRAM0 *data__);
+#endif //__POUS_H
