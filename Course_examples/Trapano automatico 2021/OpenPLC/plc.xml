@@ -1,0 +1,2024 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns:ns1="http://www.plcopen.org/xml/tc6_0201" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.plcopen.org/xml/tc6_0201">
+  <fileHeader companyName="Sconosciuto" productName="Senza_nome" productVersion="1" creationDateTime="2020-04-07T12:21:31"/>
+  <contentHeader name="Senza_nome" modificationDateTime="2021-04-17T17:25:54">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="10" y="10"/>
+      </fbd>
+      <ld>
+        <scaling x="10" y="10"/>
+      </ld>
+      <sfc>
+        <scaling x="10" y="10"/>
+      </sfc>
+    </coordinateInfo>
+  </contentHeader>
+  <types>
+    <dataTypes/>
+    <pous>
+      <pou name="main_trapano" pouType="program">
+        <interface>
+          <localVars>
+            <variable name="p">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[pulsante di avvio]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="a">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[finecorsa alto]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="m">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[media corsa]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="b">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[finecorsa basso]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="x">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[sensore altezza pezzo]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="y">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[sensore presenza pezzo]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="UP">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[comando salita del trapano]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="DWN">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[comando discesa del trapano]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="ROT">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[comando rotazione del trapano]]></xhtml:p>
+              </documentation>
+            </variable>
+            <variable name="OIL">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+              <documentation>
+                <xhtml:p><![CDATA[comando pompa olio]]></xhtml:p>
+              </documentation>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <SFC>
+            <step localId="1" name="f1" initialStep="true" height="40" width="60">
+              <position x="610" y="120"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="45">
+                  <position x="640" y="120"/>
+                  <position x="640" y="90"/>
+                  <position x="1040" y="90"/>
+                  <position x="1040" y="988"/>
+                  <position x="640" y="988"/>
+                  <position x="640" y="958"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="40"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="2" height="10" width="20">
+              <position x="630" y="168"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="1">
+                  <position x="640" y="168"/>
+                  <position x="640" y="158"/>
+                  <position x="640" y="158"/>
+                  <position x="640" y="170"/>
+                  <position x="640" y="170"/>
+                  <position x="640" y="160"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="5">
+                    <position x="630" y="170"/>
+                    <position x="581" y="170"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <leftPowerRail localId="3" height="40" width="10">
+              <position x="480" y="150"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="20"/>
+              </connectionPointOut>
+            </leftPowerRail>
+            <contact localId="4" height="20" width="21" negated="false">
+              <position x="520" y="160"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="3">
+                  <position x="520" y="170"/>
+                  <position x="490" y="170"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>p</variable>
+            </contact>
+            <contact localId="5" height="20" width="21" negated="false">
+              <position x="560" y="160"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="4">
+                  <position x="560" y="170"/>
+                  <position x="541" y="170"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>y</variable>
+            </contact>
+            <step localId="6" name="f2" initialStep="false" height="30" width="60">
+              <position x="610" y="190"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="2">
+                  <position x="640" y="190"/>
+                  <position x="640" y="180"/>
+                  <position x="640" y="180"/>
+                  <position x="640" y="178"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="60" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="7" height="50" width="100">
+              <position x="730" y="180"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="6">
+                  <position x="730" y="200"/>
+                  <position x="670" y="200"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="S">
+                <relPosition x="0" y="0"/>
+                <reference name="ROT"/>
+              </action>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="DWN"/>
+              </action>
+            </actionBlock>
+            <selectionDivergence localId="8" height="1" width="300">
+              <position x="490" y="248"/>
+              <connectionPointIn>
+                <relPosition x="150" y="0"/>
+                <connection refLocalId="6">
+                  <position x="640" y="248"/>
+                  <position x="640" y="220"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="300" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <transition localId="9" height="10" width="20">
+              <position x="480" y="280"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="8">
+                  <position x="490" y="280"/>
+                  <position x="490" y="249"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="12">
+                    <position x="480" y="280"/>
+                    <position x="441" y="280"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <leftPowerRail localId="10" height="40" width="10">
+              <position x="340" y="260"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="20"/>
+              </connectionPointOut>
+            </leftPowerRail>
+            <contact localId="11" height="20" width="21" negated="true">
+              <position x="380" y="270"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="10">
+                  <position x="380" y="280"/>
+                  <position x="350" y="280"/>
+                </connection>
+                <connection refLocalId="10">
+                  <position x="380" y="280"/>
+                  <position x="350" y="280"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>x</variable>
+            </contact>
+            <contact localId="12" height="20" width="21" negated="false">
+              <position x="420" y="270"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="11">
+                  <position x="420" y="280"/>
+                  <position x="401" y="280"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>m</variable>
+            </contact>
+            <transition localId="13" height="10" width="20">
+              <position x="780" y="280"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="8">
+                  <position x="790" y="280"/>
+                  <position x="790" y="249"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="14">
+                    <position x="780" y="280"/>
+                    <position x="731" y="280"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <contact localId="14" height="20" width="21" negated="false" executionOrderId="0">
+              <position x="710" y="270"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="15">
+                  <position x="710" y="280"/>
+                  <position x="680" y="280"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>x</variable>
+            </contact>
+            <leftPowerRail localId="15" height="40" width="10" executionOrderId="0">
+              <position x="670" y="260"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="20"/>
+              </connectionPointOut>
+            </leftPowerRail>
+            <step localId="18" name="f4" initialStep="false" height="30" width="50">
+              <position x="770" y="430"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="49">
+                  <position x="790" y="430"/>
+                  <position x="790" y="398"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="20" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="50" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <contact localId="20" height="20" width="21" negated="false" executionOrderId="0">
+              <position x="720" y="380"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="21">
+                  <position x="720" y="390"/>
+                  <position x="680" y="390"/>
+                </connection>
+                <connection refLocalId="21">
+                  <position x="720" y="390"/>
+                  <position x="680" y="390"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>m</variable>
+            </contact>
+            <leftPowerRail localId="21" height="40" width="10" executionOrderId="0">
+              <position x="670" y="370"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="20"/>
+              </connectionPointOut>
+            </leftPowerRail>
+            <contact localId="22" height="20" width="21" negated="false" executionOrderId="0">
+              <position x="720" y="490"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="23">
+                  <position x="720" y="500"/>
+                  <position x="680" y="500"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>a</variable>
+            </contact>
+            <leftPowerRail localId="23" height="40" width="10" executionOrderId="0">
+              <position x="670" y="480"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="20"/>
+              </connectionPointOut>
+            </leftPowerRail>
+            <step localId="24" name="f5" initialStep="false" height="30" width="50">
+              <position x="760" y="550"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="50">
+                  <position x="790" y="550"/>
+                  <position x="790" y="508"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="50" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="25" height="30" width="100">
+              <position x="860" y="330"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="48">
+                  <position x="860" y="340"/>
+                  <position x="820" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="DWN"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="26" height="30" width="100">
+              <position x="860" y="420"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="18">
+                  <position x="860" y="440"/>
+                  <position x="820" y="440"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="UP"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="27" height="30" width="100">
+              <position x="850" y="540"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="24">
+                  <position x="850" y="560"/>
+                  <position x="810" y="560"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="OIL"/>
+              </action>
+            </actionBlock>
+            <transition localId="28" height="10" width="20">
+              <position x="780" y="620"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="24">
+                  <position x="790" y="620"/>
+                  <position x="790" y="580"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[f5.T>T#2s]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <selectionConvergence localId="32" height="1" width="300">
+              <position x="490" y="700"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="9">
+                  <position x="490" y="700"/>
+                  <position x="490" y="290"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="300" y="0"/>
+                <connection refLocalId="28">
+                  <position x="790" y="700"/>
+                  <position x="790" y="630"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="150" y="1"/>
+              </connectionPointOut>
+            </selectionConvergence>
+            <step localId="33" name="f6" initialStep="false" height="30" width="50">
+              <position x="620" y="728"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="32">
+                  <position x="640" y="728"/>
+                  <position x="640" y="701"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="20" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="50" y="12"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="34" height="10" width="20">
+              <position x="630" y="780"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="33">
+                  <position x="640" y="780"/>
+                  <position x="640" y="758"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="41">
+                    <position x="630" y="780"/>
+                    <position x="591" y="780"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <step localId="35" name="f7" initialStep="false" height="30" width="50">
+              <position x="620" y="810"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="34">
+                  <position x="640" y="810"/>
+                  <position x="640" y="790"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="20" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="50" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="36" height="10" width="20">
+              <position x="630" y="860"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="35">
+                  <position x="640" y="860"/>
+                  <position x="640" y="840"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="43">
+                    <position x="630" y="860"/>
+                    <position x="591" y="860"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <step localId="37" name="f8" initialStep="false" height="30" width="50">
+              <position x="620" y="890"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="36">
+                  <position x="640" y="890"/>
+                  <position x="640" y="870"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="20" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="50" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="38" height="30" width="100">
+              <position x="710" y="720"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="33">
+                  <position x="710" y="740"/>
+                  <position x="670" y="740"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="DWN"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="39" height="30" width="100">
+              <position x="710" y="810"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="35">
+                  <position x="710" y="830"/>
+                  <position x="670" y="830"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="UP"/>
+              </action>
+            </actionBlock>
+            <actionBlock localId="40" height="30" width="100">
+              <position x="710" y="890"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="37">
+                  <position x="710" y="910"/>
+                  <position x="670" y="910"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0" qualifier="R">
+                <relPosition x="0" y="0"/>
+                <reference name="ROT"/>
+              </action>
+            </actionBlock>
+            <contact localId="41" height="20" width="21" negated="false" executionOrderId="0">
+              <position x="570" y="770"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="42">
+                  <position x="570" y="780"/>
+                  <position x="540" y="780"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>b</variable>
+            </contact>
+            <leftPowerRail localId="42" height="40" width="10" executionOrderId="0">
+              <position x="530" y="760"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="20"/>
+              </connectionPointOut>
+            </leftPowerRail>
+            <contact localId="43" height="20" width="21" negated="false" executionOrderId="0">
+              <position x="570" y="850"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="44">
+                  <position x="570" y="860"/>
+                  <position x="540" y="860"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>a</variable>
+            </contact>
+            <leftPowerRail localId="44" height="40" width="10" executionOrderId="0">
+              <position x="530" y="840"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="20"/>
+              </connectionPointOut>
+            </leftPowerRail>
+            <transition localId="45" height="10" width="20">
+              <position x="630" y="948"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="37">
+                  <position x="640" y="948"/>
+                  <position x="640" y="920"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="46">
+                    <position x="630" y="950"/>
+                    <position x="591" y="950"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <contact localId="46" height="20" width="21" negated="true" executionOrderId="0">
+              <position x="570" y="940"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="47">
+                  <position x="570" y="950"/>
+                  <position x="540" y="950"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="21" y="10"/>
+              </connectionPointOut>
+              <variable>y</variable>
+            </contact>
+            <leftPowerRail localId="47" height="40" width="10" executionOrderId="0">
+              <position x="530" y="930"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="10" y="20"/>
+              </connectionPointOut>
+            </leftPowerRail>
+            <step localId="48" name="f3" initialStep="false" height="30" width="50">
+              <position x="770" y="320"/>
+              <connectionPointIn>
+                <relPosition x="20" y="0"/>
+                <connection refLocalId="13">
+                  <position x="790" y="320"/>
+                  <position x="790" y="290"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="20" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="50" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="49" height="10" width="20">
+              <position x="780" y="388"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="48">
+                  <position x="790" y="388"/>
+                  <position x="790" y="350"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="20">
+                    <position x="780" y="390"/>
+                    <position x="741" y="390"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <transition localId="50" height="10" width="20">
+              <position x="780" y="498"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="18">
+                  <position x="790" y="498"/>
+                  <position x="790" y="460"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="22">
+                    <position x="780" y="500"/>
+                    <position x="741" y="500"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+          </SFC>
+        </body>
+      </pou>
+      <pou name="sim_trapano" pouType="program">
+        <interface>
+          <localVars>
+            <variable name="ROT">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="OIL">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="UP">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="DWN">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="a">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="m">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="b">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="x">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="y">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="p_alto">
+              <type>
+                <BOOL/>
+              </type>
+              <initialValue>
+                <simpleValue value="0"/>
+              </initialValue>
+            </variable>
+            <variable name="TON0">
+              <type>
+                <derived name="TON"/>
+              </type>
+            </variable>
+            <variable name="TON1">
+              <type>
+                <derived name="TON"/>
+              </type>
+            </variable>
+            <variable name="TON2">
+              <type>
+                <derived name="TON"/>
+              </type>
+            </variable>
+            <variable name="TON3">
+              <type>
+                <derived name="TON"/>
+              </type>
+            </variable>
+            <variable name="TON4">
+              <type>
+                <derived name="TON"/>
+              </type>
+            </variable>
+            <variable name="TON5">
+              <type>
+                <derived name="TON"/>
+              </type>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <SFC>
+            <step localId="5" name="alto" initialStep="true" height="40" width="80">
+              <position x="900" y="60"/>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="80" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <transition localId="6" height="10" width="20">
+              <position x="930" y="118"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="5">
+                  <position x="940" y="118"/>
+                  <position x="940" y="110"/>
+                  <position x="940" y="100"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="40" formalParameter="Q">
+                    <position x="930" y="120"/>
+                    <position x="850" y="120"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <step localId="7" name="tra_a_e_m" initialStep="false" height="30" width="100">
+              <position x="890" y="150"/>
+              <connectionPointIn>
+                <relPosition x="50" y="0"/>
+                <connection refLocalId="6">
+                  <position x="940" y="150"/>
+                  <position x="940" y="128"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="50" y="30"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="9" height="10" width="20">
+              <position x="370" y="270"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="67">
+                  <position x="380" y="270"/>
+                  <position x="380" y="231"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[DWN & y & p_alto]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <transition localId="10" height="10" width="20" executionOrderId="0">
+              <position x="750" y="270"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="67">
+                  <position x="760" y="270"/>
+                  <position x="760" y="251"/>
+                  <position x="757" y="251"/>
+                  <position x="757" y="231"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[DWN & y & NOT(p_alto)]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <actionBlock localId="11" height="40" width="100">
+              <position x="1030" y="60"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="5">
+                  <position x="1030" y="80"/>
+                  <position x="980" y="80"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="a"/>
+              </action>
+            </actionBlock>
+            <step localId="12" name="pezzo_alto" initialStep="false" height="40" width="100">
+              <position x="330" y="320"/>
+              <connectionPointIn>
+                <relPosition x="50" y="0"/>
+                <connection refLocalId="9">
+                  <position x="380" y="320"/>
+                  <position x="380" y="280"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="50" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="100" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="13" height="40" width="100">
+              <position x="470" y="320"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="12">
+                  <position x="470" y="340"/>
+                  <position x="430" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="x"/>
+              </action>
+            </actionBlock>
+            <transition localId="14" height="10" width="20">
+              <position x="370" y="398"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="12">
+                  <position x="380" y="398"/>
+                  <position x="380" y="360"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[DWN & pezzo_alto.t>T#1s]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="15" name="pezzo_basso" initialStep="false" height="40" width="100" executionOrderId="0">
+              <position x="710" y="320"/>
+              <connectionPointIn>
+                <relPosition x="50" y="0"/>
+                <connection refLocalId="10">
+                  <position x="760" y="320"/>
+                  <position x="760" y="280"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="50" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="100" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="16" height="40" width="100" executionOrderId="0">
+              <position x="840" y="320"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="15">
+                  <position x="840" y="340"/>
+                  <position x="810" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="m"/>
+              </action>
+            </actionBlock>
+            <transition localId="17" height="10" width="20" executionOrderId="0">
+              <position x="750" y="400"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="15">
+                  <position x="760" y="400"/>
+                  <position x="760" y="360"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[DWN & pezzo_basso.t>T#1s]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <selectionConvergence localId="18" height="1" width="380">
+              <position x="380" y="450"/>
+              <connectionPointIn>
+                <relPosition x="0" y="0"/>
+                <connection refLocalId="14">
+                  <position x="380" y="450"/>
+                  <position x="380" y="408"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointIn>
+                <relPosition x="380" y="0"/>
+                <connection refLocalId="17">
+                  <position x="760" y="450"/>
+                  <position x="760" y="410"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="190" y="1"/>
+              </connectionPointOut>
+            </selectionConvergence>
+            <step localId="19" name="medio" initialStep="false" height="40" width="70">
+              <position x="540" y="500"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="18">
+                  <position x="570" y="500"/>
+                  <position x="570" y="451"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="70" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="20" height="50" width="110">
+              <position x="640" y="500"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="19">
+                  <position x="640" y="520"/>
+                  <position x="610" y="520"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="x"/>
+              </action>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="m"/>
+              </action>
+            </actionBlock>
+            <transition localId="21" height="10" width="20" executionOrderId="0">
+              <position x="360" y="590"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="26">
+                  <position x="370" y="590"/>
+                  <position x="370" y="571"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="29" formalParameter="Q">
+                    <position x="360" y="600"/>
+                    <position x="300" y="600"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <step localId="22" name="basso" initialStep="false" height="40" width="60">
+              <position x="340" y="640"/>
+              <connectionPointIn>
+                <relPosition x="30" y="0"/>
+                <connection refLocalId="21">
+                  <position x="370" y="640"/>
+                  <position x="370" y="600"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="30" y="40"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="60" y="20"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="23" height="50" width="100">
+              <position x="410" y="640"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="22">
+                  <position x="410" y="660"/>
+                  <position x="400" y="660"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="x"/>
+              </action>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="b"/>
+              </action>
+            </actionBlock>
+            <transition localId="24" height="10" width="20">
+              <position x="360" y="718"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="22">
+                  <position x="370" y="718"/>
+                  <position x="370" y="680"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="47" formalParameter="Q">
+                    <position x="360" y="720"/>
+                    <position x="300" y="720"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <jumpStep localId="25" targetName="medio" height="20" width="20">
+              <position x="360" y="760"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="24">
+                  <position x="370" y="760"/>
+                  <position x="370" y="728"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <selectionDivergence localId="26" height="1" width="400">
+              <position x="370" y="570"/>
+              <connectionPointIn>
+                <relPosition x="200" y="0"/>
+                <connection refLocalId="19">
+                  <position x="570" y="570"/>
+                  <position x="570" y="540"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="400" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <transition localId="27" height="10" width="20">
+              <position x="760" y="670"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="26">
+                  <position x="770" y="670"/>
+                  <position x="770" y="571"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="43" formalParameter="Q">
+                    <position x="760" y="680"/>
+                    <position x="750" y="680"/>
+                    <position x="750" y="680"/>
+                    <position x="740" y="680"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <block localId="29" typeName="TON" instanceName="TON0" height="90" width="50">
+              <position x="250" y="560"/>
+              <inputVariables>
+                <variable formalParameter="IN">
+                  <connectionPointIn>
+                    <relPosition x="0" y="40"/>
+                    <connection refLocalId="30">
+                      <position x="250" y="600"/>
+                      <position x="200" y="600"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="PT">
+                  <connectionPointIn>
+                    <relPosition x="0" y="70"/>
+                    <connection refLocalId="28">
+                      <position x="250" y="630"/>
+                      <position x="240" y="630"/>
+                      <position x="240" y="620"/>
+                      <position x="200" y="620"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables/>
+              <outputVariables>
+                <variable formalParameter="Q">
+                  <connectionPointOut>
+                    <relPosition x="50" y="40"/>
+                  </connectionPointOut>
+                </variable>
+                <variable formalParameter="ET">
+                  <connectionPointOut>
+                    <relPosition x="50" y="70"/>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <inVariable localId="30" height="30" width="50" negated="false">
+              <position x="150" y="590"/>
+              <connectionPointOut>
+                <relPosition x="50" y="10"/>
+              </connectionPointOut>
+              <expression>DWN</expression>
+            </inVariable>
+            <inVariable localId="28" height="30" width="50" negated="false" executionOrderId="0">
+              <position x="150" y="610"/>
+              <connectionPointOut>
+                <relPosition x="50" y="10"/>
+              </connectionPointOut>
+              <expression>T#1s</expression>
+            </inVariable>
+            <jumpStep localId="31" targetName="alto" height="20" width="20">
+              <position x="760" y="750"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="27">
+                  <position x="770" y="750"/>
+                  <position x="770" y="680"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <comment localId="32" height="110" width="250">
+              <position x="60" y="280"/>
+              <content>
+                <xhtml:p><![CDATA[Originally this was 
+
+mioPezzo.alto
+
+but the compiler returns an error (?)
+]]></xhtml:p>
+              </content>
+            </comment>
+            <inVariable localId="39" height="30" width="50" negated="false" executionOrderId="0">
+              <position x="700" y="140"/>
+              <connectionPointOut>
+                <relPosition x="50" y="20"/>
+              </connectionPointOut>
+              <expression>T#1s</expression>
+            </inVariable>
+            <block localId="40" typeName="TON" instanceName="TON1" height="90" width="50" executionOrderId="0">
+              <position x="800" y="80"/>
+              <inputVariables>
+                <variable formalParameter="IN">
+                  <connectionPointIn>
+                    <relPosition x="0" y="40"/>
+                    <connection refLocalId="41">
+                      <position x="800" y="120"/>
+                      <position x="750" y="120"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="PT">
+                  <connectionPointIn>
+                    <relPosition x="0" y="70"/>
+                    <connection refLocalId="39">
+                      <position x="800" y="150"/>
+                      <position x="775" y="150"/>
+                      <position x="775" y="160"/>
+                      <position x="750" y="160"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables/>
+              <outputVariables>
+                <variable formalParameter="Q">
+                  <connectionPointOut>
+                    <relPosition x="50" y="40"/>
+                  </connectionPointOut>
+                </variable>
+                <variable formalParameter="ET">
+                  <connectionPointOut>
+                    <relPosition x="50" y="70"/>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <inVariable localId="41" height="30" width="50" negated="false" executionOrderId="0">
+              <position x="700" y="110"/>
+              <connectionPointOut>
+                <relPosition x="50" y="10"/>
+              </connectionPointOut>
+              <expression>DWN</expression>
+            </inVariable>
+            <inVariable localId="42" height="30" width="50" negated="false" executionOrderId="0">
+              <position x="620" y="700"/>
+              <connectionPointOut>
+                <relPosition x="50" y="20"/>
+              </connectionPointOut>
+              <expression>T#1s</expression>
+            </inVariable>
+            <block localId="43" typeName="TON" instanceName="TON2" height="90" width="50" executionOrderId="0">
+              <position x="690" y="640"/>
+              <inputVariables>
+                <variable formalParameter="IN">
+                  <connectionPointIn>
+                    <relPosition x="0" y="40"/>
+                    <connection refLocalId="44">
+                      <position x="690" y="680"/>
+                      <position x="670" y="680"/>
+                      <position x="670" y="690"/>
+                      <position x="690" y="690"/>
+                      <position x="690" y="680"/>
+                      <position x="680" y="680"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="PT">
+                  <connectionPointIn>
+                    <relPosition x="0" y="70"/>
+                    <connection refLocalId="42">
+                      <position x="690" y="710"/>
+                      <position x="670" y="710"/>
+                      <position x="670" y="720"/>
+                      <position x="678" y="720"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables/>
+              <outputVariables>
+                <variable formalParameter="Q">
+                  <connectionPointOut>
+                    <relPosition x="50" y="40"/>
+                  </connectionPointOut>
+                </variable>
+                <variable formalParameter="ET">
+                  <connectionPointOut>
+                    <relPosition x="50" y="70"/>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <inVariable localId="44" height="30" width="120" negated="false" executionOrderId="0">
+              <position x="560" y="670"/>
+              <connectionPointOut>
+                <relPosition x="120" y="10"/>
+              </connectionPointOut>
+              <expression>UP &amp; NOT(DWN)</expression>
+            </inVariable>
+            <inVariable localId="46" height="30" width="50" negated="false" executionOrderId="0">
+              <position x="140" y="730"/>
+              <connectionPointOut>
+                <relPosition x="50" y="10"/>
+              </connectionPointOut>
+              <expression>T#1s</expression>
+            </inVariable>
+            <block localId="47" typeName="TON" instanceName="TON3" height="90" width="50" executionOrderId="0">
+              <position x="250" y="680"/>
+              <inputVariables>
+                <variable formalParameter="IN">
+                  <connectionPointIn>
+                    <relPosition x="0" y="40"/>
+                    <connection refLocalId="48">
+                      <position x="250" y="720"/>
+                      <position x="210" y="720"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="PT">
+                  <connectionPointIn>
+                    <relPosition x="0" y="70"/>
+                    <connection refLocalId="46">
+                      <position x="250" y="750"/>
+                      <position x="220" y="750"/>
+                      <position x="220" y="740"/>
+                      <position x="190" y="740"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables/>
+              <outputVariables>
+                <variable formalParameter="Q">
+                  <connectionPointOut>
+                    <relPosition x="50" y="40"/>
+                  </connectionPointOut>
+                </variable>
+                <variable formalParameter="ET">
+                  <connectionPointOut>
+                    <relPosition x="50" y="70"/>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <transition localId="49" height="10" width="20">
+              <position x="1160" y="280"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="67">
+                  <position x="1170" y="280"/>
+                  <position x="1170" y="254"/>
+                  <position x="1133" y="254"/>
+                  <position x="1133" y="231"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[DWN & NOT(y)]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="50" name="medio_senza_pezzo" initialStep="false" height="30" width="150">
+              <position x="1090" y="330"/>
+              <connectionPointIn>
+                <relPosition x="80" y="0"/>
+                <connection refLocalId="49">
+                  <position x="1170" y="330"/>
+                  <position x="1170" y="290"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="80" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="150" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="51" height="30" width="100">
+              <position x="1270" y="330"/>
+              <connectionPointIn>
+                <relPosition x="0" y="10"/>
+                <connection refLocalId="50">
+                  <position x="1270" y="340"/>
+                  <position x="1240" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="m"/>
+              </action>
+            </actionBlock>
+            <transition localId="52" height="10" width="20">
+              <position x="1070" y="460"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="61">
+                  <position x="1080" y="460"/>
+                  <position x="1080" y="409"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[DWN & medio_senza_pezzo.t>T#1s]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="53" name="basso_senza_pezzo" initialStep="false" height="30" width="150">
+              <position x="1000" y="510"/>
+              <connectionPointIn>
+                <relPosition x="80" y="0"/>
+                <connection refLocalId="52">
+                  <position x="1080" y="510"/>
+                  <position x="1080" y="470"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="80" y="30"/>
+              </connectionPointOut>
+              <connectionPointOutAction formalParameter="">
+                <relPosition x="150" y="10"/>
+              </connectionPointOutAction>
+            </step>
+            <actionBlock localId="54" height="30" width="100">
+              <position x="1170" y="500"/>
+              <connectionPointIn>
+                <relPosition x="0" y="20"/>
+                <connection refLocalId="53">
+                  <position x="1170" y="520"/>
+                  <position x="1158" y="520"/>
+                </connection>
+              </connectionPointIn>
+              <action localId="0">
+                <relPosition x="0" y="0"/>
+                <reference name="b"/>
+              </action>
+            </actionBlock>
+            <transition localId="45" height="10" width="20" executionOrderId="0">
+              <position x="1070" y="588"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="53">
+                  <position x="1080" y="588"/>
+                  <position x="1080" y="540"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="57" formalParameter="Q">
+                    <position x="1070" y="590"/>
+                    <position x="1010" y="590"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <jumpStep localId="55" targetName="medio_senza_pezzo" height="20" width="20" executionOrderId="0">
+              <position x="1070" y="630"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="45">
+                  <position x="1080" y="630"/>
+                  <position x="1080" y="598"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <inVariable localId="56" height="30" width="50" negated="false" executionOrderId="0">
+              <position x="890" y="600"/>
+              <connectionPointOut>
+                <relPosition x="50" y="20"/>
+              </connectionPointOut>
+              <expression>T#1s</expression>
+            </inVariable>
+            <block localId="57" typeName="TON" instanceName="TON4" height="90" width="50" executionOrderId="0">
+              <position x="960" y="550"/>
+              <inputVariables>
+                <variable formalParameter="IN">
+                  <connectionPointIn>
+                    <relPosition x="0" y="40"/>
+                    <connection refLocalId="58">
+                      <position x="960" y="590"/>
+                      <position x="940" y="590"/>
+                      <position x="940" y="590"/>
+                      <position x="940" y="590"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="PT">
+                  <connectionPointIn>
+                    <relPosition x="0" y="70"/>
+                    <connection refLocalId="56">
+                      <position x="960" y="620"/>
+                      <position x="940" y="620"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables/>
+              <outputVariables>
+                <variable formalParameter="Q">
+                  <connectionPointOut>
+                    <relPosition x="50" y="40"/>
+                  </connectionPointOut>
+                </variable>
+                <variable formalParameter="ET">
+                  <connectionPointOut>
+                    <relPosition x="50" y="70"/>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <selectionDivergence localId="61" height="1" width="360">
+              <position x="1080" y="408"/>
+              <connectionPointIn>
+                <relPosition x="180" y="0"/>
+                <connection refLocalId="50">
+                  <position x="1260" y="408"/>
+                  <position x="1260" y="384"/>
+                  <position x="1170" y="384"/>
+                  <position x="1170" y="360"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="360" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+            <transition localId="59" height="10" width="20" executionOrderId="0">
+              <position x="1430" y="580"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="61">
+                  <position x="1440" y="580"/>
+                  <position x="1440" y="409"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <connectionPointIn>
+                  <connection refLocalId="63" formalParameter="Q">
+                    <position x="1430" y="580"/>
+                    <position x="1400" y="580"/>
+                  </connection>
+                </connectionPointIn>
+              </condition>
+            </transition>
+            <jumpStep localId="60" targetName="alto" height="20" width="20" executionOrderId="0">
+              <position x="1430" y="650"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="59">
+                  <position x="1440" y="650"/>
+                  <position x="1440" y="590"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <inVariable localId="62" height="30" width="50" negated="false" executionOrderId="0">
+              <position x="1270" y="600"/>
+              <connectionPointOut>
+                <relPosition x="50" y="20"/>
+              </connectionPointOut>
+              <expression>T#1s</expression>
+            </inVariable>
+            <block localId="63" typeName="TON" instanceName="TON5" height="90" width="50" executionOrderId="0">
+              <position x="1350" y="540"/>
+              <inputVariables>
+                <variable formalParameter="IN">
+                  <connectionPointIn>
+                    <relPosition x="0" y="40"/>
+                    <connection refLocalId="64">
+                      <position x="1350" y="580"/>
+                      <position x="1310" y="580"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+                <variable formalParameter="PT">
+                  <connectionPointIn>
+                    <relPosition x="0" y="70"/>
+                    <connection refLocalId="62">
+                      <position x="1350" y="610"/>
+                      <position x="1335" y="610"/>
+                      <position x="1335" y="620"/>
+                      <position x="1320" y="620"/>
+                    </connection>
+                  </connectionPointIn>
+                </variable>
+              </inputVariables>
+              <inOutVariables/>
+              <outputVariables>
+                <variable formalParameter="Q">
+                  <connectionPointOut>
+                    <relPosition x="50" y="40"/>
+                  </connectionPointOut>
+                </variable>
+                <variable formalParameter="ET">
+                  <connectionPointOut>
+                    <relPosition x="50" y="70"/>
+                  </connectionPointOut>
+                </variable>
+              </outputVariables>
+            </block>
+            <step localId="1" name="fermo0" initialStep="true" height="30" width="80" executionOrderId="0">
+              <position x="1800" y="100"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="4">
+                  <position x="1840" y="100"/>
+                  <position x="1840" y="80"/>
+                  <position x="1760" y="80"/>
+                  <position x="1760" y="220"/>
+                  <position x="1840" y="220"/>
+                  <position x="1840" y="210"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="30"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="2" height="10" width="20" executionOrderId="0">
+              <position x="1830" y="140"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="1">
+                  <position x="1840" y="140"/>
+                  <position x="1840" y="120"/>
+                  <position x="1840" y="120"/>
+                  <position x="1840" y="140"/>
+                  <position x="1840" y="140"/>
+                  <position x="1840" y="130"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[ROT]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="3" name="ruota0" initialStep="false" height="30" width="80" executionOrderId="0">
+              <position x="1800" y="160"/>
+              <connectionPointIn>
+                <relPosition x="40" y="0"/>
+                <connection refLocalId="2">
+                  <position x="1840" y="144"/>
+                  <position x="1840" y="160"/>
+                  <position x="1840" y="160"/>
+                  <position x="1840" y="150"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="40" y="30"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="4" height="10" width="20" executionOrderId="0">
+              <position x="1830" y="200"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="3">
+                  <position x="1840" y="184"/>
+                  <position x="1840" y="200"/>
+                  <position x="1840" y="200"/>
+                  <position x="1840" y="190"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT(ROT)]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <comment localId="33" height="40" width="130">
+              <position x="1900" y="90"/>
+              <content>
+                <xhtml:p><![CDATA[Unused for now.]]></xhtml:p>
+              </content>
+            </comment>
+            <step localId="34" name="pompa_ferma0" initialStep="true" height="30" width="110" executionOrderId="0">
+              <position x="1785" y="250"/>
+              <connectionPointIn>
+                <relPosition x="55" y="0"/>
+                <connection refLocalId="37">
+                  <position x="1840" y="250"/>
+                  <position x="1840" y="240"/>
+                  <position x="1760" y="240"/>
+                  <position x="1760" y="370"/>
+                  <position x="1840" y="370"/>
+                  <position x="1840" y="360"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="55" y="30"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="35" height="10" width="20" executionOrderId="0">
+              <position x="1830" y="290"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="34">
+                  <position x="1840" y="290"/>
+                  <position x="1840" y="270"/>
+                  <position x="1840" y="270"/>
+                  <position x="1840" y="290"/>
+                  <position x="1840" y="290"/>
+                  <position x="1840" y="280"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[OIL]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <step localId="36" name="pompa_accesa0" initialStep="false" height="30" width="114" executionOrderId="0">
+              <position x="1785" y="310"/>
+              <connectionPointIn>
+                <relPosition x="55" y="0"/>
+                <connection refLocalId="35">
+                  <position x="1840" y="294"/>
+                  <position x="1840" y="310"/>
+                  <position x="1840" y="310"/>
+                  <position x="1840" y="300"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="55" y="30"/>
+              </connectionPointOut>
+            </step>
+            <transition localId="37" height="10" width="20" executionOrderId="0">
+              <position x="1830" y="350"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="36">
+                  <position x="1840" y="334"/>
+                  <position x="1840" y="350"/>
+                  <position x="1840" y="350"/>
+                  <position x="1840" y="340"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[NOT(OIL)]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <comment localId="38" height="40" width="130">
+              <position x="1910" y="240"/>
+              <content>
+                <xhtml:p><![CDATA[Unused for now.]]></xhtml:p>
+              </content>
+            </comment>
+            <inVariable localId="48" height="30" width="120" negated="false" executionOrderId="0">
+              <position x="90" y="700"/>
+              <connectionPointOut>
+                <relPosition x="120" y="20"/>
+              </connectionPointOut>
+              <expression>UP &amp; NOT(DWN)</expression>
+            </inVariable>
+            <inVariable localId="58" height="30" width="120" negated="false" executionOrderId="0">
+              <position x="820" y="580"/>
+              <connectionPointOut>
+                <relPosition x="120" y="10"/>
+              </connectionPointOut>
+              <expression>UP &amp; NOT(DWN)</expression>
+            </inVariable>
+            <inVariable localId="64" height="30" width="120" negated="false" executionOrderId="0">
+              <position x="1190" y="560"/>
+              <connectionPointOut>
+                <relPosition x="120" y="20"/>
+              </connectionPointOut>
+              <expression>UP &amp; NOT(DWN)</expression>
+            </inVariable>
+            <transition localId="65" height="10" width="20">
+              <position x="1500" y="260"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="67">
+                  <position x="1510" y="260"/>
+                  <position x="1510" y="231"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut>
+                <relPosition x="10" y="10"/>
+              </connectionPointOut>
+              <condition>
+                <inline name="">
+                  <ST>
+                    <xhtml:p><![CDATA[UP & NOT(DWN)]]></xhtml:p>
+                  </ST>
+                </inline>
+              </condition>
+            </transition>
+            <jumpStep localId="66" targetName="alto" height="20" width="20">
+              <position x="1500" y="320"/>
+              <connectionPointIn>
+                <relPosition x="10" y="0"/>
+                <connection refLocalId="65">
+                  <position x="1510" y="320"/>
+                  <position x="1510" y="270"/>
+                </connection>
+              </connectionPointIn>
+            </jumpStep>
+            <selectionDivergence localId="67" height="1" width="1130">
+              <position x="380" y="230"/>
+              <connectionPointIn>
+                <relPosition x="565" y="0"/>
+                <connection refLocalId="7">
+                  <position x="945" y="230"/>
+                  <position x="945" y="205"/>
+                  <position x="940" y="205"/>
+                  <position x="940" y="180"/>
+                </connection>
+              </connectionPointIn>
+              <connectionPointOut formalParameter="">
+                <relPosition x="0" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="377" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="753" y="1"/>
+              </connectionPointOut>
+              <connectionPointOut formalParameter="">
+                <relPosition x="1130" y="1"/>
+              </connectionPointOut>
+            </selectionDivergence>
+          </SFC>
+        </body>
+      </pou>
+    </pous>
+  </types>
+  <instances>
+    <configurations>
+      <configuration name="Config0">
+        <resource name="Res0">
+          <task name="task0" priority="0" interval="T#20ms">
+            <pouInstance name="instance0" typeName="main_trapano"/>
+            <pouInstance name="instance1" typeName="sim_trapano"/>
+          </task>
+        </resource>
+      </configuration>
+    </configurations>
+  </instances>
+</project>
