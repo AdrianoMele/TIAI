@@ -200,13 +200,85 @@ __end:
 
 
 
-void MAIN_DISTRIBUTORE_init__(MAIN_DISTRIBUTORE *data__, BOOL retain) {
-  __INIT_VAR(data__->MONETA,0,retain)
-  __INIT_VAR(data__->APERTO,0,retain)
-  __INIT_VAR(data__->SA,0,retain)
-  __INIT_VAR(data__->SB,0,retain)
-  __INIT_VAR(data__->BLOCCA,0,retain)
-  __INIT_VAR(data__->SBLOCCA,0,retain)
+void DISTRIBUTORE_init__(DISTRIBUTORE *data__, BOOL retain) {
+  __INIT_VAR(data__->EN,__BOOL_LITERAL(TRUE),retain)
+  __INIT_VAR(data__->ENO,__BOOL_LITERAL(TRUE),retain)
+  __INIT_VAR(data__->ATTIVA_SA,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->EROGA_PRODOTTO,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->RICARICA_PRODOTTO,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->PRELEVA,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->SVUOTA,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->PRODOTTI_DA_PRELEVARE,0,retain)
+  __INIT_VAR(data__->PRODOTTI_DISP,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->N_PRODOTTI,10,retain)
+  __INIT_VAR(data__->PRODOTTI_BUFFER,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->EROGA_TRIG,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->BUFFER_TRIG,__BOOL_LITERAL(FALSE),retain)
+  R_TRIG_init__(&data__->RTRIG_EROGA,retain);
+  R_TRIG_init__(&data__->RTRIG_BUFFER,retain);
+}
+
+// Code part
+void DISTRIBUTORE_body__(DISTRIBUTORE *data__) {
+  // Control execution
+  if (!__GET_VAR(data__->EN)) {
+    __SET_VAR(data__->,ENO,,__BOOL_LITERAL(FALSE));
+    return;
+  }
+  else {
+    __SET_VAR(data__->,ENO,,__BOOL_LITERAL(TRUE));
+  }
+  // Initialise TEMP variables
+
+  __SET_VAR(data__->,PRODOTTI_DISP,,GT__BOOL__INT(
+    (BOOL)__BOOL_LITERAL(TRUE),
+    NULL,
+    (UINT)2,
+    (INT)__GET_VAR(data__->N_PRODOTTI,),
+    (INT)0));
+  __SET_VAR(data__->RTRIG_EROGA.,CLK,,__GET_VAR(data__->EROGA_PRODOTTO,));
+  R_TRIG_body__(&data__->RTRIG_EROGA);
+  __SET_VAR(data__->,EROGA_TRIG,,__GET_VAR(data__->RTRIG_EROGA.Q));
+  __SET_VAR(data__->RTRIG_BUFFER.,CLK,,__GET_VAR(data__->ATTIVA_SA,));
+  R_TRIG_body__(&data__->RTRIG_BUFFER);
+  __SET_VAR(data__->,BUFFER_TRIG,,__GET_VAR(data__->RTRIG_BUFFER.Q));
+  if ((__GET_VAR(data__->BUFFER_TRIG,) && __GET_VAR(data__->PRODOTTI_DISP,))) {
+    __SET_VAR(data__->,N_PRODOTTI,,(__GET_VAR(data__->N_PRODOTTI,) - 1));
+    __SET_VAR(data__->,PRODOTTI_BUFFER,,__BOOL_LITERAL(TRUE));
+  };
+  if ((__GET_VAR(data__->EROGA_TRIG,) && __GET_VAR(data__->PRODOTTI_BUFFER,))) {
+    __SET_VAR(data__->,PRODOTTI_BUFFER,,__BOOL_LITERAL(FALSE));
+    __SET_VAR(data__->,PRODOTTI_DA_PRELEVARE,,(__GET_VAR(data__->PRODOTTI_DA_PRELEVARE,) + 1));
+  };
+  if (__GET_VAR(data__->RICARICA_PRODOTTO,)) {
+    __SET_VAR(data__->,N_PRODOTTI,,10);
+  };
+  if (__GET_VAR(data__->PRELEVA,)) {
+    __SET_VAR(data__->,PRODOTTI_DA_PRELEVARE,,0);
+  };
+  if (__GET_VAR(data__->SVUOTA,)) {
+    __SET_VAR(data__->,PRODOTTI_DA_PRELEVARE,,(__GET_VAR(data__->PRODOTTI_DA_PRELEVARE,) + __GET_VAR(data__->N_PRODOTTI,)));
+    __SET_VAR(data__->,N_PRODOTTI,,0);
+  };
+
+  goto __end;
+
+__end:
+  return;
+} // DISTRIBUTORE_body__() 
+
+
+
+
+
+void MAIN_init__(MAIN *data__, BOOL retain) {
+  __INIT_EXTERNAL(BOOL,MONETA,data__->MONETA,retain)
+  __INIT_EXTERNAL(BOOL,SA,data__->SA,retain)
+  __INIT_EXTERNAL(BOOL,SB,data__->SB,retain)
+  __INIT_EXTERNAL(BOOL,APERTO,data__->APERTO,retain)
+  __INIT_EXTERNAL(BOOL,BLOCCA,data__->BLOCCA,retain)
+  __INIT_EXTERNAL(BOOL,SBLOCCA,data__->SBLOCCA,retain)
+  R_TRIG_init__(&data__->R_TRIG1,retain);
   UINT i;
   data__->__nb_steps = 6;
   static const STEP temp_step = {{0, 0}, 0, {{0, 0}, 0}};
@@ -214,7 +286,7 @@ void MAIN_DISTRIBUTORE_init__(MAIN_DISTRIBUTORE *data__, BOOL retain) {
     data__->__step_list[i] = temp_step;
   }
   __SET_VAR(data__->,__step_list[0].X,,1);
-  data__->__nb_actions = 4;
+  data__->__nb_actions = 5;
   static const ACTION temp_action = {0, {0, 0}, 0, 0, {0, 0}, {0, 0}};
   for(i = 0; i < data__->__nb_actions; i++) {
     data__->__action_list[i] = temp_action;
@@ -224,8 +296,8 @@ void MAIN_DISTRIBUTORE_init__(MAIN_DISTRIBUTORE *data__, BOOL retain) {
 }
 
 // Steps definitions
-#define F1 __step_list[0]
-#define __SFC_F1 0
+#define F0 __step_list[0]
+#define __SFC_F0 0
 #define F11 __step_list[1]
 #define __SFC_F11 1
 #define F12 __step_list[2]
@@ -238,13 +310,14 @@ void MAIN_DISTRIBUTORE_init__(MAIN_DISTRIBUTORE *data__, BOOL retain) {
 #define __SFC_F23 5
 
 // Actions definitions
-#define __SFC_BLOCCA 0
-#define __SFC_SBLOCCA 1
-#define __SFC_SB 2
-#define __SFC_SA 3
+#define __SFC_COMPUTE_FUNCTION_BLOCKS 0
+#define __SFC_BLOCCA 1
+#define __SFC_SBLOCCA 2
+#define __SFC_SB 3
+#define __SFC_SA 4
 
 // Code part
-void MAIN_DISTRIBUTORE_body__(MAIN_DISTRIBUTORE *data__) {
+void MAIN_body__(MAIN *data__) {
   // Initialise TEMP variables
 
   INT i;
@@ -289,39 +362,39 @@ void MAIN_DISTRIBUTORE_body__(MAIN_DISTRIBUTORE *data__) {
   }
 
   // Transitions fire test
-  if (__GET_VAR(data__->F1.X)) {
-    __SET_VAR(data__->,__transition_list[0],,__GET_VAR(data__->MONETA,));
+  if (__GET_VAR(data__->F0.X)) {
+    __SET_VAR(data__->,__transition_list[0],,__GET_VAR(data__->R_TRIG1.Q,));
     if (__DEBUG) {
       __SET_VAR(data__->,__debug_transition_list[0],,__GET_VAR(data__->__transition_list[0]));
     }
   }
   else {
     if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[0],,__GET_VAR(data__->MONETA,));
+      __SET_VAR(data__->,__debug_transition_list[0],,__GET_VAR(data__->R_TRIG1.Q,));
     }
     __SET_VAR(data__->,__transition_list[0],,0);
   }
   if (__GET_VAR(data__->F11.X)) {
-    __SET_VAR(data__->,__transition_list[1],,__GET_VAR(data__->APERTO,));
+    __SET_VAR(data__->,__transition_list[1],,__GET_EXTERNAL(data__->APERTO,));
     if (__DEBUG) {
       __SET_VAR(data__->,__debug_transition_list[1],,__GET_VAR(data__->__transition_list[1]));
     }
   }
   else {
     if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[1],,__GET_VAR(data__->APERTO,));
+      __SET_VAR(data__->,__debug_transition_list[1],,__GET_EXTERNAL(data__->APERTO,));
     }
     __SET_VAR(data__->,__transition_list[1],,0);
   }
   if (__GET_VAR(data__->F12.X) && __GET_VAR(data__->F23.X)) {
-    __SET_VAR(data__->,__transition_list[2],,1);
+    __SET_VAR(data__->,__transition_list[2],,__BOOL_LITERAL(TRUE));
     if (__DEBUG) {
       __SET_VAR(data__->,__debug_transition_list[2],,__GET_VAR(data__->__transition_list[2]));
     }
   }
   else {
     if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[2],,1);
+      __SET_VAR(data__->,__debug_transition_list[2],,__BOOL_LITERAL(TRUE));
     }
     __SET_VAR(data__->,__transition_list[2],,0);
   }
@@ -352,7 +425,7 @@ void MAIN_DISTRIBUTORE_body__(MAIN_DISTRIBUTORE *data__) {
 
   // Transitions reset steps
   if (__GET_VAR(data__->__transition_list[0])) {
-    __SET_VAR(data__->,F1.X,,0);
+    __SET_VAR(data__->,F0.X,,0);
   }
   if (__GET_VAR(data__->__transition_list[1])) {
     __SET_VAR(data__->,F11.X,,0);
@@ -380,8 +453,8 @@ void MAIN_DISTRIBUTORE_body__(MAIN_DISTRIBUTORE *data__) {
     data__->F12.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
   }
   if (__GET_VAR(data__->__transition_list[2])) {
-    __SET_VAR(data__->,F1.X,,1);
-    data__->F1.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
+    __SET_VAR(data__->,F0.X,,1);
+    data__->F0.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
   }
   if (__GET_VAR(data__->__transition_list[3])) {
     __SET_VAR(data__->,F22.X,,1);
@@ -393,14 +466,16 @@ void MAIN_DISTRIBUTORE_body__(MAIN_DISTRIBUTORE *data__) {
   }
 
   // Steps association
-  // F1 action associations
+  // F0 action associations
   {
-    char active = __GET_VAR(data__->F1.X);
-    char activated = active && !data__->F1.prev_state;
-    char desactivated = !active && data__->F1.prev_state;
+    char active = __GET_VAR(data__->F0.X);
+    char activated = active && !data__->F0.prev_state;
+    char desactivated = !active && data__->F0.prev_state;
 
-    if (active)       {__SET_VAR(data__->,BLOCCA,,1);};
-    if (desactivated) {__SET_VAR(data__->,BLOCCA,,0);};
+    if (active)       {__SET_EXTERNAL(data__->,BLOCCA,,1);};
+    if (desactivated) {__SET_EXTERNAL(data__->,BLOCCA,,0);};
+
+    if (active)       {data__->__action_list[__SFC_COMPUTE_FUNCTION_BLOCKS].set = 1;}
 
   }
 
@@ -410,7 +485,8 @@ void MAIN_DISTRIBUTORE_body__(MAIN_DISTRIBUTORE *data__) {
     char activated = active && !data__->F11.prev_state;
     char desactivated = !active && data__->F11.prev_state;
 
-    if (active)       {data__->__action_list[__SFC_SBLOCCA].set = 1;}
+    if (active)       {__SET_EXTERNAL(data__->,SBLOCCA,,1);};
+    if (desactivated) {__SET_EXTERNAL(data__->,SBLOCCA,,0);};
 
   }
 
@@ -421,9 +497,9 @@ void MAIN_DISTRIBUTORE_body__(MAIN_DISTRIBUTORE *data__) {
     char desactivated = !active && data__->F21.prev_state;
 
     if (active && __time_cmp(data__->F21.T.value, __time_to_timespec(1, 0, 1, 0, 0, 0)) < 0) 
-                      {__SET_VAR(data__->,SB,,1);}
+                      {__SET_EXTERNAL(data__->,SB,,1);}
     else if (desactivated || active)
-                      {__SET_VAR(data__->,SB,,0);};
+                      {__SET_EXTERNAL(data__->,SB,,0);};
 
   }
 
@@ -434,9 +510,9 @@ void MAIN_DISTRIBUTORE_body__(MAIN_DISTRIBUTORE *data__) {
     char desactivated = !active && data__->F22.prev_state;
 
     if (active && __time_cmp(data__->F22.T.value, __time_to_timespec(1, 0, 1, 0, 0, 0)) < 0) 
-                      {__SET_VAR(data__->,SA,,1);}
+                      {__SET_EXTERNAL(data__->,SA,,1);}
     else if (desactivated || active)
-                      {__SET_VAR(data__->,SA,,0);};
+                      {__SET_EXTERNAL(data__->,SA,,0);};
 
   }
 
@@ -456,40 +532,45 @@ void MAIN_DISTRIBUTORE_body__(MAIN_DISTRIBUTORE *data__) {
 
   // Actions execution
   if (data__->__action_list[__SFC_BLOCCA].reset) {
-    __SET_VAR(data__->,BLOCCA,,0);
+    __SET_EXTERNAL(data__->,BLOCCA,,0);
   }
   else if (data__->__action_list[__SFC_BLOCCA].set) {
-    __SET_VAR(data__->,BLOCCA,,1);
+    __SET_EXTERNAL(data__->,BLOCCA,,1);
   }
   if (data__->__action_list[__SFC_SBLOCCA].reset) {
-    __SET_VAR(data__->,SBLOCCA,,0);
+    __SET_EXTERNAL(data__->,SBLOCCA,,0);
   }
   else if (data__->__action_list[__SFC_SBLOCCA].set) {
-    __SET_VAR(data__->,SBLOCCA,,1);
+    __SET_EXTERNAL(data__->,SBLOCCA,,1);
   }
   if (data__->__action_list[__SFC_SB].reset) {
-    __SET_VAR(data__->,SB,,0);
+    __SET_EXTERNAL(data__->,SB,,0);
   }
   else if (data__->__action_list[__SFC_SB].set) {
-    __SET_VAR(data__->,SB,,1);
+    __SET_EXTERNAL(data__->,SB,,1);
   }
   if (data__->__action_list[__SFC_SA].reset) {
-    __SET_VAR(data__->,SA,,0);
+    __SET_EXTERNAL(data__->,SA,,0);
   }
   else if (data__->__action_list[__SFC_SA].set) {
-    __SET_VAR(data__->,SA,,1);
+    __SET_EXTERNAL(data__->,SA,,1);
   }
+  if(__GET_VAR(data__->__action_list[__SFC_COMPUTE_FUNCTION_BLOCKS].state)) {
+    __SET_VAR(data__->R_TRIG1.,CLK,,__GET_EXTERNAL(data__->MONETA,));
+    R_TRIG_body__(&data__->R_TRIG1);
+  }
+
 
 
   goto __end;
 
 __end:
   return;
-} // MAIN_DISTRIBUTORE_body__() 
+} // MAIN_body__() 
 
 // Steps undefinitions
-#undef F1
-#undef __SFC_F1
+#undef F0
+#undef __SFC_F0
 #undef F11
 #undef __SFC_F11
 #undef F12
@@ -502,10 +583,116 @@ __end:
 #undef __SFC_F23
 
 // Actions undefinitions
+#undef __SFC_COMPUTE_FUNCTION_BLOCKS
 #undef __SFC_BLOCCA
 #undef __SFC_SBLOCCA
 #undef __SFC_SB
 #undef __SFC_SA
+
+
+
+
+
+void PISTONE_init__(PISTONE *data__, BOOL retain) {
+  __INIT_VAR(data__->EN,__BOOL_LITERAL(TRUE),retain)
+  __INIT_VAR(data__->ENO,__BOOL_LITERAL(TRUE),retain)
+  __INIT_VAR(data__->APRI,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->APERTO,0,retain)
+  TON_init__(&data__->TON0,retain);
+  TON_init__(&data__->TON1,retain);
+}
+
+// Code part
+void PISTONE_body__(PISTONE *data__) {
+  // Control execution
+  if (!__GET_VAR(data__->EN)) {
+    __SET_VAR(data__->,ENO,,__BOOL_LITERAL(FALSE));
+    return;
+  }
+  else {
+    __SET_VAR(data__->,ENO,,__BOOL_LITERAL(TRUE));
+  }
+  // Initialise TEMP variables
+
+  __SET_VAR(data__->TON0.,IN,,(!(__GET_VAR(data__->APERTO,)) && __GET_VAR(data__->APRI,)));
+  __SET_VAR(data__->TON0.,PT,,__time_to_timespec(1, 300, 0, 0, 0, 0));
+  TON_body__(&data__->TON0);
+  __SET_VAR(data__->,APERTO,,__GET_VAR(data__->TON0.Q,));
+  __SET_VAR(data__->TON1.,IN,,!(__GET_VAR(data__->APRI,)));
+  __SET_VAR(data__->TON1.,PT,,__time_to_timespec(1, 300, 0, 0, 0, 0));
+  TON_body__(&data__->TON1);
+  __SET_VAR(data__->,APERTO,,!(__GET_VAR(data__->TON1.Q,)));
+
+  goto __end;
+
+__end:
+  return;
+} // PISTONE_body__() 
+
+
+
+
+
+void SIMULATOR_init__(SIMULATOR *data__, BOOL retain) {
+  __INIT_EXTERNAL(BOOL,MONETA,data__->MONETA,retain)
+  __INIT_EXTERNAL(BOOL,SB,data__->SB,retain)
+  __INIT_EXTERNAL(BOOL,SA,data__->SA,retain)
+  __INIT_EXTERNAL(BOOL,SBLOCCA,data__->SBLOCCA,retain)
+  __INIT_EXTERNAL(BOOL,BLOCCA,data__->BLOCCA,retain)
+  __INIT_EXTERNAL(BOOL,APERTO,data__->APERTO,retain)
+  __INIT_VAR(data__->A_APERTO,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->B_APERTO,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->PRELEVA_PRODOTTO,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->RICARICA_PRODOTTO,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->CREDITO_DISPONIBILE,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->PRODOTTI_NEL_VANO,0,retain)
+  __INIT_VAR(data__->PRODOTTI_DISPONIBILI,__BOOL_LITERAL(FALSE),retain)
+  DISTRIBUTORE_init__(&data__->DISTRIBUTORE0,retain);
+  PISTONE_init__(&data__->PISTONE0,retain);
+  PISTONE_init__(&data__->PISTONE1,retain);
+  R_TRIG_init__(&data__->R_TRIG1,retain);
+  R_TRIG_init__(&data__->R_TRIG2,retain);
+  R_TRIG_init__(&data__->R_TRIG3,retain);
+}
+
+// Code part
+void SIMULATOR_body__(SIMULATOR *data__) {
+  // Initialise TEMP variables
+
+  __SET_EXTERNAL(data__->,APERTO,,!(__GET_EXTERNAL(data__->BLOCCA,)));
+  __SET_EXTERNAL(data__->,APERTO,,(!(__GET_EXTERNAL(data__->BLOCCA,)) && __GET_EXTERNAL(data__->SBLOCCA,)));
+  __SET_VAR(data__->R_TRIG1.,CLK,,__GET_VAR(data__->RICARICA_PRODOTTO,));
+  R_TRIG_body__(&data__->R_TRIG1);
+  __SET_VAR(data__->R_TRIG2.,CLK,,__GET_VAR(data__->PRELEVA_PRODOTTO,));
+  R_TRIG_body__(&data__->R_TRIG2);
+  __SET_VAR(data__->DISTRIBUTORE0.,ATTIVA_SA,,(!(__GET_VAR(data__->B_APERTO,)) && __GET_VAR(data__->A_APERTO,)));
+  __SET_VAR(data__->DISTRIBUTORE0.,EROGA_PRODOTTO,,((__GET_VAR(data__->CREDITO_DISPONIBILE,) && __GET_VAR(data__->B_APERTO,)) && !(__GET_VAR(data__->A_APERTO,))));
+  __SET_VAR(data__->DISTRIBUTORE0.,RICARICA_PRODOTTO,,__GET_VAR(data__->R_TRIG1.Q,));
+  __SET_VAR(data__->DISTRIBUTORE0.,PRELEVA,,(__GET_EXTERNAL(data__->APERTO,) && __GET_VAR(data__->R_TRIG2.Q,)));
+  __SET_VAR(data__->DISTRIBUTORE0.,SVUOTA,,(__GET_VAR(data__->B_APERTO,) && __GET_VAR(data__->A_APERTO,)));
+  DISTRIBUTORE_body__(&data__->DISTRIBUTORE0);
+  __SET_VAR(data__->,PRODOTTI_NEL_VANO,,__GET_VAR(data__->DISTRIBUTORE0.PRODOTTI_DA_PRELEVARE,));
+  __SET_VAR(data__->,PRODOTTI_DISPONIBILI,,__GET_VAR(data__->DISTRIBUTORE0.PRODOTTI_DISP,));
+  __SET_VAR(data__->PISTONE0.,APRI,,__GET_EXTERNAL(data__->SA,));
+  PISTONE_body__(&data__->PISTONE0);
+  __SET_VAR(data__->,A_APERTO,,__GET_VAR(data__->PISTONE0.APERTO,));
+  __SET_VAR(data__->PISTONE1.,APRI,,__GET_EXTERNAL(data__->SB,));
+  PISTONE_body__(&data__->PISTONE1);
+  __SET_VAR(data__->,B_APERTO,,__GET_VAR(data__->PISTONE1.APERTO,));
+  __SET_VAR(data__->R_TRIG3.,CLK,,__GET_EXTERNAL(data__->MONETA,));
+  R_TRIG_body__(&data__->R_TRIG3);
+  if (__GET_VAR(data__->R_TRIG3.Q,)) {
+    __SET_VAR(data__->,CREDITO_DISPONIBILE,,__BOOL_LITERAL(TRUE));
+  };
+  if (__GET_VAR(data__->B_APERTO,)) {
+    __SET_VAR(data__->,CREDITO_DISPONIBILE,,__BOOL_LITERAL(FALSE));
+  };
+
+  goto __end;
+
+__end:
+  return;
+} // SIMULATOR_body__() 
 
 
 

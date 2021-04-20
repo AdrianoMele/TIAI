@@ -100,30 +100,107 @@ typedef struct {
 void PYTHON_GEAR_init__(PYTHON_GEAR *data__, BOOL retain);
 // Code part
 void PYTHON_GEAR_body__(PYTHON_GEAR *data__);
-// PROGRAM MAIN_DISTRIBUTORE
+// FUNCTION_BLOCK DISTRIBUTORE
+// Data part
+typedef struct {
+  // FB Interface - IN, OUT, IN_OUT variables
+  __DECLARE_VAR(BOOL,EN)
+  __DECLARE_VAR(BOOL,ENO)
+  __DECLARE_VAR(BOOL,ATTIVA_SA)
+  __DECLARE_VAR(BOOL,EROGA_PRODOTTO)
+  __DECLARE_VAR(BOOL,RICARICA_PRODOTTO)
+  __DECLARE_VAR(BOOL,PRELEVA)
+  __DECLARE_VAR(BOOL,SVUOTA)
+  __DECLARE_VAR(INT,PRODOTTI_DA_PRELEVARE)
+  __DECLARE_VAR(BOOL,PRODOTTI_DISP)
+
+  // FB private variables - TEMP, private and located variables
+  __DECLARE_VAR(INT,N_PRODOTTI)
+  __DECLARE_VAR(BOOL,PRODOTTI_BUFFER)
+  __DECLARE_VAR(BOOL,EROGA_TRIG)
+  __DECLARE_VAR(BOOL,BUFFER_TRIG)
+  R_TRIG RTRIG_EROGA;
+  R_TRIG RTRIG_BUFFER;
+
+} DISTRIBUTORE;
+
+void DISTRIBUTORE_init__(DISTRIBUTORE *data__, BOOL retain);
+// Code part
+void DISTRIBUTORE_body__(DISTRIBUTORE *data__);
+// PROGRAM MAIN
 // Data part
 typedef struct {
   // PROGRAM Interface - IN, OUT, IN_OUT variables
 
   // PROGRAM private variables - TEMP, private and located variables
-  __DECLARE_VAR(BOOL,MONETA)
-  __DECLARE_VAR(BOOL,APERTO)
-  __DECLARE_VAR(BOOL,SA)
-  __DECLARE_VAR(BOOL,SB)
-  __DECLARE_VAR(BOOL,BLOCCA)
-  __DECLARE_VAR(BOOL,SBLOCCA)
+  __DECLARE_EXTERNAL(BOOL,MONETA)
+  __DECLARE_EXTERNAL(BOOL,SA)
+  __DECLARE_EXTERNAL(BOOL,SB)
+  __DECLARE_EXTERNAL(BOOL,APERTO)
+  __DECLARE_EXTERNAL(BOOL,BLOCCA)
+  __DECLARE_EXTERNAL(BOOL,SBLOCCA)
+  R_TRIG R_TRIG1;
   STEP __step_list[6];
   UINT __nb_steps;
-  ACTION __action_list[4];
+  ACTION __action_list[5];
   UINT __nb_actions;
   __IEC_BOOL_t __transition_list[5];
   __IEC_BOOL_t __debug_transition_list[5];
   UINT __nb_transitions;
   TIME __lasttick_time;
 
-} MAIN_DISTRIBUTORE;
+} MAIN;
 
-void MAIN_DISTRIBUTORE_init__(MAIN_DISTRIBUTORE *data__, BOOL retain);
+void MAIN_init__(MAIN *data__, BOOL retain);
 // Code part
-void MAIN_DISTRIBUTORE_body__(MAIN_DISTRIBUTORE *data__);
+void MAIN_body__(MAIN *data__);
+// FUNCTION_BLOCK PISTONE
+// Data part
+typedef struct {
+  // FB Interface - IN, OUT, IN_OUT variables
+  __DECLARE_VAR(BOOL,EN)
+  __DECLARE_VAR(BOOL,ENO)
+  __DECLARE_VAR(BOOL,APRI)
+  __DECLARE_VAR(BOOL,APERTO)
+
+  // FB private variables - TEMP, private and located variables
+  TON TON0;
+  TON TON1;
+
+} PISTONE;
+
+void PISTONE_init__(PISTONE *data__, BOOL retain);
+// Code part
+void PISTONE_body__(PISTONE *data__);
+// PROGRAM SIMULATOR
+// Data part
+typedef struct {
+  // PROGRAM Interface - IN, OUT, IN_OUT variables
+
+  // PROGRAM private variables - TEMP, private and located variables
+  __DECLARE_EXTERNAL(BOOL,MONETA)
+  __DECLARE_EXTERNAL(BOOL,SB)
+  __DECLARE_EXTERNAL(BOOL,SA)
+  __DECLARE_EXTERNAL(BOOL,SBLOCCA)
+  __DECLARE_EXTERNAL(BOOL,BLOCCA)
+  __DECLARE_EXTERNAL(BOOL,APERTO)
+  __DECLARE_VAR(BOOL,A_APERTO)
+  __DECLARE_VAR(BOOL,B_APERTO)
+  __DECLARE_VAR(BOOL,PRELEVA_PRODOTTO)
+  __DECLARE_VAR(BOOL,RICARICA_PRODOTTO)
+  __DECLARE_VAR(BOOL,CREDITO_DISPONIBILE)
+  __DECLARE_VAR(INT,PRODOTTI_NEL_VANO)
+  __DECLARE_VAR(BOOL,PRODOTTI_DISPONIBILI)
+  DISTRIBUTORE DISTRIBUTORE0;
+  PISTONE PISTONE0;
+  PISTONE PISTONE1;
+  R_TRIG R_TRIG1;
+  R_TRIG R_TRIG2;
+  R_TRIG R_TRIG3;
+
+} SIMULATOR;
+
+void SIMULATOR_init__(SIMULATOR *data__, BOOL retain);
+// Code part
+void SIMULATOR_body__(SIMULATOR *data__);
 #endif //__POUS_H
