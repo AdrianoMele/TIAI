@@ -325,7 +325,6 @@ void MAIN_init__(MAIN *data__, BOOL retain) {
   __INIT_EXTERNAL(BOOL,CONVRIGHT,data__->CONVRIGHT,retain)
   __INIT_EXTERNAL(BOOL,WARNLIGHT,data__->WARNLIGHT,retain)
   __INIT_VAR(data__->PALLETMAXWAIT,__BOOL_LITERAL(FALSE),retain)
-  __INIT_VAR(data__->PROCESSING,__BOOL_LITERAL(FALSE),retain)
   R_TRIG_init__(&data__->R_TRIG1,retain);
   F_TRIG_init__(&data__->F_TRIG1,retain);
   R_TRIG_init__(&data__->R_TRIG2,retain);
@@ -333,21 +332,19 @@ void MAIN_init__(MAIN *data__, BOOL retain) {
   R_TRIG_init__(&data__->R_TRIG4,retain);
   R_TRIG_init__(&data__->R_TRIG5,retain);
   R_TRIG_init__(&data__->R_TRIG6,retain);
-  R_TRIG_init__(&data__->R_TRIG7,retain);
-  R_TRIG_init__(&data__->R_TRIG8,retain);
   UINT i;
-  data__->__nb_steps = 14;
+  data__->__nb_steps = 12;
   static const STEP temp_step = {{0, 0}, 0, {{0, 0}, 0}};
   for(i = 0; i < data__->__nb_steps; i++) {
     data__->__step_list[i] = temp_step;
   }
   __SET_VAR(data__->,__step_list[0].X,,1);
-  data__->__nb_actions = 12;
+  data__->__nb_actions = 11;
   static const ACTION temp_action = {0, {0, 0}, 0, 0, {0, 0}, {0, 0}};
   for(i = 0; i < data__->__nb_actions; i++) {
     data__->__action_list[i] = temp_action;
   }
-  data__->__nb_transitions = 32;
+  data__->__nb_transitions = 27;
   data__->__lasttick_time = __CURRENT_TIME;
 }
 
@@ -376,24 +373,19 @@ void MAIN_init__(MAIN *data__, BOOL retain) {
 #define __SFC_GOLEFT 10
 #define WAITLEFT __step_list[11]
 #define __SFC_WAITLEFT 11
-#define STOPPING __step_list[12]
-#define __SFC_STOPPING 12
-#define PENDINGJOB __step_list[13]
-#define __SFC_PENDINGJOB 13
 
 // Actions definitions
 #define __SFC_COMPUTE_FUNCTION_BLOCKS 0
 #define __SFC_CONVLEFT 1
 #define __SFC_CONVRIGHT 2
 #define __SFC_STOPINTERNAL 3
-#define __SFC_PROCESSING 4
-#define __SFC_WARNLIGHT 5
-#define __SFC_CONVENTRY 6
-#define __SFC_LOAD 7
-#define __SFC_PALLETMAXWAIT 8
-#define __SFC_TRANSFRIGHT 9
-#define __SFC_UNLOAD 10
-#define __SFC_TRANSFLEFT 11
+#define __SFC_WARNLIGHT 4
+#define __SFC_CONVENTRY 5
+#define __SFC_LOAD 6
+#define __SFC_PALLETMAXWAIT 7
+#define __SFC_TRANSFRIGHT 8
+#define __SFC_UNLOAD 9
+#define __SFC_TRANSFLEFT 10
 
 // Code part
 void MAIN_body__(MAIN *data__) {
@@ -526,26 +518,26 @@ void MAIN_body__(MAIN *data__) {
     __SET_VAR(data__->,__transition_list[6],,0);
   }
   if (__GET_VAR(data__->GORIGHT.X)) {
-    __SET_VAR(data__->,__transition_list[7],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_EXTERNAL(data__->STOPLIGHT,)) && __GET_VAR(data__->R_TRIG4.Q,)));
+    __SET_VAR(data__->,__transition_list[7],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_EXTERNAL(data__->STOPLIGHT,)) && __GET_VAR(data__->R_TRIG2.Q,)));
     if (__DEBUG) {
       __SET_VAR(data__->,__debug_transition_list[7],,__GET_VAR(data__->__transition_list[7]));
     }
   }
   else {
     if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[7],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_EXTERNAL(data__->STOPLIGHT,)) && __GET_VAR(data__->R_TRIG4.Q,)));
+      __SET_VAR(data__->,__debug_transition_list[7],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_EXTERNAL(data__->STOPLIGHT,)) && __GET_VAR(data__->R_TRIG2.Q,)));
     }
     __SET_VAR(data__->,__transition_list[7],,0);
   }
   if (__GET_VAR(data__->WAITRIGHT.X)) {
-    __SET_VAR(data__->,__transition_list[8],,__GET_VAR(data__->R_TRIG5.Q,));
+    __SET_VAR(data__->,__transition_list[8],,__GET_VAR(data__->R_TRIG3.Q,));
     if (__DEBUG) {
       __SET_VAR(data__->,__debug_transition_list[8],,__GET_VAR(data__->__transition_list[8]));
     }
   }
   else {
     if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[8],,__GET_VAR(data__->R_TRIG5.Q,));
+      __SET_VAR(data__->,__debug_transition_list[8],,__GET_VAR(data__->R_TRIG3.Q,));
     }
     __SET_VAR(data__->,__transition_list[8],,0);
   }
@@ -670,38 +662,38 @@ void MAIN_body__(MAIN *data__) {
     __SET_VAR(data__->,__transition_list[18],,0);
   }
   if (__GET_VAR(data__->GOLEFT.X)) {
-    __SET_VAR(data__->,__transition_list[19],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_VAR(data__->R_TRIG6.Q,)) && !(__GET_EXTERNAL(data__->STOPLIGHT,))));
+    __SET_VAR(data__->,__transition_list[19],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_VAR(data__->R_TRIG4.Q,)) && !(__GET_EXTERNAL(data__->STOPLIGHT,))));
     if (__DEBUG) {
       __SET_VAR(data__->,__debug_transition_list[19],,__GET_VAR(data__->__transition_list[19]));
     }
   }
   else {
     if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[19],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_VAR(data__->R_TRIG6.Q,)) && !(__GET_EXTERNAL(data__->STOPLIGHT,))));
+      __SET_VAR(data__->,__debug_transition_list[19],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_VAR(data__->R_TRIG4.Q,)) && !(__GET_EXTERNAL(data__->STOPLIGHT,))));
     }
     __SET_VAR(data__->,__transition_list[19],,0);
   }
   if (__GET_VAR(data__->GOLEFT.X)) {
-    __SET_VAR(data__->,__transition_list[20],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_EXTERNAL(data__->STOPLIGHT,)) && __GET_VAR(data__->R_TRIG7.Q,)));
+    __SET_VAR(data__->,__transition_list[20],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_EXTERNAL(data__->STOPLIGHT,)) && __GET_VAR(data__->R_TRIG5.Q,)));
     if (__DEBUG) {
       __SET_VAR(data__->,__debug_transition_list[20],,__GET_VAR(data__->__transition_list[20]));
     }
   }
   else {
     if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[20],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_EXTERNAL(data__->STOPLIGHT,)) && __GET_VAR(data__->R_TRIG7.Q,)));
+      __SET_VAR(data__->,__debug_transition_list[20],,((__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_EXTERNAL(data__->STOPLIGHT,)) && __GET_VAR(data__->R_TRIG5.Q,)));
     }
     __SET_VAR(data__->,__transition_list[20],,0);
   }
   if (__GET_VAR(data__->WAITLEFT.X)) {
-    __SET_VAR(data__->,__transition_list[21],,(__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_VAR(data__->R_TRIG8.Q,)));
+    __SET_VAR(data__->,__transition_list[21],,(__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_VAR(data__->R_TRIG6.Q,)));
     if (__DEBUG) {
       __SET_VAR(data__->,__debug_transition_list[21],,__GET_VAR(data__->__transition_list[21]));
     }
   }
   else {
     if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[21],,(__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_VAR(data__->R_TRIG8.Q,)));
+      __SET_VAR(data__->,__debug_transition_list[21],,(__GET_EXTERNAL(data__->EMERGENCYSTOP,) && __GET_VAR(data__->R_TRIG6.Q,)));
     }
     __SET_VAR(data__->,__transition_list[21],,0);
   }
@@ -753,77 +745,17 @@ void MAIN_body__(MAIN *data__) {
     }
     __SET_VAR(data__->,__transition_list[25],,0);
   }
-  if (__GET_VAR(data__->STOPPING.X)) {
-    __SET_VAR(data__->,__transition_list[26],,(__GET_VAR(data__->PROCESSING,) && __GET_EXTERNAL(data__->EMERGENCYSTOP,)));
+  if (__GET_VAR(data__->MOVECONVEYORS.X)) {
+    __SET_VAR(data__->,__transition_list[26],,!(__GET_EXTERNAL(data__->EMERGENCYSTOP,)));
     if (__DEBUG) {
       __SET_VAR(data__->,__debug_transition_list[26],,__GET_VAR(data__->__transition_list[26]));
     }
   }
   else {
     if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[26],,(__GET_VAR(data__->PROCESSING,) && __GET_EXTERNAL(data__->EMERGENCYSTOP,)));
+      __SET_VAR(data__->,__debug_transition_list[26],,!(__GET_EXTERNAL(data__->EMERGENCYSTOP,)));
     }
     __SET_VAR(data__->,__transition_list[26],,0);
-  }
-  if (__GET_VAR(data__->PENDINGJOB.X)) {
-    __SET_VAR(data__->,__transition_list[27],,(__GET_EXTERNAL(data__->EMERGENCYSTOP,) && (__GET_VAR(data__->R_TRIG2.Q,) || __GET_VAR(data__->R_TRIG3.Q,))));
-    if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[27],,__GET_VAR(data__->__transition_list[27]));
-    }
-  }
-  else {
-    if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[27],,(__GET_EXTERNAL(data__->EMERGENCYSTOP,) && (__GET_VAR(data__->R_TRIG2.Q,) || __GET_VAR(data__->R_TRIG3.Q,))));
-    }
-    __SET_VAR(data__->,__transition_list[27],,0);
-  }
-  if (__GET_VAR(data__->PENDINGJOB.X)) {
-    __SET_VAR(data__->,__transition_list[28],,!(__GET_EXTERNAL(data__->EMERGENCYSTOP,)));
-    if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[28],,__GET_VAR(data__->__transition_list[28]));
-    }
-  }
-  else {
-    if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[28],,!(__GET_EXTERNAL(data__->EMERGENCYSTOP,)));
-    }
-    __SET_VAR(data__->,__transition_list[28],,0);
-  }
-  if (__GET_VAR(data__->STOPPING.X)) {
-    __SET_VAR(data__->,__transition_list[29],,(!(__GET_VAR(data__->PROCESSING,)) && __GET_EXTERNAL(data__->EMERGENCYSTOP,)));
-    if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[29],,__GET_VAR(data__->__transition_list[29]));
-    }
-  }
-  else {
-    if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[29],,(!(__GET_VAR(data__->PROCESSING,)) && __GET_EXTERNAL(data__->EMERGENCYSTOP,)));
-    }
-    __SET_VAR(data__->,__transition_list[29],,0);
-  }
-  if (__GET_VAR(data__->STOPPING.X)) {
-    __SET_VAR(data__->,__transition_list[30],,!(__GET_EXTERNAL(data__->EMERGENCYSTOP,)));
-    if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[30],,__GET_VAR(data__->__transition_list[30]));
-    }
-  }
-  else {
-    if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[30],,!(__GET_EXTERNAL(data__->EMERGENCYSTOP,)));
-    }
-    __SET_VAR(data__->,__transition_list[30],,0);
-  }
-  if (__GET_VAR(data__->MOVECONVEYORS.X)) {
-    __SET_VAR(data__->,__transition_list[31],,!(__GET_EXTERNAL(data__->EMERGENCYSTOP,)));
-    if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[31],,__GET_VAR(data__->__transition_list[31]));
-    }
-  }
-  else {
-    if (__DEBUG) {
-      __SET_VAR(data__->,__debug_transition_list[31],,!(__GET_EXTERNAL(data__->EMERGENCYSTOP,)));
-    }
-    __SET_VAR(data__->,__transition_list[31],,0);
   }
 
   // Transitions reset steps
@@ -906,21 +838,6 @@ void MAIN_body__(MAIN *data__) {
     __SET_VAR(data__->,MOVECONVEYORS.X,,0);
   }
   if (__GET_VAR(data__->__transition_list[26])) {
-    __SET_VAR(data__->,STOPPING.X,,0);
-  }
-  if (__GET_VAR(data__->__transition_list[27])) {
-    __SET_VAR(data__->,PENDINGJOB.X,,0);
-  }
-  if (__GET_VAR(data__->__transition_list[28])) {
-    __SET_VAR(data__->,PENDINGJOB.X,,0);
-  }
-  if (__GET_VAR(data__->__transition_list[29])) {
-    __SET_VAR(data__->,STOPPING.X,,0);
-  }
-  if (__GET_VAR(data__->__transition_list[30])) {
-    __SET_VAR(data__->,STOPPING.X,,0);
-  }
-  if (__GET_VAR(data__->__transition_list[31])) {
     __SET_VAR(data__->,MOVECONVEYORS.X,,0);
   }
 
@@ -1026,30 +943,10 @@ void MAIN_body__(MAIN *data__) {
     data__->FAULT.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
   }
   if (__GET_VAR(data__->__transition_list[25])) {
-    __SET_VAR(data__->,STOPPING.X,,1);
-    data__->STOPPING.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
+    __SET_VAR(data__->,START.X,,1);
+    data__->START.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
   }
   if (__GET_VAR(data__->__transition_list[26])) {
-    __SET_VAR(data__->,PENDINGJOB.X,,1);
-    data__->PENDINGJOB.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
-  }
-  if (__GET_VAR(data__->__transition_list[27])) {
-    __SET_VAR(data__->,START.X,,1);
-    data__->START.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
-  }
-  if (__GET_VAR(data__->__transition_list[28])) {
-    __SET_VAR(data__->,FAULT.X,,1);
-    data__->FAULT.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
-  }
-  if (__GET_VAR(data__->__transition_list[29])) {
-    __SET_VAR(data__->,START.X,,1);
-    data__->START.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
-  }
-  if (__GET_VAR(data__->__transition_list[30])) {
-    __SET_VAR(data__->,FAULT.X,,1);
-    data__->FAULT.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
-  }
-  if (__GET_VAR(data__->__transition_list[31])) {
     __SET_VAR(data__->,FAULT.X,,1);
     data__->FAULT.T.value = __time_to_timespec(1, 0, 0, 0, 0, 0);
   }
@@ -1066,8 +963,6 @@ void MAIN_body__(MAIN *data__) {
     if (active)       {data__->__action_list[__SFC_CONVRIGHT].reset = 1;}
 
     if (active)       {data__->__action_list[__SFC_STOPINTERNAL].reset = 1;}
-
-    if (active)       {data__->__action_list[__SFC_PROCESSING].reset = 1;}
 
     if (active)       {data__->__action_list[__SFC_WARNLIGHT].reset = 1;}
 
@@ -1104,8 +999,6 @@ void MAIN_body__(MAIN *data__) {
 
     if (active)       {__SET_EXTERNAL(data__->,LOAD,,1);};
     if (desactivated) {__SET_EXTERNAL(data__->,LOAD,,0);};
-
-    if (active)       {data__->__action_list[__SFC_PROCESSING].reset = 1;}
 
     if (active && __time_cmp(data__->CHECKBOX.T.value, __time_to_timespec(1, 0, 2, 0, 0, 0)) >= 0) 
                       {__SET_VAR(data__->,PALLETMAXWAIT,,1);}
@@ -1148,8 +1041,6 @@ void MAIN_body__(MAIN *data__) {
 
     if (active)       {__SET_EXTERNAL(data__->,TRANSFRIGHT,,1);};
     if (desactivated) {__SET_EXTERNAL(data__->,TRANSFRIGHT,,0);};
-
-    if (active)       {data__->__action_list[__SFC_PROCESSING].set = 1;}
 
   }
 
@@ -1198,8 +1089,6 @@ void MAIN_body__(MAIN *data__) {
     if (active)       {__SET_EXTERNAL(data__->,TRANSFLEFT,,1);};
     if (desactivated) {__SET_EXTERNAL(data__->,TRANSFLEFT,,0);};
 
-    if (active)       {data__->__action_list[__SFC_PROCESSING].set = 1;}
-
   }
 
 
@@ -1234,12 +1123,6 @@ void MAIN_body__(MAIN *data__) {
   }
   else if (data__->__action_list[__SFC_STOPINTERNAL].set) {
     __SET_EXTERNAL(data__->,STOPINTERNAL,,1);
-  }
-  if (data__->__action_list[__SFC_PROCESSING].reset) {
-    __SET_VAR(data__->,PROCESSING,,0);
-  }
-  else if (data__->__action_list[__SFC_PROCESSING].set) {
-    __SET_VAR(data__->,PROCESSING,,1);
   }
   if (data__->__action_list[__SFC_WARNLIGHT].reset) {
     __SET_EXTERNAL(data__->,WARNLIGHT,,0);
@@ -1288,20 +1171,16 @@ void MAIN_body__(MAIN *data__) {
     R_TRIG_body__(&data__->R_TRIG1);
     __SET_VAR(data__->F_TRIG1.,CLK,,__GET_EXTERNAL(data__->STOPBUTTON,));
     F_TRIG_body__(&data__->F_TRIG1);
-    __SET_VAR(data__->R_TRIG2.,CLK,,__GET_EXTERNAL(data__->LEFTEXIT,));
+    __SET_VAR(data__->R_TRIG2.,CLK,,__GET_EXTERNAL(data__->RIGHTENTRY,));
     R_TRIG_body__(&data__->R_TRIG2);
     __SET_VAR(data__->R_TRIG3.,CLK,,__GET_EXTERNAL(data__->RIGHTEXIT,));
     R_TRIG_body__(&data__->R_TRIG3);
-    __SET_VAR(data__->R_TRIG4.,CLK,,__GET_EXTERNAL(data__->RIGHTENTRY,));
+    __SET_VAR(data__->R_TRIG4.,CLK,,__GET_EXTERNAL(data__->LEFTENTRY,));
     R_TRIG_body__(&data__->R_TRIG4);
-    __SET_VAR(data__->R_TRIG5.,CLK,,__GET_EXTERNAL(data__->RIGHTEXIT,));
+    __SET_VAR(data__->R_TRIG5.,CLK,,__GET_EXTERNAL(data__->LEFTENTRY,));
     R_TRIG_body__(&data__->R_TRIG5);
-    __SET_VAR(data__->R_TRIG6.,CLK,,__GET_EXTERNAL(data__->LEFTENTRY,));
+    __SET_VAR(data__->R_TRIG6.,CLK,,__GET_EXTERNAL(data__->LEFTEXIT,));
     R_TRIG_body__(&data__->R_TRIG6);
-    __SET_VAR(data__->R_TRIG7.,CLK,,__GET_EXTERNAL(data__->LEFTENTRY,));
-    R_TRIG_body__(&data__->R_TRIG7);
-    __SET_VAR(data__->R_TRIG8.,CLK,,__GET_EXTERNAL(data__->LEFTEXIT,));
-    R_TRIG_body__(&data__->R_TRIG8);
   }
 
 
@@ -1337,17 +1216,12 @@ __end:
 #undef __SFC_GOLEFT
 #undef WAITLEFT
 #undef __SFC_WAITLEFT
-#undef STOPPING
-#undef __SFC_STOPPING
-#undef PENDINGJOB
-#undef __SFC_PENDINGJOB
 
 // Actions undefinitions
 #undef __SFC_COMPUTE_FUNCTION_BLOCKS
 #undef __SFC_CONVLEFT
 #undef __SFC_CONVRIGHT
 #undef __SFC_STOPINTERNAL
-#undef __SFC_PROCESSING
 #undef __SFC_WARNLIGHT
 #undef __SFC_CONVENTRY
 #undef __SFC_LOAD
@@ -1361,17 +1235,18 @@ __end:
 
 
 void MANAGECOUNTERS_init__(MANAGECOUNTERS *data__, BOOL retain) {
-  CTU_init__(&data__->CTU0,retain);
-  CTU_init__(&data__->CTU1,retain);
   __INIT_EXTERNAL(BOOL,LEFTEXIT,data__->LEFTEXIT,retain)
   __INIT_EXTERNAL(BOOL,RIGHTEXIT,data__->RIGHTEXIT,retain)
   __INIT_EXTERNAL(BOOL,RESETBUTTON,data__->RESETBUTTON,retain)
   __INIT_EXTERNAL(BOOL,STOPLIGHT,data__->STOPLIGHT,retain)
   __INIT_EXTERNAL(INT,COUNTHIGH,data__->COUNTHIGH,retain)
   __INIT_EXTERNAL(INT,COUNTLOW,data__->COUNTLOW,retain)
-  __INIT_VAR(data__->PRESETVALUE,1000,retain)
   __INIT_EXTERNAL(BOOL,RESETINTERNAL,data__->RESETINTERNAL,retain)
+  __INIT_VAR(data__->PRESETVALUE,1000,retain)
   DOUBLETRIG_init__(&data__->DOUBLETRIG1,retain);
+  DOUBLETRIG_init__(&data__->DOUBLETRIG0,retain);
+  CTU_init__(&data__->CTU0,retain);
+  CTU_init__(&data__->CTU1,retain);
   R_TRIG_init__(&data__->R_TRIG1,retain);
   __INIT_VAR(data__->AND9_OUT,__BOOL_LITERAL(FALSE),retain)
   R_TRIG_init__(&data__->R_TRIG2,retain);
@@ -1381,7 +1256,9 @@ void MANAGECOUNTERS_init__(MANAGECOUNTERS *data__, BOOL retain) {
 void MANAGECOUNTERS_body__(MANAGECOUNTERS *data__) {
   // Initialise TEMP variables
 
-  __SET_VAR(data__->R_TRIG1.,CLK,,__GET_EXTERNAL(data__->LEFTEXIT,));
+  __SET_VAR(data__->DOUBLETRIG0.,IN,,__GET_EXTERNAL(data__->LEFTEXIT,));
+  DOUBLETRIG_body__(&data__->DOUBLETRIG0);
+  __SET_VAR(data__->R_TRIG1.,CLK,,__GET_VAR(data__->DOUBLETRIG0.OUT,));
   R_TRIG_body__(&data__->R_TRIG1);
   __SET_VAR(data__->,AND9_OUT,,AND__BOOL__BOOL(
     (BOOL)__BOOL_LITERAL(TRUE),

@@ -185,7 +185,6 @@ PROGRAM main
   END_VAR
   VAR
     palletMaxWait : BOOL;
-    processing : BOOL;
     R_TRIG1 : R_TRIG;
     F_TRIG1 : F_TRIG;
     R_TRIG2 : R_TRIG;
@@ -193,15 +192,12 @@ PROGRAM main
     R_TRIG4 : R_TRIG;
     R_TRIG5 : R_TRIG;
     R_TRIG6 : R_TRIG;
-    R_TRIG7 : R_TRIG;
-    R_TRIG8 : R_TRIG;
   END_VAR
 
   INITIAL_STEP START:
     convLeft(R);
     convRight(R);
     stopInternal(R);
-    processing(R);
     warnLight(R);
     COMPUTE_FUNCTION_BLOCKS(S);
   END_STEP
@@ -209,13 +205,11 @@ PROGRAM main
   ACTION COMPUTE_FUNCTION_BLOCKS:
     R_TRIG1(CLK := rightEntry);
     F_TRIG1(CLK := stopButton);
-    R_TRIG2(CLK := leftExit);
+    R_TRIG2(CLK := rightEntry);
     R_TRIG3(CLK := rightExit);
-    R_TRIG4(CLK := rightEntry);
-    R_TRIG5(CLK := rightExit);
-    R_TRIG6(CLK := leftEntry);
-    R_TRIG7(CLK := leftEntry);
-    R_TRIG8(CLK := leftExit);
+    R_TRIG4(CLK := leftEntry);
+    R_TRIG5(CLK := leftEntry);
+    R_TRIG6(CLK := leftExit);
   END_ACTION
 
   TRANSITION FROM START TO moveConveyors
@@ -236,7 +230,6 @@ PROGRAM main
   STEP checkBox:
     convEntry(N);
     load(N);
-    processing(R);
     palletMaxWait(D, T#2s);
   END_STEP
 
@@ -268,7 +261,6 @@ PROGRAM main
 
   STEP goRight:
     transfRight(N);
-    processing(S);
   END_STEP
 
   TRANSITION FROM goRight TO moveConveyors
@@ -276,14 +268,14 @@ PROGRAM main
   END_TRANSITION
 
   TRANSITION FROM goRight TO waitRight
-    := emergencyStop AND stopLight AND R_TRIG4.Q;
+    := emergencyStop AND stopLight AND R_TRIG2.Q;
   END_TRANSITION
 
   STEP waitRight:
   END_STEP
 
   TRANSITION FROM waitRight TO START
-    := R_TRIG5.Q;
+    := R_TRIG3.Q;
   END_TRANSITION
 
   TRANSITION FROM waitRight TO FAULT
@@ -346,22 +338,21 @@ PROGRAM main
 
   STEP goLeft:
     transfLeft(N);
-    processing(S);
   END_STEP
 
   TRANSITION FROM goLeft TO moveConveyors
-    := emergencyStop AND R_TRIG6.Q AND NOT(stopLight);
+    := emergencyStop AND R_TRIG4.Q AND NOT(stopLight);
   END_TRANSITION
 
   TRANSITION FROM goLeft TO waitLeft
-    := emergencyStop AND stopLight AND R_TRIG7.Q;
+    := emergencyStop AND stopLight AND R_TRIG5.Q;
   END_TRANSITION
 
   STEP waitLeft:
   END_STEP
 
   TRANSITION FROM waitLeft TO START
-    := emergencyStop AND R_TRIG8.Q;
+    := emergencyStop AND R_TRIG6.Q;
   END_TRANSITION
 
   TRANSITION FROM waitLeft TO FAULT
@@ -376,34 +367,8 @@ PROGRAM main
     := NOT(emergencyStop);
   END_TRANSITION
 
-  TRANSITION FROM moveConveyors TO Stopping
+  TRANSITION FROM moveConveyors TO START
     := emergencyStop AND F_TRIG1.Q;
-  END_TRANSITION
-
-  STEP Stopping:
-  END_STEP
-
-  TRANSITION FROM Stopping TO PendingJob
-    := processing AND emergencyStop;
-  END_TRANSITION
-
-  STEP PendingJob:
-  END_STEP
-
-  TRANSITION FROM PendingJob TO START
-    := emergencyStop AND (R_TRIG2.Q OR R_TRIG3.Q);
-  END_TRANSITION
-
-  TRANSITION FROM PendingJob TO FAULT
-    := NOT(emergencyStop);
-  END_TRANSITION
-
-  TRANSITION FROM Stopping TO START
-    := NOT(processing) AND emergencyStop;
-  END_TRANSITION
-
-  TRANSITION FROM Stopping TO FAULT
-    := NOT(emergencyStop);
   END_TRANSITION
 
   TRANSITION FROM moveConveyors TO FAULT
@@ -413,10 +378,6 @@ PROGRAM main
 END_PROGRAM
 
 PROGRAM manageCounters
-  VAR
-    CTU0 : CTU;
-    CTU1 : CTU;
-  END_VAR
   VAR_EXTERNAL
     leftExit : BOOL;
     rightExit : BOOL;
@@ -424,21 +385,21 @@ PROGRAM manageCounters
     stopLight : BOOL;
     countHigh : INT;
     countLow : INT;
-  END_VAR
-  VAR
-    presetValue : INT := 1000;
-  END_VAR
-  VAR_EXTERNAL
     resetInternal : BOOL;
   END_VAR
   VAR
+    presetValue : INT := 1000;
     doubleTrig1 : doubleTrig;
+    doubleTrig0 : doubleTrig;
+    CTU0 : CTU;
+    CTU1 : CTU;
     R_TRIG1 : R_TRIG;
     AND9_OUT : BOOL;
     R_TRIG2 : R_TRIG;
   END_VAR
 
-  R_TRIG1(CLK := leftExit);
+  doubleTrig0(in := leftExit);
+  R_TRIG1(CLK := doubleTrig0.out);
   AND9_OUT := AND(resetButton, stopLight);
   CTU0(CU := R_TRIG1.Q, R := AND9_OUT, PV := presetValue);
   countHigh := CTU0.CV;
@@ -464,10 +425,10 @@ CONFIGURATION Config0
       startButton : BOOL := 0;
       resetButton : BOOL := 0;
       stopButton : BOOL := 1;
-      stopInternal : BOOL;
-      resetInternal : BOOL;
       emergencyStop : BOOL := 1;
       autoMode : BOOL := 0;
+      stopInternal : BOOL;
+      resetInternal : BOOL;
       convEntry : BOOL := 0;
       load : BOOL := 0;
       unload : BOOL := 0;

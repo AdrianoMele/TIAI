@@ -176,7 +176,6 @@ typedef struct {
   __DECLARE_EXTERNAL(BOOL,CONVRIGHT)
   __DECLARE_EXTERNAL(BOOL,WARNLIGHT)
   __DECLARE_VAR(BOOL,PALLETMAXWAIT)
-  __DECLARE_VAR(BOOL,PROCESSING)
   R_TRIG R_TRIG1;
   F_TRIG F_TRIG1;
   R_TRIG R_TRIG2;
@@ -184,14 +183,12 @@ typedef struct {
   R_TRIG R_TRIG4;
   R_TRIG R_TRIG5;
   R_TRIG R_TRIG6;
-  R_TRIG R_TRIG7;
-  R_TRIG R_TRIG8;
-  STEP __step_list[14];
+  STEP __step_list[12];
   UINT __nb_steps;
-  ACTION __action_list[12];
+  ACTION __action_list[11];
   UINT __nb_actions;
-  __IEC_BOOL_t __transition_list[32];
-  __IEC_BOOL_t __debug_transition_list[32];
+  __IEC_BOOL_t __transition_list[27];
+  __IEC_BOOL_t __debug_transition_list[27];
   UINT __nb_transitions;
   TIME __lasttick_time;
 
@@ -206,17 +203,18 @@ typedef struct {
   // PROGRAM Interface - IN, OUT, IN_OUT variables
 
   // PROGRAM private variables - TEMP, private and located variables
-  CTU CTU0;
-  CTU CTU1;
   __DECLARE_EXTERNAL(BOOL,LEFTEXIT)
   __DECLARE_EXTERNAL(BOOL,RIGHTEXIT)
   __DECLARE_EXTERNAL(BOOL,RESETBUTTON)
   __DECLARE_EXTERNAL(BOOL,STOPLIGHT)
   __DECLARE_EXTERNAL(INT,COUNTHIGH)
   __DECLARE_EXTERNAL(INT,COUNTLOW)
-  __DECLARE_VAR(INT,PRESETVALUE)
   __DECLARE_EXTERNAL(BOOL,RESETINTERNAL)
+  __DECLARE_VAR(INT,PRESETVALUE)
   DOUBLETRIG DOUBLETRIG1;
+  DOUBLETRIG DOUBLETRIG0;
+  CTU CTU0;
+  CTU CTU1;
   R_TRIG R_TRIG1;
   __DECLARE_VAR(BOOL,AND9_OUT)
   R_TRIG R_TRIG2;

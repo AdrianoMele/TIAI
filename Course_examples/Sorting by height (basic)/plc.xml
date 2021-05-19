@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <project xmlns:ns1="http://www.plcopen.org/xml/tc6_0201" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.plcopen.org/xml/tc6_0201">
   <fileHeader companyName="Sconosciuto" productName="Senza_nome" productVersion="1" creationDateTime="2020-05-18T22:35:36"/>
-  <contentHeader name="Senza_nome" modificationDateTime="2020-05-25T23:16:35">
+  <contentHeader name="Senza_nome" modificationDateTime="2021-05-18T19:23:02">
     <coordinateInfo>
       <fbd>
         <scaling x="10" y="10"/>
@@ -152,11 +152,6 @@
                 <BOOL/>
               </type>
             </variable>
-            <variable name="processing">
-              <type>
-                <BOOL/>
-              </type>
-            </variable>
           </localVars>
         </interface>
         <actions/>
@@ -234,13 +229,13 @@
               </action>
             </actionBlock>
             <transition localId="10" height="10" width="20">
-              <position x="610" y="670"/>
+              <position x="610" y="650"/>
               <connectionPointIn>
                 <relPosition x="10" y="0"/>
                 <connection refLocalId="98">
-                  <position x="620" y="670"/>
-                  <position x="620" y="645"/>
-                  <position x="619" y="645"/>
+                  <position x="620" y="650"/>
+                  <position x="620" y="640"/>
+                  <position x="619" y="640"/>
                   <position x="619" y="621"/>
                 </connection>
               </connectionPointIn>
@@ -407,22 +402,18 @@
                 <relPosition x="80" y="10"/>
               </connectionPointOutAction>
             </step>
-            <actionBlock localId="18" height="50" width="120">
+            <actionBlock localId="18" height="30" width="120">
               <position x="1020" y="880"/>
               <connectionPointIn>
-                <relPosition x="0" y="10"/>
+                <relPosition x="0" y="20"/>
                 <connection refLocalId="17">
-                  <position x="1020" y="890"/>
-                  <position x="990" y="890"/>
+                  <position x="1020" y="900"/>
+                  <position x="990" y="900"/>
                 </connection>
               </connectionPointIn>
               <action localId="0">
                 <relPosition x="0" y="0"/>
                 <reference name="transfRight"/>
-              </action>
-              <action localId="0" qualifier="S">
-                <relPosition x="0" y="0"/>
-                <reference name="processing"/>
               </action>
             </actionBlock>
             <selectionDivergence localId="19" height="1" width="260">
@@ -526,7 +517,7 @@
                 <relPosition x="90" y="20"/>
               </connectionPointOutAction>
             </step>
-            <actionBlock localId="24" height="50" width="110" executionOrderId="0">
+            <actionBlock localId="24" height="30" width="110" executionOrderId="0">
               <position x="1760" y="890"/>
               <connectionPointIn>
                 <relPosition x="0" y="10"/>
@@ -538,10 +529,6 @@
               <action localId="0">
                 <relPosition x="0" y="0"/>
                 <reference name="transfLeft"/>
-              </action>
-              <action localId="0" qualifier="S">
-                <relPosition x="0" y="0"/>
-                <reference name="processing"/>
               </action>
             </actionBlock>
             <transition localId="25" height="10" width="20">
@@ -671,7 +658,7 @@
                 <relPosition x="20" y="0"/>
                 <connection refLocalId="10">
                   <position x="620" y="720"/>
-                  <position x="620" y="680"/>
+                  <position x="620" y="660"/>
                 </connection>
               </connectionPointIn>
               <connectionPointOut formalParameter="">
@@ -764,42 +751,18 @@
                 <relPosition x="0" y="0"/>
                 <reference name="load"/>
               </action>
-              <action localId="0" qualifier="R">
-                <relPosition x="0" y="0"/>
-                <reference name="processing"/>
-              </action>
               <action localId="0" qualifier="D" duration="T#2s">
                 <relPosition x="0" y="0"/>
                 <reference name="palletMaxWait"/>
               </action>
             </actionBlock>
-            <transition localId="44" height="10" width="20">
-              <position x="1940" y="610"/>
-              <connectionPointIn>
-                <relPosition x="10" y="0"/>
-                <connection refLocalId="99">
-                  <position x="1950" y="610"/>
-                  <position x="1950" y="581"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut>
-                <relPosition x="10" y="10"/>
-              </connectionPointOut>
-              <condition>
-                <inline name="">
-                  <ST>
-                    <xhtml:p><![CDATA[processing AND emergencyStop]]></xhtml:p>
-                  </ST>
-                </inline>
-              </condition>
-            </transition>
             <jumpStep localId="47" targetName="START" height="20" width="20">
-              <position x="2060" y="880"/>
+              <position x="2200" y="530"/>
               <connectionPointIn>
                 <relPosition x="10" y="0"/>
-                <connection refLocalId="84">
-                  <position x="2070" y="880"/>
-                  <position x="2070" y="831"/>
+                <connection refLocalId="87">
+                  <position x="2210" y="530"/>
+                  <position x="2210" y="480"/>
                 </connection>
               </connectionPointIn>
             </jumpStep>
@@ -823,10 +786,6 @@
               <action localId="0" qualifier="R">
                 <relPosition x="0" y="0"/>
                 <reference name="stopInternal"/>
-              </action>
-              <action localId="0" qualifier="R">
-                <relPosition x="0" y="0"/>
-                <reference name="processing"/>
               </action>
               <action localId="0" qualifier="R">
                 <relPosition x="0" y="0"/>
@@ -1171,8 +1130,8 @@
               </connectionPointOut>
               <variable>leftEntry</variable>
             </contact>
-            <comment localId="78" height="200" width="220">
-              <position x="1230" y="30"/>
+            <comment localId="78" height="170" width="290">
+              <position x="1160" y="30"/>
               <content>
                 <xhtml:p><![CDATA[L'avvio è condizionato a startLight e non alla pressione del bottone poiché potrei avere situazioni in cui viene premuto lo stop e poi lo start prima che il sistema sia arrivato nella fase di START.]]></xhtml:p>
               </content>
@@ -1195,82 +1154,6 @@
                 <reference name="stopInternal"/>
               </action>
             </actionBlock>
-            <step localId="80" name="PendingJob" initialStep="false" height="30" width="90">
-              <position x="1910" y="640"/>
-              <connectionPointIn>
-                <relPosition x="40" y="0"/>
-                <connection refLocalId="44">
-                  <position x="1950" y="640"/>
-                  <position x="1950" y="630"/>
-                  <position x="1950" y="630"/>
-                  <position x="1950" y="620"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut formalParameter="">
-                <relPosition x="40" y="30"/>
-              </connectionPointOut>
-            </step>
-            <transition localId="83" height="10" width="20">
-              <position x="1920" y="730"/>
-              <connectionPointIn>
-                <relPosition x="10" y="0"/>
-                <connection refLocalId="102">
-                  <position x="1930" y="730"/>
-                  <position x="1930" y="701"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut>
-                <relPosition x="10" y="10"/>
-              </connectionPointOut>
-              <condition>
-                <connectionPointIn>
-                  <connection refLocalId="101">
-                    <position x="1920" y="740"/>
-                    <position x="1901" y="740"/>
-                  </connection>
-                </connectionPointIn>
-              </condition>
-            </transition>
-            <selectionConvergence localId="84" height="1" width="280">
-              <position x="1930" y="830"/>
-              <connectionPointIn>
-                <relPosition x="0" y="0"/>
-                <connection refLocalId="83">
-                  <position x="1930" y="830"/>
-                  <position x="1930" y="740"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointIn>
-                <relPosition x="280" y="0"/>
-                <connection refLocalId="85">
-                  <position x="2210" y="830"/>
-                  <position x="2210" y="620"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut>
-                <relPosition x="140" y="1"/>
-              </connectionPointOut>
-            </selectionConvergence>
-            <transition localId="85" height="10" width="20">
-              <position x="2200" y="610"/>
-              <connectionPointIn>
-                <relPosition x="10" y="0"/>
-                <connection refLocalId="99">
-                  <position x="2210" y="610"/>
-                  <position x="2210" y="581"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut>
-                <relPosition x="10" y="10"/>
-              </connectionPointOut>
-              <condition>
-                <inline name="">
-                  <ST>
-                    <xhtml:p><![CDATA[NOT(processing) AND emergencyStop]]></xhtml:p>
-                  </ST>
-                </inline>
-              </condition>
-            </transition>
             <transition localId="87" height="10" width="20">
               <position x="2200" y="470"/>
               <connectionPointIn>
@@ -1312,57 +1195,8 @@
                 <relPosition x="10" y="20"/>
               </connectionPointOut>
             </leftPowerRail>
-            <step localId="88" name="Stopping" initialStep="false" height="30" width="90">
-              <position x="2160" y="510"/>
-              <connectionPointIn>
-                <relPosition x="50" y="0"/>
-                <connection refLocalId="87">
-                  <position x="2210" y="510"/>
-                  <position x="2210" y="480"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut formalParameter="">
-                <relPosition x="50" y="30"/>
-              </connectionPointOut>
-            </step>
-            <leftPowerRail localId="89" height="40" width="10">
-              <position x="1750" y="720"/>
-              <connectionPointOut formalParameter="">
-                <relPosition x="10" y="20"/>
-              </connectionPointOut>
-            </leftPowerRail>
-            <contact localId="90" height="20" width="21" negated="false" edge="rising">
-              <position x="1810" y="730"/>
-              <connectionPointIn>
-                <relPosition x="0" y="10"/>
-                <connection refLocalId="89">
-                  <position x="1810" y="740"/>
-                  <position x="1760" y="740"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut>
-                <relPosition x="21" y="10"/>
-              </connectionPointOut>
-              <variable>leftExit</variable>
-            </contact>
-            <contact localId="91" height="20" width="21" negated="false" edge="rising" executionOrderId="0">
-              <position x="1810" y="770"/>
-              <connectionPointIn>
-                <relPosition x="0" y="10"/>
-                <connection refLocalId="89">
-                  <position x="1810" y="780"/>
-                  <position x="1790" y="780"/>
-                  <position x="1790" y="740"/>
-                  <position x="1760" y="740"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut>
-                <relPosition x="21" y="10"/>
-              </connectionPointOut>
-              <variable>rightExit</variable>
-            </contact>
-            <comment localId="92" height="160" width="200">
-              <position x="2300" y="390"/>
+            <comment localId="92" height="170" width="200">
+              <position x="1980" y="1140"/>
               <content>
                 <xhtml:p><![CDATA[Questa porzione di codice serve a scaricare eventuali pallet rimasti in sospeso nel caso in cui venga premuto il pulsante di stop.]]></xhtml:p>
               </content>
@@ -1514,57 +1348,6 @@
                 </connection>
               </connectionPointIn>
             </jumpStep>
-            <selectionDivergence localId="99" height="1" width="520">
-              <position x="1950" y="580"/>
-              <connectionPointIn>
-                <relPosition x="260" y="0"/>
-                <connection refLocalId="88">
-                  <position x="2210" y="580"/>
-                  <position x="2210" y="540"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut formalParameter="">
-                <relPosition x="0" y="1"/>
-              </connectionPointOut>
-              <connectionPointOut formalParameter="">
-                <relPosition x="260" y="1"/>
-              </connectionPointOut>
-              <connectionPointOut formalParameter="">
-                <relPosition x="520" y="1"/>
-              </connectionPointOut>
-            </selectionDivergence>
-            <transition localId="9" height="10" width="20" executionOrderId="0">
-              <position x="2460" y="630"/>
-              <connectionPointIn>
-                <relPosition x="10" y="0"/>
-                <connection refLocalId="99">
-                  <position x="2470" y="630"/>
-                  <position x="2470" y="581"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut>
-                <relPosition x="10" y="10"/>
-              </connectionPointOut>
-              <condition>
-                <inline name="">
-                  <ST>
-                    <xhtml:p><![CDATA[NOT(emergencyStop)]]></xhtml:p>
-                  </ST>
-                </inline>
-              </condition>
-            </transition>
-            <jumpStep localId="43" targetName="FAULT" height="20" width="20" executionOrderId="0">
-              <position x="2460" y="670"/>
-              <connectionPointIn>
-                <relPosition x="10" y="0"/>
-                <connection refLocalId="9">
-                  <position x="2470" y="670"/>
-                  <position x="2470" y="650"/>
-                  <position x="2470" y="650"/>
-                  <position x="2470" y="640"/>
-                </connection>
-              </connectionPointIn>
-            </jumpStep>
             <contact localId="100" height="20" width="21" negated="false">
               <position x="2118" y="470"/>
               <connectionPointIn>
@@ -1579,72 +1362,6 @@
               </connectionPointOut>
               <variable>emergencyStop</variable>
             </contact>
-            <contact localId="101" height="20" width="21" negated="false">
-              <position x="1880" y="730"/>
-              <connectionPointIn>
-                <relPosition x="0" y="10"/>
-                <connection refLocalId="90">
-                  <position x="1880" y="740"/>
-                  <position x="1831" y="740"/>
-                </connection>
-                <connection refLocalId="91">
-                  <position x="1880" y="740"/>
-                  <position x="1858" y="740"/>
-                  <position x="1858" y="780"/>
-                  <position x="1831" y="780"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut>
-                <relPosition x="21" y="10"/>
-              </connectionPointOut>
-              <variable>emergencyStop</variable>
-            </contact>
-            <selectionDivergence localId="102" height="1" width="40">
-              <position x="1930" y="700"/>
-              <connectionPointIn>
-                <relPosition x="20" y="0"/>
-                <connection refLocalId="80">
-                  <position x="1950" y="700"/>
-                  <position x="1950" y="670"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut formalParameter="">
-                <relPosition x="0" y="1"/>
-              </connectionPointOut>
-              <connectionPointOut formalParameter="">
-                <relPosition x="40" y="1"/>
-              </connectionPointOut>
-            </selectionDivergence>
-            <transition localId="73" height="10" width="20" executionOrderId="0">
-              <position x="1960" y="730"/>
-              <connectionPointIn>
-                <relPosition x="10" y="0"/>
-                <connection refLocalId="102">
-                  <position x="1970" y="730"/>
-                  <position x="1970" y="701"/>
-                </connection>
-              </connectionPointIn>
-              <connectionPointOut>
-                <relPosition x="10" y="10"/>
-              </connectionPointOut>
-              <condition>
-                <inline name="">
-                  <ST>
-                    <xhtml:p><![CDATA[NOT(emergencyStop)]]></xhtml:p>
-                  </ST>
-                </inline>
-              </condition>
-            </transition>
-            <jumpStep localId="76" targetName="FAULT" height="20" width="20" executionOrderId="0">
-              <position x="1960" y="780"/>
-              <connectionPointIn>
-                <relPosition x="10" y="0"/>
-                <connection refLocalId="73">
-                  <position x="1970" y="780"/>
-                  <position x="1970" y="740"/>
-                </connection>
-              </connectionPointIn>
-            </jumpStep>
             <transition localId="81" height="10" width="20" executionOrderId="0">
               <position x="1050" y="980"/>
               <connectionPointIn>
@@ -2207,7 +1924,7 @@
               </connectionPointOut>
               <variable>stopLight</variable>
             </coil>
-            <comment localId="12" height="240" width="240">
+            <comment localId="12" height="210" width="300">
               <position x="680" y="50"/>
               <content>
                 <xhtml:p><![CDATA[I pulsanti start e stop sono mutuamente esclusivi. Quando uno viene acceso, l'altro va spento e viceversa.
@@ -2297,18 +2014,6 @@ Il pulsante stop è in logica negata.]]></xhtml:p>
       </pou>
       <pou name="manageCounters" pouType="program">
         <interface>
-          <localVars>
-            <variable name="CTU0">
-              <type>
-                <derived name="CTU"/>
-              </type>
-            </variable>
-            <variable name="CTU1">
-              <type>
-                <derived name="CTU"/>
-              </type>
-            </variable>
-          </localVars>
           <externalVars>
             <variable name="leftExit">
               <type>
@@ -2340,6 +2045,11 @@ Il pulsante stop è in logica negata.]]></xhtml:p>
                 <INT/>
               </type>
             </variable>
+            <variable name="resetInternal">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
           </externalVars>
           <localVars>
             <variable name="presetValue">
@@ -2350,15 +2060,6 @@ Il pulsante stop è in logica negata.]]></xhtml:p>
                 <simpleValue value="1000"/>
               </initialValue>
             </variable>
-          </localVars>
-          <externalVars>
-            <variable name="resetInternal">
-              <type>
-                <BOOL/>
-              </type>
-            </variable>
-          </externalVars>
-          <localVars>
             <variable name="doubleTrig1">
               <type>
                 <derived name="doubleTrig"/>
@@ -2367,6 +2068,16 @@ Il pulsante stop è in logica negata.]]></xhtml:p>
             <variable name="doubleTrig0">
               <type>
                 <derived name="doubleTrig"/>
+              </type>
+            </variable>
+            <variable name="CTU0">
+              <type>
+                <derived name="CTU"/>
+              </type>
+            </variable>
+            <variable name="CTU1">
+              <type>
+                <derived name="CTU"/>
               </type>
             </variable>
           </localVars>
@@ -2479,9 +2190,9 @@ Il pulsante stop è in logica negata.]]></xhtml:p>
               <expression>leftExit</expression>
             </inVariable>
             <inVariable localId="4" executionOrderId="0" height="30" width="90" negated="false">
-              <position x="180" y="320"/>
+              <position x="180" y="310"/>
               <connectionPointOut>
-                <relPosition x="90" y="10"/>
+                <relPosition x="90" y="20"/>
               </connectionPointOut>
               <expression>rightExit</expression>
             </inVariable>
@@ -2623,6 +2334,9 @@ Il reset è realizzato sull'AND logico del pulsante di reset e del segnale di st
             </block>
           </FBD>
         </body>
+        <documentation>
+          <xhtml:p><![CDATA[Conta i pezzi che attraversano le due uscite]]></xhtml:p>
+        </documentation>
       </pou>
       <pou name="doubleTrig" pouType="functionBlock">
         <interface>
@@ -2875,16 +2589,6 @@ Il reset è realizzato sull'AND logico del pulsante di reset e del segnale di st
                 <simpleValue value="1"/>
               </initialValue>
             </variable>
-            <variable name="stopInternal">
-              <type>
-                <BOOL/>
-              </type>
-            </variable>
-            <variable name="resetInternal">
-              <type>
-                <BOOL/>
-              </type>
-            </variable>
             <variable name="emergencyStop" address="%IX101.3">
               <type>
                 <BOOL/>
@@ -2900,6 +2604,16 @@ Il reset è realizzato sull'AND logico del pulsante di reset e del segnale di st
               <initialValue>
                 <simpleValue value="0"/>
               </initialValue>
+            </variable>
+            <variable name="stopInternal">
+              <type>
+                <BOOL/>
+              </type>
+            </variable>
+            <variable name="resetInternal">
+              <type>
+                <BOOL/>
+              </type>
             </variable>
             <variable name="convEntry" address="%QX100.0">
               <type>

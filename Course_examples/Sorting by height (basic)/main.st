@@ -339,12 +339,14 @@ PROGRAM manageCounters
   END_VAR
   VAR
     doubleTrig1 : doubleTrig;
+    doubleTrig0 : doubleTrig;
     R_TRIG1 : R_TRIG;
     AND9_OUT : BOOL;
     R_TRIG2 : R_TRIG;
   END_VAR
 
-  R_TRIG1(CLK := leftExit);
+  doubleTrig0(in := leftExit);
+  R_TRIG1(CLK := doubleTrig0.out);
   AND9_OUT := AND(resetButton, stopLight);
   CTU0(CU := R_TRIG1.Q, R := AND9_OUT, PV := presetValue);
   countHigh := CTU0.CV;
